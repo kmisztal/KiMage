@@ -1,6 +1,7 @@
 package test;
 
 import kimage.image.Image;
+import kimage.utils.gui.ImageFrame;
 
 /**
  *
@@ -13,6 +14,10 @@ public class LoadAndShowAndSaveTest {
         String filename = "./res/tucano.jpg";
         Image image = new Image(filename);
 
+        //display image
+        ImageFrame imageFrame = new ImageFrame(image);
+        imageFrame.display();
+        
         //save results
         image.save("./res/out.png");
     }
