@@ -12,7 +12,7 @@ import kimage.utils.gui.ImageFrame;
 public class PluginTest {
     public static void main(String[] args) {
         // load file
-        String filename = "./res/tucano.jpg";
+        String filename = "./res/lena.png";
         Image image = new Image(filename);
 
         //display image
