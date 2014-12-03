@@ -66,7 +66,6 @@ public class Attributes {
      * @return string array with all attributes' name and value.
      */
     public String[] toStringArray() {
-        String key;
         String attrs[] = new String[hashAttributes.size() * 2];
         String[] keys = hashAttributes.keySet().toArray(new String[0]);
         for (int x = 0; x < keys.length; x++) {

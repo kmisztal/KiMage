@@ -38,5 +38,4 @@ public abstract class AbstractImage {
         return (y >= 0 && y <= height);
     }
 
-    
 }

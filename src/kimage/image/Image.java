@@ -4,12 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import kimage.image.color.MColor;
-import kimage.utils.IOHelper;
+import kimage.helpers.ColorHelper;
+import kimage.helpers.IOHelper;
 
 /**
- * <img src="doc-files/image.jpg">
- * @author Krzysztof
+ * <img src="doc-files/image.jpg"> @author Krzysztof
  */
 public class Image extends AbstractImage {
 
@@ -91,25 +90,25 @@ public class Image extends AbstractImage {
     public final int getRGB(final int x, final int y) {
         return image.getRGB(x, y);
     }
-    
+
     public void setRGB(int x, int y, int i) {
         image.setRGB(x, y, i);
     }
-    
+
     public void setRGB(int x, int y, int r, int g, int b) {
-        image.setRGB(x, y, new Color(r,g,b).getRGB());
+        image.setRGB(x, y, new Color(r, g, b).getRGB());
     }
 
     public final int getRed(final int x, final int y) {
-        return MColor.RED.getColor(image.getRGB(x, y));
+        return ColorHelper.RED.getColor(image.getRGB(x, y));
     }
 
     public final int getGreen(final int x, final int y) {
-        return MColor.GREEN.getColor(image.getRGB(x, y));
+        return ColorHelper.GREEN.getColor(image.getRGB(x, y));
     }
 
     public final int getBlue(final int x, final int y) {
-        return MColor.BLUE.getColor(image.getRGB(x, y));
+        return ColorHelper.BLUE.getColor(image.getRGB(x, y));
     }
 
     public final int getRGBSecure(final int x, final int y) {
@@ -119,18 +118,18 @@ public class Image extends AbstractImage {
             throw new RuntimeException("Position outside the image: [" + x + ";" + y + "]");
         }
     }
-    
+
     public void setRGBSecure(int x, int y, int i) {
         if (checkX(x) && checkY(y)) {
             image.setRGB(x, y, i);
-        }else {
+        } else {
             throw new RuntimeException("Position outside the image: [" + x + ";" + y + "]");
         }
     }
 
     public final int getRedSecure(final int x, final int y) {
         if (checkX(x) && checkY(y)) {
-            return MColor.RED.getColor(image.getRGB(x, y));
+            return ColorHelper.RED.getColor(image.getRGB(x, y));
         } else {
             throw new RuntimeException("Position outside the image: [" + x + ";" + y + "]");
         }
@@ -138,7 +137,7 @@ public class Image extends AbstractImage {
 
     public final int getGreenSecure(final int x, final int y) {
         if (checkX(x) && checkY(y)) {
-            return MColor.GREEN.getColor(image.getRGB(x, y));
+            return ColorHelper.GREEN.getColor(image.getRGB(x, y));
         } else {
             throw new RuntimeException("Position outside the image: [" + x + ";" + y + "]");
         }
@@ -146,7 +145,7 @@ public class Image extends AbstractImage {
 
     public final int getBlueSecure(final int x, final int y) {
         if (checkX(x) && checkY(y)) {
-            return MColor.BLUE.getColor(image.getRGB(x, y));
+            return ColorHelper.BLUE.getColor(image.getRGB(x, y));
         } else {
             throw new RuntimeException("Position outside the image: [" + x + ";" + y + "]");
         }
@@ -159,8 +158,8 @@ public class Image extends AbstractImage {
     public BufferedImage getCopyOfBufferedImage() {
         return copyImage(image);
     }
-    
-    public void save(String filemane){
+
+    public void save(String filemane) {
         IOHelper.save(filemane, getBufferedImage());
     }
 
@@ -169,6 +168,5 @@ public class Image extends AbstractImage {
         width = im.getWidth();
         height = im.getHeight();
     }
-
 
 }

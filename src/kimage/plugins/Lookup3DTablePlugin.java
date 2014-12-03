@@ -9,6 +9,7 @@ import kimage.utils.Mask;
 
 /**
  * Lookup Table filter with different table for each channel
+ *
  * @author Krzysztof
  */
 public abstract class Lookup3DTablePlugin extends Plugin {
@@ -22,9 +23,9 @@ public abstract class Lookup3DTablePlugin extends Plugin {
         if (mask != null) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-        
+
         createLUT();
-        
+
         final BufferedImageOp bio
                 = new LookupOp(new ShortLookupTable(0, LUT), null);
         bio.filter(imgIn.getBufferedImage(), imgOut.getBufferedImage());

@@ -9,7 +9,7 @@ import kimage.utils.Mask;
  * @author Krzysztof
  */
 public abstract class Plugin {
-    
+
     protected Attributes attributes = new Attributes();
 
     /**
@@ -41,7 +41,7 @@ public abstract class Plugin {
     ) {
         process(imgIn, imgOut, null, mask);
     }
-    
+
     /**
      * Executes the algorithm.
      *
@@ -94,23 +94,22 @@ public abstract class Plugin {
         process(imgInAndOut, imgInAndOut, null, null);
     }
 
-    
-    public Object getAttribute(String key){
+    public Object getAttribute(String key) {
         return attributes.get(key);
     }
-    
-    public void setAttribute(String key, Object value){
+
+    public void setAttribute(String key, Object value) {
         attributes.set(key, value);
-    } 
+    }
 
     public String getName() {
         String[] name = this.getClass().getName().split("\\.");
         return name[name.length - 1];
     }
-    
-    public String getInfo(){
-        String ret  = "<html><body><strong>Plugin:<br/></strong> " + getName() + "<br/>";
-        if(!attributes.isEmpty()){
+
+    public String getInfo() {
+        String ret = "<html><body><strong>Plugin:<br/></strong> " + getName() + "<br/>";
+        if (!attributes.isEmpty()) {
             ret += "<strong>Attributes:</strong><br/>";
             ret += attributes.toString();
         }

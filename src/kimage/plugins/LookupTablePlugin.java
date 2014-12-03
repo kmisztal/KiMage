@@ -4,7 +4,6 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.LookupOp;
 import java.awt.image.ShortLookupTable;
 import kimage.image.Image;
-import kimage.plugins.Plugin;
 import kimage.utils.Attributes;
 import kimage.utils.Mask;
 
@@ -23,9 +22,9 @@ public abstract class LookupTablePlugin extends Plugin {
         if (mask != null) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-        
+
         createLUT();
-        
+
         final BufferedImageOp bio
                 = new LookupOp(new ShortLookupTable(0, LUT), null);
         bio.filter(imgIn.getBufferedImage(), imgOut.getBufferedImage());

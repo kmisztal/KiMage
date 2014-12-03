@@ -1,4 +1,4 @@
-package kimage.utils;
+package kimage.helpers;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

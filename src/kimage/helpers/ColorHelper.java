@@ -1,15 +1,15 @@
-package kimage.image.color;
+package kimage.helpers;
 
 /**
  *
  * @author Krzysztof
  */
-public enum MColor {
+public enum ColorHelper {
 
     RED(0), GREEN(1), BLUE(2);
     private final int value;
 
-    private MColor(int v) {
+    private ColorHelper(int v) {
         value = v;
     }
 

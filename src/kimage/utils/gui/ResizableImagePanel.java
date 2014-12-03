@@ -61,17 +61,10 @@ public class ResizableImagePanel extends JPanel {
         final JPopupMenu popup = new JPopupMenu();
         // New project menu item
         JMenuItem menuItem = new JMenuItem("Save as ...");
-//        menuItem.addActionListener((ActionEvent e) -> {
-//            save();
-//        });
-        
-        menuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                save();
-            }
+        menuItem.addActionListener((ActionEvent e) -> {
+            save();
         });
+
         popup.add(menuItem);
 
         addMouseListener(new MouseAdapter() {
@@ -102,7 +95,7 @@ public class ResizableImagePanel extends JPanel {
     /**
      * Initialise the class components
      */
-    protected void initComponents() {
+    protected final void initComponents() {
         // try to load the image file
         if (!empty) {
             try {

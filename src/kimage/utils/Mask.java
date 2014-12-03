@@ -9,7 +9,7 @@ import kimage.image.Image;
  */
 public class Mask {
 
-    private boolean mask[][];
+    private final boolean mask[][];
 
     public Mask(Image img, Color trueColor) {
         mask = new boolean[img.getWidth()][img.getHeight()];
