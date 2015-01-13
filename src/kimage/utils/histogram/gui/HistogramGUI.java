@@ -1,4 +1,4 @@
-package kimage.utils.gui;
+package kimage.utils.histogram.gui;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -26,36 +26,42 @@ import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import kimage.image.Image;
+import kimage.utils.gui.LookAndFeel;
+import kimage.utils.gui.ResizableImagePanel;
+import kimage.utils.histogram.Histogram;
 
 /**
  *
  * @author Krzysztof
  */
-public class Histogram extends JFrame {
-    private final int[][] mapHistory;
+public class HistogramGUI extends JFrame {
+
+    private final Histogram hist;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            new Histogram(new Image("./res/apples.png"));
+            new HistogramGUI(new Image("./res/apples.png"), false);
         });
     }
 
-    public Histogram(Image image) {
+    /**
+     * Histogram with GUI for colorfull images
+     * @param image 
+     */
+    public HistogramGUI(Image image) {
+        this(image, false);
+    }
+    
+    /**
+     * Histogram for grayscale or colorfull image
+     * @param image
+     * @param grayscale 
+     */
+    public HistogramGUI(Image image, boolean grayscale) {
         super("Histogram");
         LookAndFeel.doIt();
-        // For this example, I just randomised some data, you would
-        // Need to load it yourself...
-        final int width = image.getWidth();
-        final int height = image.getHeight();
 
-        mapHistory = new int[3][256];
-        for (int c = 0; c < width; c++) {
-            for (int r = 0; r < height; r++) {
-                ++mapHistory[0][image.getRed(c, r)];
-                ++mapHistory[1][image.getGreen(c, r)];
-                ++mapHistory[2][image.getBlue(c, r)];
-            }
-        }
+        hist = new Histogram(image, grayscale);
 
         final JPopupMenu popup = new JPopupMenu();
         // New project menu item
@@ -63,16 +69,21 @@ public class Histogram extends JFrame {
         menuItem.addActionListener((ActionEvent e) -> {
             save();
         });
-        
+
         popup.add(menuItem);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JScrollPane sp = new JScrollPane();
         JPanel p = new JPanel();
-        p.setLayout(new GridLayout(3, 1, 0, 0));
-        p.add(new Graph(mapHistory, 0));
-        p.add(new Graph(mapHistory, 1));
-        p.add(new Graph(mapHistory, 2));
+        if (!grayscale) {
+            p.setLayout(new GridLayout(3, 1, 0, 0));
+        }
+
+        p.add(new Graph(hist.getRedHistogram(), 0));
+        if (!grayscale) {
+            p.add(new Graph(hist.getGreenHistogram(), 1));
+            p.add(new Graph(hist.getBlueHistogram(), 2));
+        }
         sp.setViewportView(p);
 
         sp.addMouseListener(new MouseAdapter() {
@@ -104,13 +115,13 @@ public class Histogram extends JFrame {
     protected class Graph extends JPanel {
 
         protected static final int MIN_BAR_WIDTH = 4;
-        private int[][] mapHistory;
-        private final int pos;
+        private final int[] mapHistory;
+        private int pos;
 
-        public Graph(int[][] mapHistory, int pos) {
+        public Graph(int[] mapHistory, int pos) {
             this.mapHistory = mapHistory;
             this.pos = pos;
-            int width = (mapHistory[0].length * MIN_BAR_WIDTH) + 11;
+            int width = (mapHistory.length * MIN_BAR_WIDTH) + 11;
             Dimension minSize = new Dimension(width, 128);
             Dimension prefSize = new Dimension(width, 256);
             setMinimumSize(minSize);
@@ -130,16 +141,14 @@ public class Histogram extends JFrame {
                 g2d.drawRect(xOffset, yOffset, width, height);
                 final int barWidth = Math.max(MIN_BAR_WIDTH,
                         (int) Math.floor((float) width
-                                / (float) mapHistory[pos].length));
-//                System.out.println("width = " + width + "; size = "
-//                        + mapHistory[0].length + "; barWidth = " + barWidth);
+                                / (float) mapHistory.length));
                 int maxValue = 0;
-                for (int key : mapHistory[pos]) {
+                for (int key : mapHistory) {
                     maxValue = Math.max(maxValue, key);
                 }
                 int xPos = xOffset;
-                for (int key = 0; key < mapHistory[pos].length; ++key) {
-                    final int value = mapHistory[pos][key];
+                for (int key = 0; key < mapHistory.length; ++key) {
+                    final int value = mapHistory[key];
                     final int barHeight = Math.round(((float) value
                             / (float) maxValue) * height);
                     switch (pos) {
@@ -203,15 +212,15 @@ public class Histogram extends JFrame {
     }
 
     public int[] getRedHistogram() {
-        return mapHistory[0];
+        return hist.getRedHistogram();
     }
-    
+
     public int[] getGreenHistogram() {
-        return mapHistory[1];
+        return hist.getGreenHistogram();
     }
-    
+
     public int[] getBlueHistogram() {
-        return mapHistory[2];
+        return hist.getBlueHistogram();
     }
-    
+
 }
