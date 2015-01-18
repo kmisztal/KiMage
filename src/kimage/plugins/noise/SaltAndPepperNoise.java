@@ -1,13 +1,13 @@
 package kimage.plugins.noise;
 
 import kimage.image.Image;
-import kimage.plugin.simple.SimplePlugin;
+import kimage.plugin.Plugin;
 
 /**
  *
  * @author Krzysztof
  */
-public class SaltAndPepperNoise extends SimplePlugin {
+public class SaltAndPepperNoise extends Plugin {
 
     private double p;
     

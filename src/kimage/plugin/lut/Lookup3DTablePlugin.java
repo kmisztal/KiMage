@@ -4,14 +4,14 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.LookupOp;
 import java.awt.image.ShortLookupTable;
 import kimage.image.Image;
-import kimage.plugin.simple.SimplePlugin;
+import kimage.plugin.Plugin;
 
 /**
  * Lookup Table filter with different table for each channel
  *
  * @author Krzysztof
  */
-public abstract class Lookup3DTablePlugin extends SimplePlugin {
+public abstract class Lookup3DTablePlugin extends Plugin {
 
     protected short[] red = new short[256];
     protected short[] green = new short[256];

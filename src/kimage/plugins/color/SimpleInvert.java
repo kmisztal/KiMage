@@ -1,9 +1,9 @@
 package kimage.plugins.color;
 
 import kimage.image.Image;
-import kimage.plugin.simple.SimplePlugin;
+import kimage.plugin.Plugin;
 
-public class SimpleInvert extends SimplePlugin {
+public class SimpleInvert extends Plugin {
 
     @Override
     public void process(Image imgIn, Image imgOut) {

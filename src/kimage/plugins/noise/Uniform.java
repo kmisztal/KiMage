@@ -2,13 +2,13 @@ package kimage.plugins.noise;
 
 import kimage.helpers.ColorHelper;
 import kimage.image.Image;
-import kimage.plugin.simple.SimplePlugin;
+import kimage.plugin.Plugin;
 
 /**
  *
  * @author Krzysztof
  */
-public class Uniform extends SimplePlugin {
+public class Uniform extends Plugin {
 
     private double p = 0.1;
     private double a = 0;

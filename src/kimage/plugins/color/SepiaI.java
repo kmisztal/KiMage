@@ -1,13 +1,13 @@
 package kimage.plugins.color;
 
 import kimage.image.Image;
-import kimage.plugin.simple.SimplePlugin;
+import kimage.plugin.Plugin;
 
 /**
  *
  * @author Krzysztof
  */
-public class SepiaI extends SimplePlugin {
+public class SepiaI extends Plugin {
 
     @Override
     public void process(Image imgIn, Image imgOut) {

@@ -2,7 +2,6 @@ package kimage.plugin;
 
 import kimage.image.Image;
 import kimage.plugin.extras.Attributes;
-import kimage.plugin.extras.Mask;
 
 /**
  *
@@ -16,72 +15,12 @@ public abstract class Plugin {
      * Executes the algorithm.
      *
      * @param imgIn	input image.
-     * @param imgOut	output image.
-     * @param attrOut	output attributes.
-     * @param mask	mask containing what pixels should be considered.
+     * @param imgOut	output image
      */
     public abstract void process(
             Image imgIn,
-            Image imgOut,
-            Attributes attrOut,
-            Mask mask
-    );
-
-    /**
-     * Executes the algorithm.
-     *
-     * @param imgIn	input image.
-     * @param imgOut	output image.
-     * @param mask
-     */
-    public final void process(
-            Image imgIn,
-            Image imgOut,
-            Mask mask
-    ) {
-        process(imgIn, imgOut, null, mask);
-    }
-
-    /**
-     * Executes the algorithm.
-     *
-     * @param imgIn	input image.
-     * @param mask
-     */
-    public final void process(
-            Image imgIn,
-            Mask mask
-    ) {
-        process(imgIn, imgIn, null, mask);
-    }
-
-    /**
-     * Executes the algorithm.
-     *
-     * @param imgIn	input image.
-     * @param imgOut	output image.
-     * @param attrOut
-     */
-    public final void process(
-            Image imgIn,
-            Image imgOut,
-            Attributes attrOut
-    ) {
-        process(imgIn, imgOut, attrOut, null);
-    }
-
-    /**
-     * Executes the algorithm.
-     *
-     * @param imgIn	input image.
-     * @param imgOut	output image.
-     */
-    public void process(
-            Image imgIn,
             Image imgOut
-    ) {
-        process(imgIn, imgOut, null, null);
-    }
+    );
 
     /**
      * Executes the algorithm.
@@ -91,7 +30,7 @@ public abstract class Plugin {
     public final void process(
             Image imgInAndOut
     ) {
-        process(imgInAndOut, imgInAndOut, null, null);
+        process(imgInAndOut, imgInAndOut);
     }
 
     public Object getAttribute(String key) {
