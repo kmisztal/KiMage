@@ -8,7 +8,7 @@ import kimage.helpers.ColorHelper;
 import kimage.helpers.IOHelper;
 
 /**
- * <img src="doc-files/image.jpg"> @author Krzysztof
+ * <img src="doc-files/image.jpg" alt="None"> @author Krzysztof
  */
 public class Image extends AbstractImage {
 

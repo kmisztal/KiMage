@@ -46,7 +46,7 @@ public enum ColorHelper {
     /**
      * Limits the color value between 0 and 255.
      *
-     * @param color
+     * @param color - color to check
      * @return int - the color value
      */
     public int limit8bitsColor(int color) {

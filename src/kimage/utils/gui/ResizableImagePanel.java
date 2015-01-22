@@ -129,11 +129,11 @@ public class ResizableImagePanel extends JPanel {
     /**
      * Calculate the scale required to correctly fit the image into panel
      *
-     * @param panelWidth
-     * @param panelHeight
-     * @param imageWidth
-     * @param imageHeight
-     * @return
+     * @param panelWidth - width of the panel
+     * @param panelHeight - height of the panel
+     * @param imageWidth - image width
+     * @param imageHeight - image height
+     * @return - scale for image
      */
     protected double getScale(final int panelWidth, final int panelHeight, final int imageWidth, final int imageHeight) {
         final double xScale = (double) panelWidth / imageWidth;

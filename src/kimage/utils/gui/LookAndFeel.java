@@ -10,7 +10,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class LookAndFeel {
 
     /**
-     * ustawia look & feel systemu dla aplikacji okienkowej
+     * ustawia look and feel systemu dla aplikacji okienkowej
      */
     public static void doIt() {
         try {

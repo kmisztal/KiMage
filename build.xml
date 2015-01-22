@@ -10,6 +10,18 @@
 <project name="KiMage" default="default" basedir=".">
     <description>Builds, tests, and runs the project KiMage.</description>
     <import file="nbproject/build-impl.xml"/>
+    
+    <target name="-pre-init">
+        <property file="version.properties"/>
+        <property name="dist.jar" value="dist/${ant.project.name}-${project.version}.jar"/>
+    </target>
+    
+    <target name="-post-jar" description="bundle sources and javadoc in a jar" depends="javadoc">
+        <property file="version.properties"/>
+        <jar compress="${jar.compress}" basedir="${src.dir}" jarfile="${dist.dir}/${ant.project.name}-${project.version}-sources.jar"/>
+        <jar compress="${jar.compress}" basedir="${dist.javadoc.dir}" jarfile="${dist.dir}/${ant.project.name}-${project.version}-javadoc.jar"/>
+    </target>
+    
     <!--
 
     There exist several targets which are by default empty and which can be 
