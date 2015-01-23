@@ -7,7 +7,7 @@ import kimage.plugin.Plugin;
  *
  * @author Krzysztof
  */
-public class SaltAndPepperNoise extends Plugin {
+public class SaltAndPepper extends Plugin {
 
     private double p;
     

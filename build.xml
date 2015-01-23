@@ -16,7 +16,7 @@
         <property name="dist.jar" value="dist/${ant.project.name}-${project.version}.jar"/>
     </target>
     
-    <target name="-post-jar" description="bundle sources and javadoc in a jar" depends="javadoc">
+    <target name="package_for_release" description="bundle sources and javadoc in a jar" depends="jar,javadoc">
         <property file="version.properties"/>
         <jar compress="${jar.compress}" basedir="${src.dir}" jarfile="${dist.dir}/${ant.project.name}-${project.version}-sources.jar"/>
         <jar compress="${jar.compress}" basedir="${dist.javadoc.dir}" jarfile="${dist.dir}/${ant.project.name}-${project.version}-javadoc.jar"/>
