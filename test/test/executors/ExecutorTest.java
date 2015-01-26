@@ -2,8 +2,12 @@ package test.executors;
 
 import kimage.plugins.color.Invert;
 import kimage.plugins.color.SepiaI;
+import kimage.plugins.edge.Sobel;
+import kimage.plugins.edge.Sobel4M;
 import kimage.tools.executors.Executor;
 import kimage.tools.executors.QuickExecutor;
+import kimage.utils.gui.ImageFrame;
+import sun.awt.image.ImageFormatException;
 
 
 
@@ -17,12 +21,17 @@ public class ExecutorTest {
         
         Executor exec = new QuickExecutor(filename);        
         
+//        exec.add(new Invert());
+//        
+//        exec.add(new SepiaI(),
+//                "W", 40);
+        exec.add(new Sobel4M());
+        
         exec.add(new Invert());
         
-        exec.add(new SepiaI(),
-                "W", 40);
-        
         exec.execute();
+        
+        new ImageFrame(exec.getResultImage()).display();
         
         exec.save("./res/out.png");
     }
