@@ -22,7 +22,7 @@ public class Image extends AbstractImage {
      * @param height
      */
     public Image(final int width, final int height) {
-        this(width, height, BufferedImage.TYPE_INT_RGB);
+        this(width, height, BufferedImage.TYPE_INT_ARGB);
     }
 
     /**
@@ -43,9 +43,16 @@ public class Image extends AbstractImage {
      * @param img Image
      */
     public Image(BufferedImage img) {
-        this.image = img;
         width = img.getWidth();
         height = img.getHeight();
+        //to make sure that we have a correct image type
+        if (img.getType() != BufferedImage.TYPE_INT_ARGB) {
+            final BufferedImage convertedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            convertedImg.getGraphics().drawImage(img, 0, 0, null);
+            this.image = convertedImg;
+        } else {
+            this.image = img;
+        }        
     }
 
     public Image(String filename) {

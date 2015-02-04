@@ -36,13 +36,13 @@ public class TimeExecution {
         stopJob = Instant.now();
         final long v = ChronoUnit.MILLIS.between(startJob, stopJob);
         timelist.put(currentName, v);
-        System.out.println(currentName + " : " + v);
+        System.out.println(currentName + " : " + v + " ms");
     }
 
     public void printEventExecutionTime() {
         final long v = ChronoUnit.MILLIS.between(startEvent, stopEvent);
         timelist.put(currentName, v);
-        System.out.println("Total time : " + v);
+        System.out.println("Total time : " + v + " ms");
     }
 
 }
