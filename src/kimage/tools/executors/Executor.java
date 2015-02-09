@@ -98,4 +98,11 @@ public abstract class Executor {
         return plugins.get(plugins.size()-1);
     }
     
+    public void resetImageToOriginal(){
+        currentImage = originalImage.copy();
+    }
+    
+    public Image getCurrentImage(){
+        return currentImage.copy();
+    }
 }

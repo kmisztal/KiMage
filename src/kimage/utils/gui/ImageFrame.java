@@ -19,6 +19,7 @@ public class ImageFrame extends JFrame {
     public ImageFrame(String title) {
         super(title == null ? "Step Handler Executor" : title);
         LookAndFeel.doIt();
+        EscapeClose.doIt(this);
 
 
         imageView = new ResizableImagePanel();

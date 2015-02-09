@@ -13,7 +13,7 @@ public abstract class ThresholdPlugin extends Plugin {
 
     @Override
     public void process(Image imgIn, Image imgOut) {
-        final int threshold = getThreshold();
+        final int threshold = getThreshold(imgIn);
 
         thresholdImage(imgIn, imgOut, threshold);
     }
@@ -50,6 +50,6 @@ public abstract class ThresholdPlugin extends Plugin {
         return result;
     }
 
-    public abstract int getThreshold();
+    public abstract int getThreshold(Image imgIn);
 
 }

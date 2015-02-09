@@ -1,6 +1,6 @@
 package test.executors;
 
-import kimage.plugins.color.SepiaI;
+import kimage.plugins.convolve.Blur;
 import kimage.tools.executors.Executor;
 import kimage.tools.executors.gui.StepHandlerExecutor;
 
@@ -21,7 +21,7 @@ public class StepHandlerExecutorTest {
 //        exec.add(new Blur(),
 //                "size", 6);
         
-        exec.add(new SepiaI());
+        exec.add(new Blur());
         
         exec.execute();
         

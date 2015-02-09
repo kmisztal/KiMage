@@ -112,6 +112,10 @@ public class HistogramGUI extends JFrame {
         setVisible(true);
     }
 
+    public double getNoPoints() {
+        return hist.getNoPoints();
+    }
+
     protected class Graph extends JPanel {
 
         protected static final int MIN_BAR_WIDTH = 4;

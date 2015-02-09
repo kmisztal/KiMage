@@ -1,5 +1,6 @@
 package kimage.tools.executors.gui;
 
+import kimage.image.Image;
 import kimage.tools.executors.Executor;
 import kimage.tools.executors.gui.helpers.StepHandlerExecutorGUI;
 import kimage.tools.executors.gui.helpers.TimeExecution;
@@ -53,6 +54,10 @@ public class StepHandlerExecutor extends Executor {
         
         te.stopEvent();
         te.printEventExecutionTime();
+    }
+    
+    public void addImage(Image image){
+        imageList.addImage(image, null);
     }
 
 }
