@@ -1,20 +1,17 @@
-package test.executors;
+package test.plugins;
 
 import kimage.plugins.color.Grayscale;
-import kimage.plugins.color.Invert;
-import kimage.plugins.convolve.Blur;
 import kimage.plugins.thresholding.OtsuThreshold;
 import kimage.tools.executors.Executor;
 import kimage.tools.executors.gui.StepHandlerExecutor;
-
 
 /**
  *
  * @author Krzysztof
  */
-public class StepHandlerExecutorTest {
+public class GrayscaleTest {
     public static void main(String[] args) {
-        String filename = "./res/binary.jpg";
+        String filename = "./res/lena.png";
         
         Executor exec = new StepHandlerExecutor(filename);
         

@@ -1,5 +1,6 @@
 package test.executors;
 
+import kimage.plugins.color.Grayscale;
 import kimage.plugins.color.Invert;
 import kimage.plugins.color.SepiaI;
 import kimage.plugins.edge.Sobel;
@@ -21,13 +22,13 @@ public class ExecutorTest {
         
         Executor exec = new QuickExecutor(filename);        
         
-//        exec.add(new Invert());
+        exec.add(new Grayscale());
 //        
 //        exec.add(new SepiaI(),
 //                "W", 40);
         exec.add(new Sobel4M());
         
-        exec.add(new Invert());
+//        exec.add(new Invert());
         
         exec.execute();
         

@@ -42,7 +42,7 @@ public class Dilation extends Plugin {
                 outer:
                 for (int r = yMin; r <= yMax; r++) {
                     for (int c = xMin; c <= xMax; c++) {
-                        if (r >= 0 && r < height && c >= 0 && c < width) {
+                        if (r >= 0 && r < height && c >= 0 && c < width && circle(c-x,r-y,maskSize)) {
                             if (imgIn.getRed(c, r) == 255) {
                                 newCol = 255;
                                 break outer;
@@ -64,4 +64,7 @@ public class Dilation extends Plugin {
         }
     }
 
+    private boolean circle(int x, int y, int r) {
+        return Math.hypot(x, y) <= r;
+    }
 }

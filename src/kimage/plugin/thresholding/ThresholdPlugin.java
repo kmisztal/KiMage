@@ -1,5 +1,6 @@
 package kimage.plugin.thresholding;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import kimage.image.Image;
@@ -14,7 +15,7 @@ public abstract class ThresholdPlugin extends Plugin {
     @Override
     public void process(Image imgIn, Image imgOut) {
         final int threshold = getThreshold(imgIn);
-
+        setAttribute("threshold", threshold);
         thresholdImage(imgIn, imgOut, threshold);
     }
 
@@ -29,7 +30,16 @@ public abstract class ThresholdPlugin extends Plugin {
      */
     private static BufferedImage thresholdImage(Image imgIn, Image imgOut, int threshold) {
         if (imgOut.getBufferedImage().getType() != BufferedImage.TYPE_BYTE_GRAY) {
-            throw new RuntimeException();
+            final BufferedImage result = new BufferedImage(
+                    imgIn.getWidth(),
+                    imgIn.getHeight(),
+                    BufferedImage.TYPE_BYTE_GRAY);
+            final Graphics g = result.getGraphics();
+            g.drawImage(imgIn.getBufferedImage(), 0, 0, null);
+            g.dispose();
+            
+            imgOut.setBufferedImage(result);
+            System.err.println("Image was converted into BufferedImage.TYPE_BYTE_GRAY type");
         }
 
         BufferedImage result = imgOut.getBufferedImage();
@@ -39,11 +49,7 @@ public abstract class ThresholdPlugin extends Plugin {
         for (int y = 0; y < imgIn.getHeight(); y++) {
             raster.getPixels(0, y, imgIn.getWidth(), 1, pixels);
             for (int i = 0; i < pixels.length; i++) {
-                if (pixels[i] < threshold) {
-                    pixels[i] = 0;
-                } else {
-                    pixels[i] = 255;
-                }
+                pixels[i] = (pixels[i] < threshold) ? 0 : 255;
             }
             raster.setPixels(0, y, imgIn.getWidth(), 1, pixels);
         }
@@ -51,5 +57,4 @@ public abstract class ThresholdPlugin extends Plugin {
     }
 
     public abstract int getThreshold(Image imgIn);
-
 }

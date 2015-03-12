@@ -42,6 +42,15 @@ public class ImageFrame extends JFrame {
         this("");
     }
 
+    
+    public static void display(Image img){
+        ImageFrame i = new ImageFrame(img);
+        i.display();
+    }
+    
+    public static void displayCopy(Image img){
+        display(img.copy());
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
