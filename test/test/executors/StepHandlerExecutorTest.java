@@ -14,7 +14,7 @@ import kimage.tools.executors.gui.StepHandlerExecutor;
  */
 public class StepHandlerExecutorTest {
     public static void main(String[] args) {
-        String filename = "./res/binary.jpg";
+        String filename = "./res/senna.jpg";
         
         Executor exec = new StepHandlerExecutor(filename);
         

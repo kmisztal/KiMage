@@ -1,5 +1,6 @@
 package kimage.helpers;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,22 @@ public class IOHelper {
         } catch (IOException ex) {
             throw new RuntimeException("Wrong local file name");
         }
+    }
+
+    public static BufferedImage load(String filename, int imageType) {
+        try {
+            return convert(ImageIO.read(new File(filename)), imageType);
+        } catch (IOException ex) {
+            throw new RuntimeException("Wrong local file name");
+        }
+    }
+
+    private static BufferedImage convert(BufferedImage bi, int imageType) {
+        final BufferedImage bw = new BufferedImage(bi.getWidth(), bi.getHeight(), imageType);
+        final Graphics2D g = bw.createGraphics();
+        g.drawRenderedImage(bi, null);
+        g.dispose();
+        return bw;
     }
 
     public static void save(String filePath, BufferedImage image) {

@@ -1,6 +1,7 @@
 package kimage.plugin;
 
 import kimage.image.Image;
+import kimage.image.ImageType;
 import kimage.plugin.extras.Attributes;
 
 /**
@@ -53,5 +54,11 @@ public abstract class Plugin {
             ret += attributes.toString();
         }
         return ret;
+    }
+    
+    public void checkImageType(Image image, ImageType cl){
+        if(!image.getClass().equals(cl.getClassType())){
+            throw new RuntimeException("Wrong image type for plugin " + this.getName());
+        }
     }
 }

@@ -19,12 +19,21 @@ public class StepHandlerExecutor extends Executor {
     public StepHandlerExecutor(String filename) {
         super(filename);
     }
+    
+    public StepHandlerExecutor(Image image) {
+        super(image);
+    }
 
     public StepHandlerExecutor(String filename, String title) {
         super(filename);
         this.title = title;
     }
 
+    public StepHandlerExecutor(Image image, String title) {
+        super(image);
+        this.title = title;
+    }
+    
     @Override
     public void executeCase() {
         if(imageList == null){

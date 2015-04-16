@@ -11,6 +11,8 @@ public abstract class AbstractImage {
     protected int height;
 
     protected String descrition = "";
+    
+    protected static int type;
 
     public void setDescrition(String descrition) {
         this.descrition = descrition;

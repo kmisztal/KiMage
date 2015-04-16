@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import kimage.helpers.ColorHelper;
 import kimage.helpers.IOHelper;
 
@@ -11,9 +14,15 @@ import kimage.helpers.IOHelper;
  * <img src="doc-files/image.jpg" alt="None"> @author Krzysztof
  */
 public class Image extends AbstractImage {
-
+    static{
+        type = BufferedImage.TYPE_INT_ARGB;
+    }
+        
     // Image
     protected BufferedImage image;
+    
+    protected Image(){        
+    }
 
     /**
      * default type is RGB
@@ -22,7 +31,7 @@ public class Image extends AbstractImage {
      * @param height
      */
     public Image(final int width, final int height) {
-        this(width, height, BufferedImage.TYPE_INT_ARGB);
+        this(width, height, type);
     }
 
     /**
@@ -46,8 +55,8 @@ public class Image extends AbstractImage {
         width = img.getWidth();
         height = img.getHeight();
         //to make sure that we have a correct image type
-        if (img.getType() != BufferedImage.TYPE_INT_ARGB) {
-            final BufferedImage convertedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        if (img.getType() != type) {
+            final BufferedImage convertedImg = new BufferedImage(width, height, type);
             convertedImg.getGraphics().drawImage(img, 0, 0, null);
             this.image = convertedImg;
         } else {
@@ -57,6 +66,10 @@ public class Image extends AbstractImage {
 
     public Image(String filename) {
         this(IOHelper.load(filename));
+    }
+    
+    public Image(String filename, int imageType) {
+        this(IOHelper.load(filename, imageType));
     }
 
     public void fillWithColor(Color c) {
@@ -83,7 +96,12 @@ public class Image extends AbstractImage {
      */
     @Override
     public Image copy() {
-        return new Image(copyImage(image));
+        try {
+            return this.getClass().getConstructor(BufferedImage.class).newInstance(copyImage(image));
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public static BufferedImage copyImage(BufferedImage source) {
