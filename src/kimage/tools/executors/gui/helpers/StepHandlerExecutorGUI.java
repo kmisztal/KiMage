@@ -56,16 +56,35 @@ public final class StepHandlerExecutorGUI extends JFrame {
         model = new DefaultListModel();
         imageList = new JList(model);
         imageList.setCellRenderer(new IconCellRenderer());
-        ListSelectionListener listener = (ListSelectionEvent lse) -> {
-            if (imageList.getSelectedValue() instanceof Pair) {
+//        ListSelectionListener listener = (ListSelectionEvent lse) -> {
+//            if (imageList.getSelectedValue() instanceof Pair) {
+//                Pair<Image, Plugin> o = (Pair<Image, Plugin>) imageList.getSelectedValue();
+//                imageView.setImage(o.getKey().getBufferedImage());
+//                info.setText(o.getValue().getInfo().replaceAll("\n", "<br/>"));
+//            }
+//        };
+        
+        ListSelectionListener listener = new ListSelectionListener(){
+            public void valueChanged(    ListSelectionEvent e){
+              if (imageList.getSelectedValue() instanceof Pair) {
                 Pair<Image, Plugin> o = (Pair<Image, Plugin>) imageList.getSelectedValue();
                 imageView.setImage(o.getKey().getBufferedImage());
                 info.setText(o.getValue().getInfo().replaceAll("\n", "<br/>"));
+                }
             }
-        };
+          };
+        
         imageList.addListSelectionListener(listener);
 
-        fileNameFilter = (File file, String name1) -> true;
+//        fileNameFilter = (File file, String name1) -> true;
+        
+        fileNameFilter = new FilenameFilter() {
+
+            @Override
+            public boolean accept(File dir, String name) {
+                return true;
+            }
+        };
 
         JScrollPane guiSP = new JScrollPane(
                 info,
@@ -100,12 +119,12 @@ public final class StepHandlerExecutorGUI extends JFrame {
         return gui;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            StepHandlerExecutorGUI imageList1 = new StepHandlerExecutorGUI();
-            imageList1.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            StepHandlerExecutorGUI imageList1 = new StepHandlerExecutorGUI();
+//            imageList1.setVisible(true);
+//        });
+//    }
 
     public void addImage(Image img, Plugin plugin) {
         model.addElement(new Pair<>(img, plugin));

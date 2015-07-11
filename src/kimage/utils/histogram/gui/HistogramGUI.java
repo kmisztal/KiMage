@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
@@ -39,8 +40,18 @@ public class HistogramGUI extends JFrame {
     private final Histogram hist;
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            new HistogramGUI(new Image("./res/apples.png"), false);
+//        EventQueue.invokeLater(() -> {
+//            new HistogramGUI(new Image("./res/apples.png"), false);
+//        });
+        
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new HistogramGUI(new Image("./res/apples.png"), false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
@@ -66,10 +77,16 @@ public class HistogramGUI extends JFrame {
         final JPopupMenu popup = new JPopupMenu();
         // New project menu item
         JMenuItem menuItem = new JMenuItem("Save as ...");
-        menuItem.addActionListener((ActionEvent e) -> {
-            save();
-        });
+//        menuItem.addActionListener((ActionEvent e) -> {
+//            save();
+//        });
 
+        menuItem.addActionListener(new ActionListener() {  
+            public void actionPerformed(ActionEvent e)
+            {
+                save();
+            }});
+        
         popup.add(menuItem);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

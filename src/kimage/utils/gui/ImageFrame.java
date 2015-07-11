@@ -24,7 +24,15 @@ public class ImageFrame extends JFrame {
 
         imageView = new ResizableImagePanel();
 
-        fileNameFilter = (File file, String name1) -> true;
+//        fileNameFilter = (File file, String name1) -> true;
+        
+        fileNameFilter = new FilenameFilter() {
+
+            @Override
+            public boolean accept(File dir, String name) {
+                return true;
+            }
+        };
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         add(new JScrollPane(imageView));
@@ -52,12 +60,12 @@ public class ImageFrame extends JFrame {
         display(img.copy());
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ImageFrame imageList1 = new ImageFrame();
-            imageList1.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            ImageFrame imageList1 = new ImageFrame();
+//            imageList1.setVisible(true);
+//        });
+//    }
 
     public void display() {
         this.setVisible(true);

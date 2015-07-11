@@ -61,9 +61,15 @@ public class ResizableImagePanel extends JPanel {
         final JPopupMenu popup = new JPopupMenu();
         // New project menu item
         JMenuItem menuItem = new JMenuItem("Save as ...");
-        menuItem.addActionListener((ActionEvent e) -> {
-            save();
-        });
+//        menuItem.addActionListener((ActionEvent e) -> {
+//            save();
+//        });
+        
+        menuItem.addActionListener(new ActionListener() {  
+            public void actionPerformed(ActionEvent e)
+            {
+                save();
+            }});
 
         popup.add(menuItem);
 

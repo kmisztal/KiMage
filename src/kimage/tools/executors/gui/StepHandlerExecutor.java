@@ -1,6 +1,7 @@
 package kimage.tools.executors.gui;
 
 import kimage.image.Image;
+import kimage.plugin.Plugin;
 import kimage.tools.executors.Executor;
 import kimage.tools.executors.gui.helpers.StepHandlerExecutorGUI;
 import kimage.tools.executors.gui.helpers.TimeExecution;
@@ -45,7 +46,8 @@ public class StepHandlerExecutor extends Executor {
 
         TimeExecution te = new TimeExecution();
         te.startEvent();
-        getPlugins().stream().forEach((p) -> {
+//        getPlugins().stream().forEach((p) -> {
+        for(Plugin p : getPlugins()){
             te.startJob(p.getName());
             
             p.process(currentImage);
@@ -59,7 +61,8 @@ public class StepHandlerExecutor extends Executor {
 //            }
             
             te.endJob(true);                     
-        });
+        }
+        //);
         
         te.stopEvent();
         te.printEventExecutionTime();

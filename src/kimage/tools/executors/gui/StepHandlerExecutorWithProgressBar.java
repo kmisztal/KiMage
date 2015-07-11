@@ -1,5 +1,6 @@
 package kimage.tools.executors.gui;
 
+import kimage.plugin.Plugin;
 import kimage.tools.executors.Executor;
 import kimage.tools.executors.progressbar.ProcessingProgress;
 
@@ -18,10 +19,12 @@ public class StepHandlerExecutorWithProgressBar extends Executor {
     public void executeCase() {
         ProcessingProgress progress = new ProcessingProgress(null, getPlugins().size());
 
-        getPlugins().stream().forEach((p) -> {
+//        getPlugins().stream().forEach((p) -> {
+        for(Plugin p : getPlugins()){
             p.process(currentImage);
             progress.increment();            
-        });
+        }
+        //);
     }
 
 }
