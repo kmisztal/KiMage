@@ -10,7 +10,7 @@ import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
-import javafx.util.Pair;
+//import javafx.util.Pair;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -32,6 +32,44 @@ import kimage.utils.gui.LookAndFeel;
  *
  * @author Krzysztof
  */
+
+class Pair<F, S> {
+    public final F first;
+    public final S second;
+
+    public Pair(F first, S second) {
+        this.first = first;
+        this.second = second;
+    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (!(o instanceof Pair)) {
+//            return false;
+//        }
+//        Pair<?, ?> p = (Pair<?, ?>) o;
+//        return Objects.equal(p.first, first) && Objects.equal(p.second, second);
+//    }
+
+    @Override
+    public int hashCode() {
+        return (first == null ? 0 : first.hashCode()) ^ (second == null ? 0 : second.hashCode());
+    }
+
+    public static <A, B> Pair <A, B> create(A a, B b) {
+        return new Pair<A, B>(a, b);
+    }
+    
+    
+    public F getKey(){
+        return first;
+    }
+    
+    public S getValue(){
+        return second;
+    }
+}
+
 public final class StepHandlerExecutorGUI extends JFrame {
 
     private JPanel gui;

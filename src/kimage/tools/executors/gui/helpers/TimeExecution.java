@@ -1,7 +1,7 @@
 package kimage.tools.executors.gui.helpers;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+//import java.time.Instant;
+//import java.time.temporal.ChronoUnit;
 import java.util.LinkedHashMap;
 
 /**
@@ -10,37 +10,37 @@ import java.util.LinkedHashMap;
  */
 public class TimeExecution {
 
-    Instant startEvent;
-    Instant stopEvent;
-    Instant startJob;
-    Instant stopJob;
+    long startEvent;
+    long stopEvent;
+    long startJob;
+    long stopJob;
 
     String currentName;
 
     LinkedHashMap<String, Long> timelist = new LinkedHashMap<>();
 
     public void startEvent() {
-        startEvent = Instant.now();
+        startEvent = System.currentTimeMillis();//Instant.now();
     }
 
     public void stopEvent() {
-        stopEvent = Instant.now();
+        stopEvent = System.currentTimeMillis();//Instant.now();
     }
 
     public void startJob(String name) {
         currentName = name;
-        startJob = Instant.now();
+        startJob = System.currentTimeMillis();//Instant.now();
     }
 
     public void endJob(boolean print) {
-        stopJob = Instant.now();
-        final long v = ChronoUnit.MILLIS.between(startJob, stopJob);
+        stopJob = System.currentTimeMillis();//Instant.now();
+        final long v = -(startJob - stopJob);//ChronoUnit.MILLIS.between(startJob, stopJob);
         timelist.put(currentName, v);
         System.out.println(currentName + " : " + v + " ms");
     }
 
     public void printEventExecutionTime() {
-        final long v = ChronoUnit.MILLIS.between(startEvent, stopEvent);
+        final long v = -(startEvent - stopEvent);// ChronoUnit.MILLIS.between(startEvent, stopEvent);
         timelist.put(currentName, v);
         System.out.println("Total time : " + v + " ms");
     }
