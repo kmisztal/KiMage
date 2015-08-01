@@ -112,7 +112,7 @@ public class Image extends AbstractImage {
         return b;
     }
 
-    public final int getRGB(final int x, final int y) {
+    public int getRGB(final int x, final int y) {
         return image.getRGB(x, y);
     }
 
@@ -124,19 +124,19 @@ public class Image extends AbstractImage {
         image.setRGB(x, y, new Color(r, g, b).getRGB());
     }
 
-    public final int getRed(final int x, final int y) {
+    public int getRed(final int x, final int y) {
         return ColorHelper.RED.getColor(image.getRGB(x, y));
     }
 
-    public final int getGreen(final int x, final int y) {
+    public int getGreen(final int x, final int y) {
         return ColorHelper.GREEN.getColor(image.getRGB(x, y));
     }
 
-    public final int getBlue(final int x, final int y) {
+    public int getBlue(final int x, final int y) {
         return ColorHelper.BLUE.getColor(image.getRGB(x, y));
     }
 
-    public final int getRGBSecure(final int x, final int y) {
+    public int getRGBSecure(final int x, final int y) {
         if (checkX(x) && checkY(y)) {
             return image.getRGB(x, y);
         } else {
@@ -152,7 +152,7 @@ public class Image extends AbstractImage {
         }
     }
 
-    public final int getRedSecure(final int x, final int y) {
+    public int getRedSecure(final int x, final int y) {
         if (checkX(x) && checkY(y)) {
             return ColorHelper.RED.getColor(image.getRGB(x, y));
         } else {
@@ -160,7 +160,7 @@ public class Image extends AbstractImage {
         }
     }
 
-    public final int getGreenSecure(final int x, final int y) {
+    public int getGreenSecure(final int x, final int y) {
         if (checkX(x) && checkY(y)) {
             return ColorHelper.GREEN.getColor(image.getRGB(x, y));
         } else {
@@ -168,7 +168,7 @@ public class Image extends AbstractImage {
         }
     }
 
-    public final int getBlueSecure(final int x, final int y) {
+    public int getBlueSecure(final int x, final int y) {
         if (checkX(x) && checkY(y)) {
             return ColorHelper.BLUE.getColor(image.getRGB(x, y));
         } else {

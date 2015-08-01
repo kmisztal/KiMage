@@ -4,8 +4,8 @@ import kimage.image.Image;
 import kimage.plugin.Plugin;
 import kimage.tools.executors.Executor;
 import kimage.tools.executors.gui.helpers.StepHandlerExecutorGUI;
-import kimage.tools.executors.gui.helpers.TimeExecution;
 import kimage.tools.executors.progressbar.ProcessingProgress;
+import kimage.utils.TimeExecution;
 
 
 /**
@@ -16,13 +16,10 @@ public class StepHandlerExecutor extends Executor {
     private String title;
     private StepHandlerExecutorGUI imageList;
     private ProcessingProgress progress;
+    private boolean fullscrean = false;
 
     public StepHandlerExecutor(String filename) {
         super(filename);
-    }
-    
-    public StepHandlerExecutor(Image image) {
-        super(image);
     }
 
     public StepHandlerExecutor(String filename, String title) {
@@ -30,15 +27,10 @@ public class StepHandlerExecutor extends Executor {
         this.title = title;
     }
 
-    public StepHandlerExecutor(Image image, String title) {
-        super(image);
-        this.title = title;
-    }
-    
     @Override
     public void executeCase() {
         if(imageList == null){
-            imageList = new StepHandlerExecutorGUI(title);
+            imageList = new StepHandlerExecutorGUI(title, fullscrean);
             progress = new ProcessingProgress(imageList, getPlugins().size());
             imageList.setVisible(true);
         }
@@ -46,8 +38,30 @@ public class StepHandlerExecutor extends Executor {
 
         TimeExecution te = new TimeExecution();
         te.startEvent();
-//        getPlugins().stream().forEach((p) -> {
-        for(Plugin p : getPlugins()){
+        
+        imageList.addImage(currentImage.copy(), new Plugin() {
+
+            @Override
+            public void process(Image imgIn, Image imgOut) {
+                //intentionally empty
+            }
+
+            @Override
+            public String getInfo() {
+                return "Original Image";
+            }
+
+            @Override
+            public String getName() {
+                return getInfo();
+            }
+            
+            
+            
+            
+        });
+        
+        getPlugins().stream().forEach((p) -> {
             te.startJob(p.getName());
             
             p.process(currentImage);
@@ -61,15 +75,17 @@ public class StepHandlerExecutor extends Executor {
 //            }
             
             te.endJob(true);                     
-        }
-        //);
+        });
         
         te.stopEvent();
         te.printEventExecutionTime();
     }
-    
-    public void addImage(Image image){
-        imageList.addImage(image, null);
+
+    public StepHandlerExecutor setFullscrean(boolean fullscrean) {
+        this.fullscrean = fullscrean;
+        return this;
     }
 
+    
+    
 }

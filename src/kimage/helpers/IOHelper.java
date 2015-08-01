@@ -14,9 +14,13 @@ public class IOHelper {
 
     public static BufferedImage load(String filename) {
         try {
-            return ImageIO.read(new File(filename));
-        } catch (IOException ex) {
-            throw new RuntimeException("Wrong local file name");
+            BufferedImage ret = ImageIO.read(new File(filename));
+            if (ret == null) {
+                throw new RuntimeException("Wrong file format");
+            }
+            return ret;
+        } catch (IOException | RuntimeException ex) {
+            return null;
         }
     }
 

@@ -5,12 +5,11 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
-//import javafx.util.Pair;
+import javafx.util.Pair;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -26,50 +25,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.utils.gui.EscapeClose;
 import kimage.utils.gui.LookAndFeel;
 
 /**
  *
  * @author Krzysztof
  */
-
-class Pair<F, S> {
-    public final F first;
-    public final S second;
-
-    public Pair(F first, S second) {
-        this.first = first;
-        this.second = second;
-    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (!(o instanceof Pair)) {
-//            return false;
-//        }
-//        Pair<?, ?> p = (Pair<?, ?>) o;
-//        return Objects.equal(p.first, first) && Objects.equal(p.second, second);
-//    }
-
-    @Override
-    public int hashCode() {
-        return (first == null ? 0 : first.hashCode()) ^ (second == null ? 0 : second.hashCode());
-    }
-
-    public static <A, B> Pair <A, B> create(A a, B b) {
-        return new Pair<A, B>(a, b);
-    }
-    
-    
-    public F getKey(){
-        return first;
-    }
-    
-    public S getValue(){
-        return second;
-    }
-}
-
 public final class StepHandlerExecutorGUI extends JFrame {
 
     private JPanel gui;
@@ -79,9 +41,10 @@ public final class StepHandlerExecutorGUI extends JFrame {
     final JEditorPane info;
     final ResizableImagePanel imageView;
 
-    public StepHandlerExecutorGUI(String title) {
+    public StepHandlerExecutorGUI(String title, boolean fullscrean) {
         super(title == null ? "Step Handler Executor" : title);
         LookAndFeel.doIt();
+        EscapeClose.doIt(this);
 
         gui = new JPanel(new GridLayout());
 
@@ -94,35 +57,16 @@ public final class StepHandlerExecutorGUI extends JFrame {
         model = new DefaultListModel();
         imageList = new JList(model);
         imageList.setCellRenderer(new IconCellRenderer());
-//        ListSelectionListener listener = (ListSelectionEvent lse) -> {
-//            if (imageList.getSelectedValue() instanceof Pair) {
-//                Pair<Image, Plugin> o = (Pair<Image, Plugin>) imageList.getSelectedValue();
-//                imageView.setImage(o.getKey().getBufferedImage());
-//                info.setText(o.getValue().getInfo().replaceAll("\n", "<br/>"));
-//            }
-//        };
-        
-        ListSelectionListener listener = new ListSelectionListener(){
-            public void valueChanged(    ListSelectionEvent e){
-              if (imageList.getSelectedValue() instanceof Pair) {
+        ListSelectionListener listener = (ListSelectionEvent lse) -> {
+            if (imageList.getSelectedValue() instanceof Pair) {
                 Pair<Image, Plugin> o = (Pair<Image, Plugin>) imageList.getSelectedValue();
                 imageView.setImage(o.getKey().getBufferedImage());
                 info.setText(o.getValue().getInfo().replaceAll("\n", "<br/>"));
-                }
-            }
-          };
-        
-        imageList.addListSelectionListener(listener);
-
-//        fileNameFilter = (File file, String name1) -> true;
-        
-        fileNameFilter = new FilenameFilter() {
-
-            @Override
-            public boolean accept(File dir, String name) {
-                return true;
             }
         };
+        imageList.addListSelectionListener(listener);
+
+        fileNameFilter = (File file, String name1) -> true;
 
         JScrollPane guiSP = new JScrollPane(
                 info,
@@ -142,27 +86,33 @@ public final class StepHandlerExecutorGUI extends JFrame {
         guiSP.setMaximumSize(new Dimension(Short.MAX_VALUE, 150));
         guiSP.setMinimumSize(new Dimension(10, 150));
 
+//        setUndecorated(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         add(getGui());
         setLocationByPlatform(true);
         pack();
-        setSize(800, 600);
+        if (fullscrean) {
+            setExtendedState(JFrame.MAXIMIZED_BOTH);
+        } else {
+            setSize(800, 600);
+        }
+
     }
 
     private StepHandlerExecutorGUI() {
-        this(null);
+        this(null, false);
     }
 
     public Container getGui() {
         return gui;
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            StepHandlerExecutorGUI imageList1 = new StepHandlerExecutorGUI();
-//            imageList1.setVisible(true);
-//        });
-//    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            StepHandlerExecutorGUI imageList1 = new StepHandlerExecutorGUI();
+            imageList1.setVisible(true);
+        });
+    }
 
     public void addImage(Image img, Plugin plugin) {
         model.addElement(new Pair<>(img, plugin));
