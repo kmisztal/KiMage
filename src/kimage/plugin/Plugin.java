@@ -79,8 +79,4 @@ public abstract class Plugin {
         return attributes;
     }
     
-    public boolean isReadyForConcurency(){
-        return true;
-    }
-    
 }

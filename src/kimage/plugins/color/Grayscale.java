@@ -4,12 +4,13 @@ import java.awt.color.ColorSpace;
 import java.awt.image.ColorConvertOp;
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.plugin.thread.ConcurrencyReady;
 
 /**
  *
  * @author Krzysztof
  */
-public class Grayscale extends Plugin {
+public class Grayscale extends Plugin implements ConcurrencyReady{
 
     @Override
     public void process(Image imgIn, Image imgOut) {

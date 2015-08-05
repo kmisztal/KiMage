@@ -6,12 +6,13 @@ import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.plugin.thread.ConcurrencyReady;
 
 /**
  *
  * @author Krzysztof
  */
-public abstract class ConvolutionPlugin extends Plugin {
+public abstract class ConvolutionPlugin extends Plugin implements ConcurrencyReady{
 
     protected int width;
     protected int height;
@@ -39,4 +40,11 @@ public abstract class ConvolutionPlugin extends Plugin {
         }
     }
 
+    @Override
+    public int getBoundaryForThreads() {
+        return height/2+1;
+    }
+
+    
+    
 }

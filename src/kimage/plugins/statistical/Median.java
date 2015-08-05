@@ -2,6 +2,7 @@ package kimage.plugins.statistical;
 
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.plugin.thread.ConcurrencyReady;
 
 
 
@@ -29,7 +30,7 @@ import kimage.plugin.Plugin;
  *
  * @author Krzysztof
  */
-public class Median extends Plugin {
+public class Median extends Plugin implements ConcurrencyReady{
     int maskSize = 3;
 
     @Override

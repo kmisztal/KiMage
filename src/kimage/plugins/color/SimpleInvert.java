@@ -2,8 +2,9 @@ package kimage.plugins.color;
 
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.plugin.thread.ConcurrencyReady;
 
-public class SimpleInvert extends Plugin {
+public class SimpleInvert extends Plugin implements ConcurrencyReady {
 
     @Override
     public void process(Image imgIn, Image imgOut) {
