@@ -7,7 +7,7 @@ import kimage.plugin.convolve.ConvolutionPlugin;
  * Blurring is done for example by taking the average of the current pixel and it's 8 neighbors.
  * @author Krzysztof
  */
-public class Blur extends ConvolutionPlugin {
+public class Blur extends ConvolutionPlugin{
 
     @Override
     protected void createKernel() {

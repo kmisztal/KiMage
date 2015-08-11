@@ -42,7 +42,7 @@ public abstract class ConvolutionPlugin extends Plugin implements ConcurrencyRea
 
     @Override
     public int getBoundaryForThreads() {
-        return height/2+1;
+        return height/2;
     }
 
     

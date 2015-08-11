@@ -61,15 +61,6 @@ public abstract class Plugin {
             throw new RuntimeException("Wrong image type for plugin " + this.getName());
         }
     }
-    
-    /**
-     * wartość koniecznego "brzegu" w przypadku przetwarzania równoległego
-     * np. w filtrach splotowych to promień kernela lub 1/2 wysokość elementu strukturalnego
-     * @return 
-     */
-    public int getBoundaryForThreads(){
-        return 0;
-    }
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;

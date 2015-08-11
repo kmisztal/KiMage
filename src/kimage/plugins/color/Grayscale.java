@@ -19,4 +19,9 @@ public class Grayscale extends Plugin implements ConcurrencyReady{
                 );
     }
 
+    @Override
+    public int getBoundaryForThreads() {
+        return 0;
+    }
+
 }

@@ -103,4 +103,9 @@ public class Median extends Plugin implements ConcurrencyReady{
         }
     }
 
+    @Override
+    public int getBoundaryForThreads() {
+        return maskSize/2;
+    }
+
 }

@@ -14,9 +14,12 @@ import kimage.plugin.Plugin;
 public class SimplePluginOnThreads extends Plugin {
 
     private final Plugin plugin;
+    private final int offset;
 
     public SimplePluginOnThreads(ConcurrencyReady plugin) {
         this.plugin = (Plugin) plugin;
+        this.offset = 2;//plugin.getBoundaryForThreads();
+        System.out.println(offset);
     }
 
     @Override
@@ -26,15 +29,15 @@ public class SimplePluginOnThreads extends Plugin {
         final int width = imgIn.getWidth();
         final int height = imgIn.getHeight();
         
-        final int offset = plugin.getBoundaryForThreads();
-        int n = Runtime.getRuntime().availableProcessors();
+        
+        final int n = Runtime.getRuntime().availableProcessors();
         
         try {
             ExecutorService pool = Executors.newCachedThreadPool();
             for (int i = 0; i < n; i++) {
-                int fromY = i * height / n;
-                int toY = (i + 1) * height / n;
-                boolean last = i == n - 1;
+                final int fromY = i * height / n;
+                final int toY = (i + 1) * height / n;
+                final boolean last = i == n - 1;
                 pool.submit(() -> {
                     plugin.process(new ImageForThreads(imgIn, fromY, toY, offset, last),
                                    new ImageForThreads(imgOut, fromY, toY, offset, last));      
@@ -48,7 +51,7 @@ public class SimplePluginOnThreads extends Plugin {
 
     @Override
     public String getName() {
-        return plugin.getName() + "(on threads)"; 
+        return plugin.getName() + " (on threads)"; 
     }
 
 }
