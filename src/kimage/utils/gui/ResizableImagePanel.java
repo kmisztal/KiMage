@@ -35,6 +35,8 @@ public class ResizableImagePanel extends JPanel {
     protected double scale;
     protected boolean empty = true;
     boolean is_scaled = true;
+    private double xPos;
+    private double yPos;
 
     /**
      * Creates a new instance of ImagePanel
@@ -173,8 +175,8 @@ public class ResizableImagePanel extends JPanel {
                 scale = 1.;
             }
             // Calculate the center position of the panel -- with scale
-            final double xPos = (panelWidth - scale * imageWidth) / 2;
-            final double yPos = (panelHeight - scale * imageHeight) / 2;
+            xPos = (panelWidth - scale * imageWidth) / 2;
+            yPos = (panelHeight - scale * imageHeight) / 2;
 
             // Locate, scale and draw image
             final AffineTransform at = AffineTransform.getTranslateInstance(xPos, yPos);
@@ -250,4 +252,18 @@ public class ResizableImagePanel extends JPanel {
 
         }
     }
+
+    public double getScale() {
+        return scale;
+    }
+
+    public double getxPos() {
+        return xPos;
+    }
+
+    public double getyPos() {
+        return yPos;
+    }
+    
+    
 }

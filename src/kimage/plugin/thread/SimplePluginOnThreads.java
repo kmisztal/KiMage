@@ -31,7 +31,7 @@ public class SimplePluginOnThreads extends Plugin {
         
         
         final int n = Runtime.getRuntime().availableProcessors();
-        
+        System.out.println("No. of threads: " + n);
         try {
             ExecutorService pool = Executors.newCachedThreadPool();
             for (int i = 0; i < n; i++) {
@@ -39,8 +39,11 @@ public class SimplePluginOnThreads extends Plugin {
                 final int toY = (i + 1) * height / n;
                 final boolean last = i == n - 1;
                 pool.submit(() -> {
-                    plugin.process(new ImageForThreads(imgIn, fromY, toY, offset, last),
-                                   new ImageForThreads(imgOut, fromY, toY, offset, last));      
+                    ImageForThreads in_ = new ImageForThreads(imgIn, fromY, toY, offset, last);
+                    ImageForThreads out_ = new ImageForThreads(imgOut, fromY, toY, offset, last);
+                    plugin.process(in_,
+                                   out_);
+                    out_.finalize_work();
                 });
             }
             pool.shutdown();

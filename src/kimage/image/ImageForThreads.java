@@ -3,23 +3,29 @@ package kimage.image;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import kimage.helpers.ColorHelper;
 import kimage.helpers.IOHelper;
 
-class BIProxy{
-    int fromY, toY, fromY_clear, toY_clear;    
+class BIProxy {
+
+    int fromY, toY, fromY_clear, toY_clear;
     boolean last;
-    BufferedImage image;
-    
-    
+    int[] image;
+    int width;
+    int height;
+
     public BIProxy(BufferedImage img, int fromY, int toY, int offset, boolean last) {
-        this.image = img;
+        this.image = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
+        this.width = img.getWidth();
+        this.height = img.getHeight();
+
         this.fromY_clear = fromY;
         this.toY_clear = toY;
-        
+
         if (this.last) {
             fromY -= offset;
             this.fromY = (fromY < 0) ? 0 : fromY;
@@ -32,24 +38,15 @@ class BIProxy{
     }
 
     public int getRGB(int x, int y) {
-        return image.getRGB(x, y + fromY);
+        return image[x + (y + fromY) * width];
     }
 
     public void setRGB(int x, int y, int i) {
-        if((this.last && y < this.fromY_clear) || (!this.last && y < this.toY_clear)){
+        if ((this.last && y < this.fromY_clear) || (!this.last && y < this.toY_clear)) {
             return;
         }
-        image.setRGB(x, y+fromY, i);
+        image[x + (y + fromY) * width] = i;
     }
-
-    Graphics2D createGraphics() {
-        return image.createGraphics();
-    }
-
-    BufferedImage getSubimage(int x, int y, int width, int height) {
-        return image.getSubimage(x, y, width, height);
-    }
-    
 }
 
 /**
@@ -57,33 +54,26 @@ class BIProxy{
  * @author Krzysztof
  */
 public class ImageForThreads extends Image {
+
     BIProxy bimage;
     int fromY;
-    
-    
+    int toY;
+
     public ImageForThreads(Image img, int fromY, int toY, int offset, boolean last) {
         width = img.getWidth();
         height = toY - fromY + offset;
-//        this.last = last;
         this.fromY = fromY;
-//        this.toY_clear = toY;
-        
-        
+        this.toY = toY;
 
         //to make sure that we have a correct image type
         this.bimage = new BIProxy(img.getBufferedImage(), fromY, toY, offset, last);
-        this.image = this.bimage.image;
-        
-//        System.out.println("("+width+";"+height+"|" + fromY + ")");
-//        new ImageFrame(new Image(this.image)).display();
+        this.image = img.image;
+
     }
 
     @Override
     public void fillWithColor(Color c) {
-        Graphics2D g = bimage.createGraphics();
-        g.setColor(c);
-        g.fillRect(0, fromY, width, height);
-        g.dispose();
+        throw new RuntimeException("You are CRAZY !!!");
     }
 
     public void clearImage(Color c) {
@@ -96,12 +86,7 @@ public class ImageForThreads extends Image {
      */
     @Override
     public Image copy() {
-        try {
-            return this.getClass().getConstructor(BufferedImage.class).newInstance(copyImage(bimage.getSubimage(0, fromY, width, height)));
-        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        throw new RuntimeException("You are CRAZY !!!");
     }
 
     @Override
@@ -110,7 +95,7 @@ public class ImageForThreads extends Image {
     }
 
     @Override
-    public void setRGB(int x, int y, int i) {        
+    public void setRGB(int x, int y, int i) {
         bimage.setRGB(x, y, i);
     }
 
@@ -181,12 +166,12 @@ public class ImageForThreads extends Image {
 
     @Override
     public BufferedImage getBufferedImage() {
-        return bimage.getSubimage(0, fromY, width, height);
+        throw new RuntimeException("You are CRAZY !!!");
     }
 
     @Override
     public BufferedImage getCopyOfBufferedImage() {
-        return copyImage(bimage.getSubimage(0, fromY, width, height));
+        throw new RuntimeException("You are CRAZY !!!");
     }
 
     @Override
@@ -199,4 +184,13 @@ public class ImageForThreads extends Image {
         throw new RuntimeException("You are CRAZY !!!");
     }
 
+    
+    public synchronized void finalize_work(){
+        for(int y = fromY; y < toY; ++y){
+            for(int x = 0; x < width; ++x){
+                this.image.setRGB(x, y, bimage.image[y*width+x]);
+            }
+        }
+    }
+    
 }
