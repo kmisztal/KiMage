@@ -9,7 +9,7 @@ import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
-import javafx.util.Pair;
+//import javafx.util.Pair;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -57,16 +57,37 @@ public final class StepHandlerExecutorGUI extends JFrame {
         model = new DefaultListModel();
         imageList = new JList(model);
         imageList.setCellRenderer(new IconCellRenderer());
-        ListSelectionListener listener = (ListSelectionEvent lse) -> {
-            if (imageList.getSelectedValue() instanceof Pair) {
+        ListSelectionListener listener ;//= (ListSelectionEvent lse) -> {
+//            if (imageList.getSelectedValue() instanceof Pair) {
+//                Pair<Image, Plugin> o = (Pair<Image, Plugin>) imageList.getSelectedValue();
+//                imageView.setImage(o.getKey().getBufferedImage());
+//                info.setText(o.getValue().getInfo().replaceAll("\n", "<br/>"));
+//            }
+//        };
+        
+        listener = new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                if (imageList.getSelectedValue() instanceof Pair) {
                 Pair<Image, Plugin> o = (Pair<Image, Plugin>) imageList.getSelectedValue();
                 imageView.setImage(o.getKey().getBufferedImage());
                 info.setText(o.getValue().getInfo().replaceAll("\n", "<br/>"));
+//            }
             }
+        }
         };
+        
         imageList.addListSelectionListener(listener);
 
-        fileNameFilter = (File file, String name1) -> true;
+//        fileNameFilter = (File file, String name1) -> true;
+        fileNameFilter = new FilenameFilter() {
+
+            @Override
+            public boolean accept(File file, String string) {
+                return true;
+            }
+        };
 
         JScrollPane guiSP = new JScrollPane(
                 info,
@@ -108,10 +129,12 @@ public final class StepHandlerExecutorGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            StepHandlerExecutorGUI imageList1 = new StepHandlerExecutorGUI();
-            imageList1.setVisible(true);
-        });
+//        SwingUtilities.invokeLater(() -> {
+//            StepHandlerExecutorGUI imageList1 = new StepHandlerExecutorGUI();
+//            imageList1.setVisible(true);
+//        });
+        
+        
     }
 
     public void addImage(Image img, Plugin plugin) {

@@ -61,7 +61,8 @@ public class StepHandlerExecutor extends Executor {
             
         });
         
-        getPlugins().stream().forEach((p) -> {
+//        getPlugins().stream().forEach((p) -> {
+            for(Plugin p : getPlugins()){
             te.startJob(p.getName());
             
             p.process(currentImage);
@@ -75,7 +76,8 @@ public class StepHandlerExecutor extends Executor {
 //            }
             
             te.endJob(true);                     
-        });
+//        });
+            }
         
         te.stopEvent();
         te.printEventExecutionTime();

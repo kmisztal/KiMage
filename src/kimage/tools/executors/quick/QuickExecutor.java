@@ -1,6 +1,7 @@
 package kimage.tools.executors.quick;
 
 import kimage.image.Image;
+import kimage.plugin.Plugin;
 import kimage.tools.executors.Executor;
 
 
@@ -21,9 +22,13 @@ public class QuickExecutor extends Executor {
 
     @Override
     public void executeCase() {
-        getPlugins().stream().forEach((p) -> {
+//        getPlugins().stream().forEach((p) -> {
+//           p.process(currentImage); 
+//        });
+        
+        for(Plugin p : getPlugins()){
             p.process(currentImage);
-        });
+        }
     }
 
 }
