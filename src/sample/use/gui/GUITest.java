@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sample.use;
+package sample.use.gui;
 
 import kimage.image.Image;
 import kimage.utils.gui.ImageFrame;
