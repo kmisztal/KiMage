@@ -19,7 +19,7 @@ public class Attributes {
     public static final String MIN = "min";
     public static final String MAX = "max";
 
-    protected final Map<String, Object> hashAttributes;
+    private final Map<String, Object> hashAttributes;
 
     /**
      * Constructor

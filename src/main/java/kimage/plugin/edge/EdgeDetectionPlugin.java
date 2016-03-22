@@ -1,12 +1,11 @@
 package kimage.plugin.edge;
 
-import kimage.helpers.ColorHelper;
-import kimage.image.Image;
-import kimage.plugin.Plugin;
-
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import kimage.helpers.ColorHelper;
+import kimage.image.Image;
+import kimage.plugin.Plugin;
 
 /**
  * @author Krzysztof
@@ -14,7 +13,6 @@ import java.awt.image.Kernel;
 public abstract class EdgeDetectionPlugin extends Plugin {
 
     protected float[][] masks;
-    private BufferedImage[] im;
 
     public abstract void setMasks();
 
@@ -26,16 +24,17 @@ public abstract class EdgeDetectionPlugin extends Plugin {
             setMasks();
         }
 
-        im = new BufferedImage[masks.length];
+        final BufferedImage[] im = new BufferedImage[masks.length];
         int it = 0;
         for (float[] kernel : masks) {
             if (kernel.length != 9) {
                 throw new RuntimeException("Not supported kernel size");
             }
             im[it++] = new ConvolveOp(
-                    new Kernel(3, 3, kernel),
-                    ConvolveOp.EDGE_ZERO_FILL,
-                    null).filter(imgIn.getBufferedImage(), null);
+                new Kernel(3, 3, kernel),
+                ConvolveOp.EDGE_ZERO_FILL,
+                null
+            ).filter(imgIn.getBufferedImage(), null);
         }
 
         for (int i = 0; i < imgIn.getWidth(); i++) {
