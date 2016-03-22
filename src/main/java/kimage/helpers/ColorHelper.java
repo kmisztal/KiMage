@@ -5,7 +5,25 @@ package kimage.helpers;
  */
 public enum ColorHelper {
 
-    RED(0), GREEN(1), BLUE(2);
+    RED(0) {
+        @Override
+        public int getColor(int val) {
+            return (val & 0x00FF0000) >>> 16;
+        }
+    },
+    GREEN(1) {
+        @Override
+        public int getColor(int val) {
+            return (val & 0x0000FF00) >>> 8;
+        }
+    },
+    BLUE(2) {
+        @Override
+        public int getColor(int val) {
+            return (val & 0x000000FF);
+        }
+    };
+
     private final int value;
 
     ColorHelper(int v) {
@@ -31,20 +49,11 @@ public enum ColorHelper {
     }
 
     public int getColor(int val) {
-        switch (this) {
-            case RED:
-                return (val & 0x00FF0000) >>> 16;
-            case GREEN:
-                return (val & 0x0000FF00) >>> 8;
-            case BLUE:
-                return (val & 0x000000FF);
-        }
-        throw new RuntimeException("Wrong using ");
+        throw new IllegalStateException("Wrong using ");
     }
 
     /**
      * Limits the color value between 0 and 255.
-     *
      * @param color - color to check
      * @return int - the color value
      */
