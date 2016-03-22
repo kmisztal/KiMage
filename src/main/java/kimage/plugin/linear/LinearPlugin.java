@@ -20,7 +20,7 @@ public abstract class LinearPlugin extends Plugin {
 
     private void linearProcess(Image imgIn, Image imgOut) {
         if (imgOut.getBufferedImage().getType() != BufferedImage.TYPE_INT_ARGB) {
-            throw new RuntimeException("Wrong output image color space");
+            throw new IllegalArgumentException("Wrong output image color space");
         }
 
         int[] rgbArray = new int[imgIn.getWidth() * imgIn.getHeight()];

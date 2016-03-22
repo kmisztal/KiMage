@@ -1,9 +1,8 @@
 package sample.use.gui;
 
+import java.awt.EventQueue;
 import kimage.image.Image;
 import kimage.utils.histogram.gui.HistogramGUI;
-
-import java.awt.*;
 
 /**
  * @author Krzysztof

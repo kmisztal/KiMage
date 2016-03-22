@@ -61,7 +61,7 @@ public class SimpleSmallestEllipse extends Plugin {
                     }
                 }
             }
-            final Graphics2D g2s = (Graphics2D) imgIn.getBufferedImage().createGraphics();
+            final Graphics2D g2s = imgIn.getBufferedImage().createGraphics();
             cvol = calc(shape);
             System.out.print(it++ + "\t" + cvol[0] / vol + "\t");
             final double x0 = cvol[1];
@@ -77,7 +77,7 @@ public class SimpleSmallestEllipse extends Plugin {
                         (int) Math.round(ewidth), (int) Math.round(eheight));
                 vol = cvol[0];
             } else {
-                EllipseDraw.fill((Graphics2D) imgOut.getBufferedImage().createGraphics(), new Color(50, 50, 50, 100), phi,
+                EllipseDraw.fill(imgOut.getBufferedImage().createGraphics(), new Color(50, 50, 50, 100), phi,
                         (int) Math.round(x0 - ewidth / 2.), (int) Math.round(y0 - eheight / 2.),
                         (int) Math.round(ewidth), (int) Math.round(eheight));
                 break;

@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class ConnectedComponent extends Plugin {
 
-    final int MAX_LABELS = 80000;
+    private static final int MAX_LABELS = 80000;
     int next_label = 1;
     private int[][] res;
 
@@ -51,11 +51,7 @@ public class ConnectedComponent extends Plugin {
     /**
      * label and re-arrange the labels to make the numbers of label continous
      *
-     * @param image
-     * @param w
-     * @param h
      * @param zeroAsBg Leaving label 0 untouched
-     * @return
      */
     public int[][] compactLabeling(int[][] image, int w, int h, boolean zeroAsBg) {
         //label first
@@ -92,8 +88,6 @@ public class ConnectedComponent extends Plugin {
     /**
      * return the max label in the labeling process. the range of labels is
      * [0..max_label]
-     *
-     * @return
      */
     public int getMaxLabel() {
         return next_label;
@@ -104,11 +98,7 @@ public class ConnectedComponent extends Plugin {
      * untouched; If not, label 0 may be reassigned [Requires] 0 is treated as
      * background
      *
-     * @param image    data
-     * @param w
-     * @param h
      * @param zeroAsBg label 0 is treated as background, so be ignored
-     * @return
      */
     public int[][] labeling(int[][] image, int w, int h, boolean zeroAsBg) {
         int[][] rst = new int[w][h];

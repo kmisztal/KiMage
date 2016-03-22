@@ -19,9 +19,7 @@ public class EpsH extends ShapeMeasurement {
         final double inv2 = Math.pow((n20 - n02), 2) + (4 * Math.pow(n11, 2));
 
         final double ellip = 1 / (2 * Math.pow(Math.PI, 2) *
-                (inv1 *
-                        Math.sqrt(4 * inv2 + 1 / Math.pow(Math.PI, 2)) -
-                        2 * inv2));
+            (inv1 * Math.sqrt(4 * inv2 + 1 / Math.pow(Math.PI, 2)) - 2 * inv2));
 
         setAttribute("ellipticity", round(ellip, 4));
 

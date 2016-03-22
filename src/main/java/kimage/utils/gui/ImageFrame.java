@@ -1,13 +1,13 @@
 package kimage.utils.gui;
 
-import kimage.image.Image;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.FilenameFilter;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import kimage.image.Image;
 
 /**
  * @author Krzysztof

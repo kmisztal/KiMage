@@ -1,9 +1,9 @@
 package kimage.plugins.thresholding;
 
+import java.awt.Color;
 import kimage.image.Image;
 import kimage.plugin.Plugin;
-
-import java.awt.*;
+import kimage.plugin.extras.Attributes;
 
 /**
  * @author Krzysztof
@@ -14,10 +14,10 @@ public class ImagePartByColor extends Plugin {
 
     @Override
     public void process(Image imgIn, Image imgOut) {
-        if (getAttribute("color") != null) {
-            color = (Color) getAttribute("color");
+        if (getAttribute(Attributes.COLOR) != null) {
+            color = (Color) getAttribute(Attributes.COLOR);
         } else {
-            setAttribute("size", color);
+            setAttribute(Attributes.SIZE, color);
         }
 
         final int col_v = color.getRGB();
@@ -30,7 +30,5 @@ public class ImagePartByColor extends Plugin {
                 }
             }
         }
-
     }
-
 }

@@ -4,20 +4,20 @@ package kimage.utils;
 //import java.time.temporal.ChronoUnit;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author Krzysztof
  */
 public class TimeExecution {
 
-    long startEvent;
-    long stopEvent;
-    long startJob;
-    long stopJob;
+    private long startEvent;
+    private long stopEvent;
+    private long startJob;
 
-    String currentName;
+    private String currentName;
 
-    LinkedHashMap<String, Long> timelist = new LinkedHashMap<>();
+    private final Map<String, Long> timelist = new LinkedHashMap<>();
 
     public void startEvent() {
         startEvent = System.currentTimeMillis();//Instant.now();
@@ -33,7 +33,7 @@ public class TimeExecution {
     }
 
     public void endJob(boolean print) {
-        stopJob = System.currentTimeMillis();
+        final long stopJob = System.currentTimeMillis();
         final long v = stopJob - startJob;//ChronoUnit.MILLIS.between(startJob, stopJob);
         timelist.put(currentName, v);
         System.out.println(currentName + " : " + v);

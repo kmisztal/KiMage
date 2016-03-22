@@ -318,15 +318,14 @@ final public class Matrix {
     // print matrix to standard output
     @Override
     public String toString() {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
-                ret += String.format("%15.4f ", data[i][j]);
+                ret.append(String.format("%15.4f ", data[i][j]));
             }
-            System.out.println();
-            ret += '\n';
+            ret.append("\n");
         }
-        return ret;
+        return ret.toString();
     }
 
     private boolean isSquare() {
@@ -385,19 +384,20 @@ final public class Matrix {
 
     public double[][] eig(boolean eigenvalues) {
         if (M == N && N == 2) {
-            final double a = data[0][0],
-                    b = data[0][1],
-                    c = data[1][0],
-                    d = data[1][1];
+            final double a = data[0][0];
+            final double b = data[0][1];
+            final double c = data[1][0];
+            final double d = data[1][1];
+            final double sqrt = sqrt(a * a + 4 * b * c - 2 * a * d + d * d);
             if (eigenvalues) {
                 return new double[][]{
-                        {(a + d - sqrt(a * a + 4 * b * c - 2 * a * d + d * d)) / 2.},
-                        {(a + d + sqrt(a * a + 4 * b * c - 2 * a * d + d * d)) / 2.}
+                    {(a + d - sqrt) / 2.},
+                    {(a + d + sqrt) / 2.}
                 };
             } else {
                 return new double[][]{
-                        {-(-a + d + sqrt(a * a + 4 * b * c - 2 * a * d + d * d)) / (2. * c), 1},
-                        {-(-a + d - sqrt(a * a + 4 * b * c - 2 * a * d + d * d)) / (2. * c), 1}
+                    {-(-a + d + sqrt) / (2. * c), 1},
+                    {-(-a + d - sqrt) / (2. * c), 1}
                 };
             }
         } else {

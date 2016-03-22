@@ -2,6 +2,7 @@ package kimage.plugins.morphology;
 
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.plugin.extras.Attributes;
 
 /**
  * (dodawanie, max)
@@ -15,30 +16,26 @@ public class Dilation extends Plugin {
     @Override
     public void process(Image imgIn, Image imgOut) {
 
-        if (getAttribute("size") != null) {
-            maskSize = (Integer) getAttribute("size");
+        if (getAttribute(Attributes.SIZE) != null) {
+            maskSize = (Integer) getAttribute(Attributes.SIZE);
         } else {
-            setAttribute("size", maskSize);
+            setAttribute(Attributes.SIZE, maskSize);
         }
 
         final int width = imgIn.getWidth();
         final int height = imgIn.getHeight();
         final int outputPixels[] = new int[width * height];
 
-        int xMin, xMax, yMin, yMax;
-
-        int newCol;
-
         /**
          * Median Filter operation
          */
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                xMin = x - maskSize;
-                xMax = x + maskSize;
-                yMin = y - maskSize;
-                yMax = y + maskSize;
-                newCol = 0;
+                int xMin = x - maskSize;
+                int xMax = x + maskSize;
+                int yMin = y - maskSize;
+                int yMax = y + maskSize;
+                int newCol = 0;
                 outer:
                 for (int r = yMin; r <= yMax; r++) {
                     for (int c = xMin; c <= xMax; c++) {

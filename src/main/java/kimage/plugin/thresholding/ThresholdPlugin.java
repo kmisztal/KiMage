@@ -1,11 +1,10 @@
 package kimage.plugin.thresholding;
 
-import kimage.image.Image;
-import kimage.plugin.Plugin;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import kimage.image.Image;
+import kimage.plugin.Plugin;
 
 /**
  * @author Krzysztof

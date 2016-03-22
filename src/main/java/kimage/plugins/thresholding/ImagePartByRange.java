@@ -2,6 +2,7 @@ package kimage.plugins.thresholding;
 
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.plugin.extras.Attributes;
 
 /**
  * @author Krzysztof
@@ -12,16 +13,16 @@ public class ImagePartByRange extends Plugin {
 
     @Override
     public void process(Image imgIn, Image imgOut) {
-        if (getAttribute("min") != null) {
-            min = (int) getAttribute("min");
+        if (getAttribute(Attributes.MIN) != null) {
+            min = (int) getAttribute(Attributes.MIN);
         } else {
-            setAttribute("min", min);
+            setAttribute(Attributes.MIN, min);
         }
 
-        if (getAttribute("max") != null) {
-            max = (int) getAttribute("max");
+        if (getAttribute(Attributes.MAX) != null) {
+            max = (int) getAttribute(Attributes.MAX);
         } else {
-            setAttribute("max", max);
+            setAttribute(Attributes.MAX, max);
         }
 
         for (int x = 0; x < imgIn.getWidth(); x++) {

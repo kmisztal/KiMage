@@ -1,14 +1,14 @@
 package kimage.image;
 
-import java.awt.*;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Krzysztof
  */
 public class BinaryImage extends Image {
-
 
     static {
         type = BufferedImage.TYPE_BYTE_BINARY;
@@ -24,8 +24,6 @@ public class BinaryImage extends Image {
 
     /**
      * Constructor using a image in memory
-     *
-     * @param img Image
      */
     public BinaryImage(BufferedImage img) {
         super(img);
@@ -44,8 +42,8 @@ public class BinaryImage extends Image {
         return new BinaryImage(filename);
     }
 
-    public ArrayList<Point> getForeground() {
-        ArrayList<Point> ret = new ArrayList<>();
+    public List<Point> getForeground() {
+        List<Point> ret = new ArrayList<>();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (image.getRGB(i, j) != -1) {
@@ -55,5 +53,4 @@ public class BinaryImage extends Image {
         }
         return ret;
     }
-
 }

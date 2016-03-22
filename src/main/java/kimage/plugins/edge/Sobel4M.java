@@ -7,10 +7,10 @@ import kimage.plugin.edge.EdgeDetectionPlugin;
  */
 public class Sobel4M extends EdgeDetectionPlugin {
 
-    public static final float[] m1 = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
-    public static final float[] m2 = {0, 1, 2, -1, 0, 1, -2, -1, 0};
-    public static final float[] m3 = {1, 2, 1, 0, 0, 0, -1, -2, -1};
-    public static final float[] m4 = {2, 1, 0, 1, 0, -1, 0, -1, -2};
+    private static final float[] m1 = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
+    private static final float[] m2 = {0, 1, 2, -1, 0, 1, -2, -1, 0};
+    private static final float[] m3 = {1, 2, 1, 0, 0, 0, -1, -2, -1};
+    private static final float[] m4 = {2, 1, 0, 1, 0, -1, 0, -1, -2};
 
 
     @Override

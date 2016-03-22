@@ -49,13 +49,12 @@ public abstract class Plugin {
     public String getInfo() {
         String ret = "<html><body><strong>Plugin:<br/></strong> " + getName() + "<br/>";
         if (!attributes.isEmpty()) {
-            ret += "<strong>Attributes:</strong><br/>";
-            ret += attributes.toString();
+            return ret + "<strong>Attributes:</strong><br/>" + attributes.toString();
         }
         return ret;
     }
 
-    public void checkImageType(Image image, ImageType cl) {
+    protected void checkImageType(Image image, ImageType cl) {
         if (!image.getClass().equals(cl.getClassType())) {
             throw new RuntimeException("Wrong image type for plugin " + this.getName());
         }

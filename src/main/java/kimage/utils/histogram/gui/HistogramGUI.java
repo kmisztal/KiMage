@@ -1,15 +1,12 @@
 package kimage.utils.histogram.gui;
 
-import kimage.image.Image;
-import kimage.utils.gui.LookAndFeel;
-import kimage.utils.gui.ResizableImagePanel;
-import kimage.utils.histogram.Histogram;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -20,6 +17,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import kimage.image.Image;
+import kimage.utils.gui.LookAndFeel;
+import kimage.utils.gui.ResizableImagePanel;
+import kimage.utils.histogram.Histogram;
 
 /**
  * @author Krzysztof
@@ -30,8 +40,6 @@ public class HistogramGUI extends JFrame {
 
     /**
      * Histogram with GUI for colorfull images
-     *
-     * @param image
      */
     public HistogramGUI(Image image) {
         this(image, false);
@@ -39,9 +47,6 @@ public class HistogramGUI extends JFrame {
 
     /**
      * Histogram for grayscale or colorfull image
-     *
-     * @param image
-     * @param grayscale
      */
     public HistogramGUI(Image image, boolean grayscale) {
         super("Histogram");
