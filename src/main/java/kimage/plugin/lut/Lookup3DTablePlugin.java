@@ -1,11 +1,10 @@
 package kimage.plugin.lut;
 
-import kimage.image.Image;
-import kimage.plugin.Plugin;
-
 import java.awt.image.BufferedImageOp;
 import java.awt.image.LookupOp;
 import java.awt.image.ShortLookupTable;
+import kimage.image.Image;
+import kimage.plugin.Plugin;
 
 /**
  * Lookup Table filter with different table for each channel
@@ -27,12 +26,10 @@ public abstract class Lookup3DTablePlugin extends Plugin {
     public void process(Image imgIn, Image imgOut) {
         createLUT();
         short[][] LUT = new short[][]{
-                red, green, blue
+            red, green, blue
         };
 
-        final BufferedImageOp bio
-                = new LookupOp(new ShortLookupTable(0, LUT), null);
+        final BufferedImageOp bio = new LookupOp(new ShortLookupTable(0, LUT), null);
         bio.filter(imgIn.getBufferedImage(), imgOut.getBufferedImage());
     }
-
 }

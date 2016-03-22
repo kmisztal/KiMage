@@ -18,8 +18,8 @@ public class OtsuThreshold extends ThresholdPlugin {
         }
 
         float sumB = 0;
-        int wB = 0,
-                wF;
+        int wB = 0;
+        int wF;
 
         float varMax = 0;
         int threshold = 0;

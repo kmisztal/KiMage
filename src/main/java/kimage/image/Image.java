@@ -1,13 +1,14 @@
 package kimage.image;
 
-import kimage.helpers.ColorHelper;
-import kimage.helpers.IOHelper;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import kimage.helpers.ColorHelper;
+import kimage.helpers.IOHelper;
 
 /**
  * <img src="doc-files/image.jpg" alt="None"> @author Krzysztof
@@ -25,17 +26,12 @@ public class Image extends AbstractImage {
 
     /**
      * default type is RGB
-     *
-     * @param width
-     * @param height
      */
     public Image(final int width, final int height) {
         this(width, height, type);
     }
 
     /**
-     * @param width
-     * @param height
      * @param imageType - type of image from BufferedImage
      */
     public Image(final int width, final int height, final int imageType) {
@@ -96,9 +92,6 @@ public class Image extends AbstractImage {
         return image.getType();
     }
 
-    /**
-     * @return
-     */
     @Override
     public Image copy() {
         try {

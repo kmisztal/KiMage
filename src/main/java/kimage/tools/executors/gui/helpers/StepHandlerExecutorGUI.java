@@ -1,17 +1,30 @@
 package kimage.tools.executors.gui.helpers;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FilenameFilter;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import kimage.image.Image;
 import kimage.plugin.Plugin;
 import kimage.utils.gui.EscapeClose;
 import kimage.utils.gui.LookAndFeel;
-
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FilenameFilter;
 
 //import javafx.util.Pair;
 
@@ -157,8 +170,8 @@ class IconCellRenderer extends DefaultListCellRenderer {
 
         if (c instanceof JLabel && value instanceof Pair) {
             Pair<Image, Plugin> pair = (Pair) value;
-            Image i = (Image) pair.getKey();
-            Plugin plugin = (Plugin) pair.getValue();
+            Image i = pair.getKey();
+            Plugin plugin = pair.getValue();
 
             JLabel l = (JLabel) c;
             l.setText(plugin.getName());

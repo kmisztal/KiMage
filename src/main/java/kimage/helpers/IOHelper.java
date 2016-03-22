@@ -1,10 +1,10 @@
 package kimage.helpers;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * @author Krzysztof
@@ -32,22 +32,23 @@ public class IOHelper {
     }
 
     private static BufferedImage convert(BufferedImage bi, int imageType) {
-        final BufferedImage bw = new BufferedImage(bi.getWidth(), bi.getHeight(), imageType);
-        final Graphics2D g = bw.createGraphics();
-        g.drawRenderedImage(bi, null);
-        g.dispose();
-        return bw;
+        final BufferedImage bufferedImage = new BufferedImage(bi.getWidth(), bi.getHeight(), imageType);
+        final Graphics2D graphics = bufferedImage.createGraphics();
+        graphics.drawRenderedImage(bi, null);
+        graphics.dispose();
+        return bufferedImage;
     }
 
     public static void save(String filePath, BufferedImage image) {
-        File l_file = new File(filePath);
+        File file = new File(filePath);
         try {
-            if (filePath.toUpperCase().endsWith(".JPEG") || filePath.toUpperCase().endsWith(".JPG")) {
-                ImageIO.write(image, "JPEG", l_file);
-            } else if (filePath.toUpperCase().endsWith(".PNG")) {
-                ImageIO.write(image, "PNG", l_file);
+            String filename = filePath.toUpperCase();
+            if (filename.endsWith(".JPEG") || filename.endsWith(".JPG")) {
+                ImageIO.write(image, "JPEG", file);
+            } else if (filename.endsWith(".PNG")) {
+                ImageIO.write(image, "PNG", file);
             } else {
-                ImageIO.write(image, filePath.substring(filePath.lastIndexOf('.') + 1), l_file);
+                ImageIO.write(image, filePath.substring(filePath.lastIndexOf('.') + 1), file);
             }
         } catch (Exception e) {
         }

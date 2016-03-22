@@ -3,6 +3,7 @@ package kimage.plugins.noise;
 import kimage.helpers.ColorHelper;
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.plugin.extras.Attributes;
 
 /**
  * @author Krzysztof
@@ -20,10 +21,10 @@ public class Gaussian extends Plugin {
             setAttribute("p", p);
         }
 
-        if (getAttribute("sigma") != null) {
-            sigma = (Double) getAttribute("sigma");
+        if (getAttribute(Attributes.SIGMA) != null) {
+            sigma = (Double) getAttribute(Attributes.SIGMA);
         } else {
-            setAttribute("sigma", sigma);
+            setAttribute(Attributes.SIGMA, sigma);
         }
 
         final int width = imgIn.getWidth();

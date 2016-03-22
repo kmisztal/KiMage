@@ -1,10 +1,8 @@
 package kimage.tools.executors.gui.helpers;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,6 +13,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * @author Krzysztof
@@ -134,12 +140,6 @@ public class ResizableImagePanel extends JPanel {
 
     /**
      * Calculate the scale required to correctly fit the image into panel
-     *
-     * @param panelWidth
-     * @param panelHeight
-     * @param imageWidth
-     * @param imageHeight
-     * @return
      */
     protected double getScale(final int panelWidth, final int panelHeight, final int imageWidth, final int imageHeight) {
         final double xScale = (double) panelWidth / imageWidth;

@@ -1,16 +1,25 @@
 package kimage.plugin.extras;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Point;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author Krzysztof
  */
 public class Attributes {
 
-    protected final LinkedHashMap<String, Object> hashAttributes;
+    public static final String SIZE = "size";
+    public static final String SIGMA = "sigma";
+    public static final String COLOR = "color";
+    public static final String THRESHOLDS = "thresholds";
+    public static final String LEVELS = "levels";
+    public static final String MIN = "min";
+    public static final String MAX = "max";
+
+    protected final Map<String, Object> hashAttributes;
 
     /**
      * Constructor
@@ -83,18 +92,13 @@ public class Attributes {
 
     /**
      * returns an array containing the attrbiute values
-     *
-     * @return
      */
     public Object[] getValues() {
-        Object o[] = hashAttributes.entrySet().toArray(new Object[0]);
-        return o;
+        return hashAttributes.entrySet().toArray(new Object[0]);
     }
 
     /**
      * Clones a MarvinAttributes Object.
-     *
-     * @return
      */
     @Override
     public Attributes clone() {
@@ -112,32 +116,28 @@ public class Attributes {
 
     @Override
     public String toString() {
-        String ret = "";
-        Iterator<String> keySetIterator = hashAttributes.keySet().iterator();
+        StringBuilder ret = new StringBuilder();
 
-        while (keySetIterator.hasNext()) {
-            String key = keySetIterator.next();
-            ret += key + " : ";
+        for (String key : hashAttributes.keySet()) {
+            ret.append(key).append(" : ");
             Object o = hashAttributes.get(key);
             if (o instanceof Number) {
-                ret += o + "\n";
+                ret.append(o).append("\n");
             } else if (o instanceof Point) {
                 final Point p = (Point) o;
-                ret += "[" + p.getX() + ";" + p.getY() + "]\n";
+                ret.append("[").append(p.getX()).append(";").append(p.getY()).append("]\n");
             } else if (o instanceof Color) {
-                ret += o + "\n";
+                ret.append(o).append("\n");
             } else if (o instanceof int[]) {
-                ret += Arrays.toString((int[]) o);
+                ret.append(Arrays.toString((int[]) o));
             } else if (o instanceof int[][]) {
-                ret += "2D array\n";
+                ret.append("2D array\n");
             } else {
-//                System.err.println("Not supported type of attribute : " + key);
-                ret += "" + o + "\n";
+                //                System.err.println("Not supported type of attribute : " + key);
+                ret.append(o).append("\n");
             }
         }
 
-        return ret;
+        return ret.toString();
     }
-
-
 }

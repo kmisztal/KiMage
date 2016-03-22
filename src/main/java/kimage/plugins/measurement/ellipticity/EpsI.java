@@ -10,7 +10,7 @@ public class EpsI extends ShapeMeasurement {
 
     @Override
     public void process(Image imgIn, Image imgOut) {
-        double ellip = 0;
+        double ellip;
         final double m20 = getCentralMoment(2, 0, imgIn);
         final double m02 = getCentralMoment(0, 2, imgIn);
         final double m11 = getCentralMoment(1, 1, imgIn);
@@ -20,10 +20,11 @@ public class EpsI extends ShapeMeasurement {
 
         final double value = 16 * Math.pow(Math.PI, 2);
 
-        if (invariant <= 1 / value)
+        if (invariant <= 1 / value) {
             ellip = value * invariant;
-        else
+        } else {
             ellip = 1 / (value * invariant);
+        }
 
         setAttribute("ellipticity", round(ellip, 4));
     }

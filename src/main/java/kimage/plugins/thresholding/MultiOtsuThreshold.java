@@ -2,19 +2,20 @@ package kimage.plugins.thresholding;
 
 import kimage.image.Image;
 import kimage.plugin.Plugin;
+import kimage.plugin.extras.Attributes;
 
 /**
  * @author Krzysztof
  */
 public class MultiOtsuThreshold extends Plugin {
 
-    static final int NGRAY = 256;
+    private static final int NGRAY = 256;
     private int MLEVEL = 3;
 
     @Override
     public void process(Image imgIn, Image imgOut) {
-        if (getAttribute("levels") != null) {
-            MLEVEL = (int) getAttribute("levels");
+        if (getAttribute(Attributes.LEVELS) != null) {
+            MLEVEL = (int) getAttribute(Attributes.LEVELS);
         }
         if (MLEVEL > 5 || MLEVEL < 2) {
             System.err.println(this.getClass().getName() + ": ERROR: Wrong threshold number, should be 2, 3, 4 or 5");
@@ -44,11 +45,9 @@ public class MultiOtsuThreshold extends Plugin {
         ret[0] = 0;
         ret[ret.length - 1] = 256;
 
-        for (int i = 1; i < MLEVEL; ++i) {
-            ret[i] = threshold[i];
-        }
+        System.arraycopy(threshold, 1, ret, 1, MLEVEL - 1);
 
-        setAttribute("thresholds", ret);
+        setAttribute(Attributes.THRESHOLDS, ret);
 
         ///////////////////////////////////////////////////////////////
         // show regions works for any MLEVEL
@@ -57,8 +56,8 @@ public class MultiOtsuThreshold extends Plugin {
     }
 
     public int[] getLevels() {
-        if (getAttribute("thresholds") != null) {
-            return (int[]) getAttribute("thresholds");
+        if (getAttribute(Attributes.THRESHOLDS) != null) {
+            return (int[]) getAttribute(Attributes.THRESHOLDS);
         }
         return null;
     }

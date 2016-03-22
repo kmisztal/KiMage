@@ -1,11 +1,10 @@
 package kimage.image;
 
-import kimage.helpers.ColorHelper;
-import kimage.helpers.IOHelper;
-
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import kimage.helpers.ColorHelper;
+import kimage.helpers.IOHelper;
 
 class BIProxy {
 
@@ -76,9 +75,6 @@ public class ImageForThreads extends Image {
         fillWithColor(c);
     }
 
-    /**
-     * @return
-     */
     @Override
     public Image copy() {
         throw new RuntimeException("You are CRAZY !!!");

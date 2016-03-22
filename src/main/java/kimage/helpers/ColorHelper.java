@@ -8,7 +8,7 @@ public enum ColorHelper {
     RED(0), GREEN(1), BLUE(2);
     private final int value;
 
-    private ColorHelper(int v) {
+    ColorHelper(int v) {
         value = v;
     }
 
