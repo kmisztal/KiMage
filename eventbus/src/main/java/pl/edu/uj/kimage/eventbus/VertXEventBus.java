@@ -1,13 +1,15 @@
 package pl.edu.uj.kimage.eventbus;
 
+import io.vertx.core.Vertx;
+
 public class VertXEventBus implements EventBus {
 
     private final io.vertx.core.eventbus.EventBus eventBus;
     private final MessageTranslator messageTranslator;
 
-    public VertXEventBus(io.vertx.core.eventbus.EventBus eventBus, MessageTranslator messageTranslator) {
-        this.eventBus = eventBus;
-        this.messageTranslator = messageTranslator;
+    public VertXEventBus() {
+        this.eventBus = Vertx.vertx().eventBus();
+        this.messageTranslator = new MessageTranslator();
     }
 
     @Override
