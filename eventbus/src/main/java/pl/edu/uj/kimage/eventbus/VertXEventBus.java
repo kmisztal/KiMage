@@ -42,7 +42,7 @@ public class VertXEventBus implements EventBus {
                 });
     }
 
-    private String toTopicName(Class eventClass) {
-        return eventClass.getCanonicalName();
+    private String toTopicName(Class messageClass) {
+        return messageClass.getCanonicalName();
     }
 }
