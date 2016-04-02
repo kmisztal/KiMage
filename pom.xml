@@ -10,7 +10,7 @@
     <modules>
         <module>sample-use</module>
         <module>imageprocessor</module>
-        <module>EventBus</module>
+        <module>eventbus</module>
     </modules>
     <packaging>pom</packaging>
 
