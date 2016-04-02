@@ -35,10 +35,14 @@ public class VertXEventBus implements EventBus {
 
     @Override
     public void registerCommandHandler(Class<? extends Command> commandClass, CommandHandler commandHandler) {
-        registerEventListener(commandClass, (EventListener) commandHandler);
+        eventBus.consumer(toTopicName(commandClass))
+                .handler(objectMessage -> {
+                    Command command = messageTranslator.deserialize(commandClass, (String) objectMessage.body());
+                    commandHandler.receive(command);
+                });
     }
 
-    private String toTopicName(Class<? extends Event> eventClass) {
+    private String toTopicName(Class eventClass) {
         return eventClass.getCanonicalName();
     }
 }
