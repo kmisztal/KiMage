@@ -7,9 +7,9 @@ public class VertXEventBus implements EventBus {
     private final io.vertx.core.eventbus.EventBus eventBus;
     private final MessageTranslator messageTranslator;
 
-    public VertXEventBus() {
+    public VertXEventBus(MessageTranslator messageTranslator) {
         this.eventBus = Vertx.vertx().eventBus();
-        this.messageTranslator = new MessageTranslator();
+        this.messageTranslator = messageTranslator;
     }
 
     @Override

@@ -5,8 +5,8 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class MessageTranslatorTest {
-    private final MessageTranslator messageTranslator = new MessageTranslator();
+public abstract class MessageTranslatorTest {
+    protected MessageTranslator messageTranslator;
 
     @Test
     public void shouldDeSerializeEventWithContent() throws Exception {

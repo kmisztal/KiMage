@@ -6,6 +6,6 @@ public class VertXEventBusTest extends AbstractEventBusTest {
     @Before
     @Override
     public void setUp(){
-        eventBus = new VertXEventBus();
+        eventBus = new VertXEventBus(new JsonMessageTranslator());
     }
 }
