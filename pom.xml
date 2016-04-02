@@ -7,7 +7,11 @@
     <groupId>kimage</groupId>
     <artifactId>kimage</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>sample-use</module>
+        <module>imageprocessor</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>KiMage</name>
     <url>http://http://kimage.info/</url>
