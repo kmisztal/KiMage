@@ -34,8 +34,8 @@ public class VertXEventBus implements EventBus {
     }
 
     @Override
-    public void registerCommandHandler(Class<? extends Command> commandClass, CommandListener commandListener) {
-        registerEventListener(commandClass, (EventListener) commandListener);
+    public void registerCommandHandler(Class<? extends Command> commandClass, CommandHandler commandHandler) {
+        registerEventListener(commandClass, (EventListener) commandHandler);
     }
 
     private String toTopicName(Class<? extends Event> eventClass) {
