@@ -1,6 +1,8 @@
 package pl.edu.uj.kimage.api;
 
-public class StepDependency {
+import java.io.Serializable;
+
+public class StepDependency  implements Serializable {
     private final int dependentStepNumber;
     private final String objectType;
 

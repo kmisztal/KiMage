@@ -1,8 +1,10 @@
 package pl.edu.uj.kimage.api;
 
+import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
-public class Step {
+public class Step  implements Serializable {
     private final int number;
     private final String pluginName;
     private final List<StepDependency> dependencies;
@@ -10,7 +12,7 @@ public class Step {
     public Step(int number, String pluginName, List<StepDependency> dependencies) {
         this.number = number;
         this.pluginName = pluginName;
-        this.dependencies = dependencies;
+        this.dependencies = Collections.unmodifiableList(dependencies);
     }
 
     public int getNumber() {
