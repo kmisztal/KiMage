@@ -7,9 +7,9 @@ public class VertXEventBus implements EventBus {
     private final io.vertx.core.eventbus.EventBus eventBus;
     private final MessageTranslator messageTranslator;
 
-    public VertXEventBus() {
+    public VertXEventBus(MessageTranslator messageTranslator) {
         this.eventBus = Vertx.vertx().eventBus();
-        this.messageTranslator = new MessageTranslator();
+        this.messageTranslator = messageTranslator;
     }
 
     @Override
@@ -35,10 +35,14 @@ public class VertXEventBus implements EventBus {
 
     @Override
     public void registerCommandHandler(Class<? extends Command> commandClass, CommandHandler commandHandler) {
-        registerEventListener(commandClass, (EventListener) commandHandler);
+        eventBus.consumer(toTopicName(commandClass))
+                .handler(objectMessage -> {
+                    Command command = messageTranslator.deserialize(commandClass, (String) objectMessage.body());
+                    commandHandler.receive(command);
+                });
     }
 
-    private String toTopicName(Class<? extends Event> eventClass) {
-        return eventClass.getCanonicalName();
+    private String toTopicName(Class messageClass) {
+        return messageClass.getCanonicalName();
     }
 }
