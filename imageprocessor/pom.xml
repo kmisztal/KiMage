@@ -10,16 +10,33 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>imageprocessor</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>imageprocessor-core</module>
+        <module>imageprocessor-api</module>
+    </modules>
 
     <dependencies>
         <dependency>
             <groupId>kimage</groupId>
             <artifactId>eventbus</artifactId>
         </dependency>
-        <dependency>
-            <groupId>kimage</groupId>
-            <artifactId>imageprocessor-api</artifactId>
-        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>kimage</groupId>
+                <artifactId>imageprocessor-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>kimage</groupId>
+                <artifactId>imageprocessor-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
