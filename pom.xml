@@ -11,6 +11,7 @@
         <module>sample-use</module>
         <module>imageprocessor</module>
         <module>eventbus</module>
+        <module>kimage-legacy</module>
     </modules>
     <packaging>pom</packaging>
 
