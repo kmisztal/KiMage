@@ -11,5 +11,15 @@
 
     <artifactId>imageprocessor</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>eventbus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>imageprocessor-api</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -30,6 +30,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>kimage</groupId>
+                <artifactId>eventbus</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>kimage</groupId>
+                <artifactId>imageprocessor-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
