@@ -1,14 +1,22 @@
 package pl.edu.uj.kimage.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 public class StepDependency  implements Serializable {
     private final int dependentStepNumber;
     private final String objectType;
 
-    public StepDependency(int dependentStepNumber, String objectType) {
+    @JsonCreator
+    public StepDependency(@JsonProperty("dependentStepNumber") int dependentStepNumber, @JsonProperty("objectType") String objectType) {
         this.dependentStepNumber = dependentStepNumber;
         this.objectType = objectType;
+    }
+
+    public StepDependency(int dependentStepNumber, Class aClass) {
+        this(dependentStepNumber, aClass.getName());
     }
 
     public int getDependentStepNumber() {

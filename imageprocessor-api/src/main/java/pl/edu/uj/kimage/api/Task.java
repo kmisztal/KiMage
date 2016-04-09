@@ -1,14 +1,18 @@
 package pl.edu.uj.kimage.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class Task  implements Serializable {
+public class Task implements Serializable {
     private final byte[] data;
     private final List<Step> processingSchedule;
 
-    public Task(byte[] data, List<Step> processingSchedule) {
+    @JsonCreator
+    public Task(@JsonProperty("data") byte[] data, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
         this.data = data;
         this.processingSchedule = processingSchedule;
     }

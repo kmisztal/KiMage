@@ -1,5 +1,8 @@
 package pl.edu.uj.kimage.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -7,7 +10,8 @@ import java.util.List;
 public class ProcessingSchedule implements Serializable {
     private final List<Step> processingSchedule;
 
-    public ProcessingSchedule(List<Step> processingSchedule) {
+    @JsonCreator
+    public ProcessingSchedule(@JsonProperty("processingSchedule") List<Step> processingSchedule) {
         this.processingSchedule = Collections.unmodifiableList(processingSchedule);
     }
 

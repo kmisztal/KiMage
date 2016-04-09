@@ -1,5 +1,8 @@
 package pl.edu.uj.kimage.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +12,8 @@ public class Step  implements Serializable {
     private final String pluginName;
     private final List<StepDependency> dependencies;
 
-    public Step(int number, String pluginName, List<StepDependency> dependencies) {
+    @JsonCreator
+    public Step(@JsonProperty("number") int number, @JsonProperty("pluginName") String pluginName, @JsonProperty("dependencies") List<StepDependency> dependencies) {
         this.number = number;
         this.pluginName = pluginName;
         this.dependencies = Collections.unmodifiableList(dependencies);
