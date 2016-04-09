@@ -1,11 +1,11 @@
 package pl.edu.uj.sample.use.executors;
 
-import pl.edu.uj.kimage.plugins.color.Grayscale;
-import pl.edu.uj.kimage.plugins.color.Invert;
-import pl.edu.uj.kimage.plugins.color.SepiaI;
-import pl.edu.uj.kimage.tools.executors.Executor;
-import pl.edu.uj.kimage.tools.executors.quick.QuickExecutor;
-import pl.edu.uj.kimage.utils.gui.ImageFrame;
+import pl.edu.uj.kimage.legacy.plugins.color.Grayscale;
+import pl.edu.uj.kimage.legacy.plugins.color.Invert;
+import pl.edu.uj.kimage.legacy.plugins.color.SepiaI;
+import pl.edu.uj.kimage.legacy.tools.executors.Executor;
+import pl.edu.uj.kimage.legacy.tools.executors.quick.QuickExecutor;
+import pl.edu.uj.kimage.legacy.utils.gui.ImageFrame;
 
 
 /**

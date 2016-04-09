@@ -12,6 +12,7 @@
         <module>imageprocessor</module>
         <module>eventbus</module>
         <module>imageprocessor-api</module>
+        <module>kimage-legacy</module>
     </modules>
     <packaging>pom</packaging>
 
