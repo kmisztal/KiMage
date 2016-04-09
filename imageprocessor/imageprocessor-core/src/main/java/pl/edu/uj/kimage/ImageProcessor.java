@@ -1,4 +1,4 @@
-package pl.edu.uj.kimage.imageProcessor;
+package pl.edu.uj.kimage;
 
 import pl.edu.uj.kimage.api.ProcessingSchedule;
 

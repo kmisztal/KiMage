@@ -1,42 +1,24 @@
 package pl.edu.uj.kimage.processingFlow;
 
-import pl.edu.uj.kimage.Plugin;
 import pl.edu.uj.kimage.eventbus.Event;
+import pl.edu.uj.kimage.eventbus.EventBus;
 
-public class FlowStep {
+public abstract class FlowStep {
     private final int stepId;
-    private final Plugin stepRelatedPlugin;
+    private final EventBus eventBus;
 
-    public FlowStep(int stepId, Plugin stepRelatedPlugin) {
+    public FlowStep(int stepId, EventBus eventBus) {
         this.stepId = stepId;
-        this.stepRelatedPlugin = stepRelatedPlugin;
+        this.eventBus = eventBus;
     }
 
     public int getStepId() {
         return stepId;
     }
 
-    public void processEvent(Event event)
-    {
-        stepRelatedPlugin.processEvent(event);
+    protected EventBus getEventBus() {
+        return eventBus;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        FlowStep flowStep = (FlowStep) o;
-
-        if (stepId != flowStep.stepId) return false;
-        return stepRelatedPlugin != null ? stepRelatedPlugin.getClass().equals(flowStep.stepRelatedPlugin.getClass()) : flowStep.stepRelatedPlugin == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = stepId;
-        result = 31 * result + (stepRelatedPlugin != null ? stepRelatedPlugin.getClass().hashCode() : 0);
-        return result;
-    }
+    public abstract void processEvent(Event event);
 }

@@ -15,7 +15,7 @@ public class FlowStepRepository {
         return flowSteps.get(stepId);
     }
 
-    public Collection<FlowStep> loadAllHigherThen(int stepId){
+    public Collection<FlowStep> loadAllLaterThen(int stepId){
         return flowSteps.tailMap(stepId).values();
     }
 }

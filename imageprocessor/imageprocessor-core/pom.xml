@@ -8,6 +8,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
 
     <artifactId>imageprocessor-core</artifactId>
 
@@ -15,6 +16,10 @@
         <dependency>
             <groupId>kimage</groupId>
             <artifactId>imageprocessor-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>eventbus</artifactId>
         </dependency>
     </dependencies>
 

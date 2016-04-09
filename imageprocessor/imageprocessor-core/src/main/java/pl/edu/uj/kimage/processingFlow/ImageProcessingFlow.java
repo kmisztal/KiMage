@@ -1,5 +1,6 @@
 package pl.edu.uj.kimage.processingFlow;
 
+import pl.edu.uj.kimage.Image;
 import pl.edu.uj.kimage.eventbus.Event;
 
 import java.util.Collection;
@@ -9,7 +10,7 @@ public class ImageProcessingFlow {
     private final FlowStepRepository flowStepRepository;
     private AtomicInteger currentStep;
 
-    //TODO add processing mechanism
+    //TODO add processing mechanism, event bus
 
     public ImageProcessingFlow(FlowStepRepository flowStepRepository) {
         this.flowStepRepository = flowStepRepository;
@@ -17,8 +18,14 @@ public class ImageProcessingFlow {
     }
 
     public void processEvent(Event event){
-        Collection<FlowStep> notProcessedSteps = flowStepRepository.loadAllHigherThen(currentStep.get());
+        Collection<FlowStep> notProcessedSteps = flowStepRepository.loadAllLaterThen(currentStep.get());
         notProcessedSteps.forEach(e->e.processEvent(event));
+    }
+
+    public void start(Image image)
+    {
+        StepResultEvent<Integer> integerStepResultEvent = new StepResultEvent<>(0, 1);
+
     }
 
 }
