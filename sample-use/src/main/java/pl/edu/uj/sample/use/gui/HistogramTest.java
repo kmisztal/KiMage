@@ -1,7 +1,7 @@
 package pl.edu.uj.sample.use.gui;
 
-import pl.edu.uj.kimage.image.Image;
-import pl.edu.uj.kimage.utils.histogram.gui.HistogramGUI;
+import pl.edu.uj.kimage.legacy.image.Image;
+import pl.edu.uj.kimage.legacy.utils.histogram.gui.HistogramGUI;
 
 import java.awt.*;
 

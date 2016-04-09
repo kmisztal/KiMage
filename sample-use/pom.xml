@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>kimage</groupId>
-            <artifactId>imageprocessor</artifactId>
+            <artifactId>kimage-legacy</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

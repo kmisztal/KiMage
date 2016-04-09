@@ -5,8 +5,8 @@
  */
 package pl.edu.uj.sample.use.gui;
 
-import pl.edu.uj.kimage.image.Image;
-import pl.edu.uj.kimage.utils.gui.ImageFrame;
+import pl.edu.uj.kimage.legacy.image.Image;
+import pl.edu.uj.kimage.legacy.utils.gui.ImageFrame;
 
 /**
  * @author Krzysztof

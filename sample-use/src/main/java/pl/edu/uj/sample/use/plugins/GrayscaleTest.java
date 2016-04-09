@@ -1,9 +1,9 @@
 package pl.edu.uj.sample.use.plugins;
 
-import pl.edu.uj.kimage.plugins.color.Grayscale;
-import pl.edu.uj.kimage.plugins.thresholding.OtsuThreshold;
-import pl.edu.uj.kimage.tools.executors.Executor;
-import pl.edu.uj.kimage.tools.executors.gui.StepHandlerExecutor;
+import pl.edu.uj.kimage.legacy.plugins.color.Grayscale;
+import pl.edu.uj.kimage.legacy.plugins.thresholding.OtsuThreshold;
+import pl.edu.uj.kimage.legacy.tools.executors.Executor;
+import pl.edu.uj.kimage.legacy.tools.executors.gui.StepHandlerExecutor;
 
 /**
  * @author Krzysztof
