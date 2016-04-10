@@ -2,24 +2,48 @@ package pl.edu.uj.kimage.processingFlow;
 
 import pl.edu.uj.kimage.eventbus.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestEventBus implements EventBus {
+    private final List<Event> publishedEvents = new ArrayList<>();
+    private final List<Command> postedCommands = new ArrayList<>();
+    private final List<EventListener> registeredEventListeners  = new ArrayList<>();
+    private final List<CommandHandler> registeredCommandListeners = new ArrayList<>();
+
     @Override
     public void publish(Event event) {
-        //TODO this is not finished
+        publishedEvents.add(event);
     }
 
     @Override
     public void post(Command command) {
-        //TODO this is not finished
+        postedCommands.add(command);
     }
 
     @Override
-    public void registerEventListener(Class<? extends Event> eventClass, EventListener<Event> eventListener) {
-        //TODO this is not finished
+    public <T extends Event> void registerEventListener(Class<T> eventClass, EventListener<T> eventListener) {
+        registeredEventListeners.add(eventListener);
     }
 
     @Override
-    public void registerCommandHandler(Class<? extends Command> eventClass, CommandHandler<Command> commandHandler) {
-        //TODO this is not finished
+    public <T extends Command> void registerCommandHandler(Class<T> eventClass, CommandHandler<T> commandHandler) {
+        registeredCommandListeners.add(commandHandler);
+    }
+
+    public List<Event> getPublishedEvents() {
+        return publishedEvents;
+    }
+
+    public List<Command> getPostedCommands() {
+        return postedCommands;
+    }
+
+    public List<EventListener> getRegisteredEventListeners() {
+        return registeredEventListeners;
+    }
+
+    public List<CommandHandler> getRegisteredCommandListeners() {
+        return registeredCommandListeners;
     }
 }

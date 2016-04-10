@@ -1,24 +1,25 @@
 package pl.edu.uj.kimage.plugin;
 
+import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.eventbus.Event;
 import pl.edu.uj.kimage.eventbus.EventBus;
 
 public abstract class FlowStep {
-    private final int stepId;
+    private final Step step;
     private final EventBus eventBus;
 
-    public FlowStep(int stepId, EventBus eventBus) {
-        this.stepId = stepId;
+    public FlowStep(Step step, EventBus eventBus) {
+        this.step = step;
         this.eventBus = eventBus;
     }
 
     public int getStepId() {
-        return stepId;
+        return step.getNumber();
     }
 
     protected EventBus getEventBus() {
         return eventBus;
     }
 
-    public abstract void processEvent(Event event);
+    public abstract void processEvent(FlowEvent event);
 }
