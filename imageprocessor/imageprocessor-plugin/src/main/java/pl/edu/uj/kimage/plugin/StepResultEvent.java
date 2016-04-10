@@ -1,4 +1,4 @@
-package pl.edu.uj.kimage.processingFlow;
+package pl.edu.uj.kimage.plugin;
 
 import pl.edu.uj.kimage.eventbus.Event;
 
