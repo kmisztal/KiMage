@@ -14,12 +14,12 @@ public class TestEventBus implements EventBus {
     }
 
     @Override
-    public void registerEventListener(Class<? extends Event> eventClass, EventListener eventListener) {
+    public void registerEventListener(Class<? extends Event> eventClass, EventListener<Event> eventListener) {
         //TODO this is not finished
     }
 
     @Override
-    public void registerCommandHandler(Class<? extends Command> eventClass, CommandHandler commandHandler) {
+    public void registerCommandHandler(Class<? extends Command> eventClass, CommandHandler<Command> commandHandler) {
         //TODO this is not finished
     }
 }
