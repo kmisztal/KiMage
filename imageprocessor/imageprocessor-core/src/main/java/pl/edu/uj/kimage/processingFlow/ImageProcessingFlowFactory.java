@@ -7,6 +7,9 @@ import pl.edu.uj.kimage.eventbus.EventBus;
 import pl.edu.uj.kimage.plugin.FlowStep;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class ImageProcessingFlowFactory {
 
     public ImageProcessingFlow create(PluginManifestRepository manifestRepository, EventBus eventBus, ProcessingSchedule processingSchedule) {
@@ -17,6 +20,7 @@ public class ImageProcessingFlowFactory {
             flowStepRepository.saveFlowStep(flowStep);
         }
         int flowLength = processingSchedule.getProcessingSchedule().size();
-        return new ImageProcessingFlow(flowStepRepository, eventBus, flowLength);
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);      //TODO read thread count per flow from properties
+        return new ImageProcessingFlow(flowStepRepository, eventBus, flowLength, fixedThreadPool);
     }
 }
