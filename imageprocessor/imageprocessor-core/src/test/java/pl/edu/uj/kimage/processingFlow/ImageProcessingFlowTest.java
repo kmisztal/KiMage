@@ -5,9 +5,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import pl.edu.uj.kimage.Image;
 import pl.edu.uj.kimage.PluginManifestRepository;
-import pl.edu.uj.kimage.api.ProcessingSchedule;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
+import pl.edu.uj.kimage.api.Task;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 import pl.edu.uj.kimage.plugin.StepResultEvent;
 
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ImageProcessingFlowTest {
 
     public static final String PLUGIN_NAME = "pluginName";
-    public static final PluginManifest PLUGIN_MANIFEST = new PluginManifest(PLUGIN_NAME,TestFlowStep.class, new TestFlowStepFactory());
+    public static final PluginManifest PLUGIN_MANIFEST = new PluginManifest(PLUGIN_NAME, TestFlowStep.class, new TestFlowStepFactory());
     public TestEventBus eventBus;
     private PluginManifestRepository manifestRepository;
 
@@ -34,8 +34,8 @@ public class ImageProcessingFlowTest {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
         Step step = new Step(0, PLUGIN_NAME, Arrays.asList(new StepDependency(0, Image.class)));
-        ProcessingSchedule processingSchedule = new ProcessingSchedule(Arrays.asList(step));
-        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, processingSchedule);
+        Task task = new Task("".getBytes(), Arrays.asList(step));
+        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
         Image image = new Image();
         //When
         imageProcessingFlow.start(image);
@@ -51,8 +51,8 @@ public class ImageProcessingFlowTest {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
         Step step = new Step(0, PLUGIN_NAME, Arrays.asList(new StepDependency(0, Image.class)));
-        ProcessingSchedule processingSchedule = new ProcessingSchedule(Arrays.asList(step));
-        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, processingSchedule);
+        Task task = new Task("".getBytes(), Arrays.asList(step));
+        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
         Image image = new Image();
         //When
         imageProcessingFlow.start(image);

@@ -14,9 +14,9 @@ public class ApiTest {
     @Test
     public void shouldCorrectlySerializeApiClasses() throws JsonProcessingException {
         //Given
-        StepDependency stepDependency = new StepDependency(0,Object.class);
-        Step step = new Step(0,"pluginName", Arrays.asList(stepDependency));
-        ProcessingSchedule processingSchedule = new ProcessingSchedule(Arrays.asList(step));
+        StepDependency stepDependency = new StepDependency(0, Object.class);
+        Step step = new Step(0, "pluginName", Arrays.asList(stepDependency));
+        Task processingSchedule = new Task("".getBytes(), Arrays.asList(step));
         ObjectMapper objectMapper = new ObjectMapper();
         //When
         String valueAsString = objectMapper.writeValueAsString(processingSchedule);
@@ -26,13 +26,13 @@ public class ApiTest {
 
     @Test
     public void shouldCorrectlyDeserializeApiClasses() throws IOException {
-        StepDependency stepDependency = new StepDependency(0,Object.class);
-        Step step = new Step(0,"pluginName", Arrays.asList(stepDependency));
-        ProcessingSchedule processingSchedule = new ProcessingSchedule(Arrays.asList(step));
+        StepDependency stepDependency = new StepDependency(0, Object.class);
+        Step step = new Step(0, "pluginName", Arrays.asList(stepDependency));
+        Task processingSchedule = new Task("".getBytes(), Arrays.asList(step));
         ObjectMapper objectMapper = new ObjectMapper();
         String valueAsString = objectMapper.writeValueAsString(processingSchedule);
         //When
-        ProcessingSchedule readValue = objectMapper.readValue(valueAsString, ProcessingSchedule.class);
+        Task readValue = objectMapper.readValue(valueAsString, Task.class);
         //Then
         assertThat(readValue).isEqualTo(processingSchedule);
     }
