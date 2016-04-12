@@ -9,7 +9,8 @@ import pl.edu.uj.kimage.plugin.StepResultEvent;
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 
-public class ImageProcessingFlow {
+public final class ImageProcessingFlow {
+    public static final int START_STEP_ID = 0;
     private final FlowStepRepository flowStepRepository;
     private final EventBus eventBus;
     private final int flowLength;
@@ -24,13 +25,13 @@ public class ImageProcessingFlow {
 
     public void start(Image image) {
         registerFlowToEventBus();
-        StepResultEvent<Image> integerStepResultEvent = new StepResultEvent<>(0, image);
+        StepResultEvent<Image> integerStepResultEvent = new StepResultEvent<>(START_STEP_ID, image);
         eventBus.publish(integerStepResultEvent);
     }
 
-    private void processEvent(FlowEvent event) {
+    private void process(FlowEvent event) {
         Collection<FlowStep> notProcessedSteps = flowStepRepository.loadAll();
-        notProcessedSteps.forEach(e -> executorService.submit(() -> e.processEvent(event)));
+        notProcessedSteps.forEach(e -> executorService.submit(() -> e.process(event)));
     }
 
     private void registerFlowToEventBus() {
@@ -38,7 +39,7 @@ public class ImageProcessingFlow {
             if (event.getStepId() == flowLength) {
                 handleProcessingFinished(event);
             } else {
-                processEvent(event);
+                process(event);
             }
         }));
     }

@@ -13,14 +13,6 @@ public class FlowStepRepository {
         flowSteps.put(flowStep.getStepId(), flowStep);
     }
 
-    public FlowStep load(int stepId) {
-        return flowSteps.get(stepId);
-    }
-
-    public Collection<FlowStep> loadAllLaterThen(int stepId){
-        return flowSteps.tailMap(stepId).values();
-    }
-
     public Collection<FlowStep> loadAll(){
         return flowSteps.values();
     }

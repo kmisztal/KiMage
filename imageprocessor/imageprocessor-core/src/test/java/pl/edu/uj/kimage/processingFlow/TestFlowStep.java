@@ -16,7 +16,7 @@ public class TestFlowStep extends FlowStep {
     }
 
     @Override
-    public void processEvent(FlowEvent event) {
+    public void process(FlowEvent event) {
         getEventBus().publish(new StepResultEvent<>(event.getStepId()+1, TEST_RESULT));
     }
 }

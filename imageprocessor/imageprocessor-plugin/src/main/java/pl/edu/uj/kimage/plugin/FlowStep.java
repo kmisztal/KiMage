@@ -1,7 +1,6 @@
 package pl.edu.uj.kimage.plugin;
 
 import pl.edu.uj.kimage.api.Step;
-import pl.edu.uj.kimage.eventbus.Event;
 import pl.edu.uj.kimage.eventbus.EventBus;
 
 public abstract class FlowStep {
@@ -21,5 +20,5 @@ public abstract class FlowStep {
         return eventBus;
     }
 
-    public abstract void processEvent(FlowEvent event);
+    public abstract void process(FlowEvent event);
 }

@@ -1,5 +1,5 @@
 package pl.edu.uj.kimage;
 
 public class Image {
-    //TODO this is not finished
+    //TODO class responsible for storing image data
 }
