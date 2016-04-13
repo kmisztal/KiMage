@@ -3,8 +3,6 @@ package pl.edu.uj.kimage.processingFlow;
 import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.Task;
-import pl.edu.uj.kimage.configuration.PropertiesReader;
-import pl.edu.uj.kimage.configuration.PropertyName;
 import pl.edu.uj.kimage.eventbus.EventBus;
 import pl.edu.uj.kimage.plugin.FlowStep;
 import pl.edu.uj.kimage.plugin.PluginManifest;
@@ -22,8 +20,7 @@ public class ImageProcessingFlowFactory {
             flowStepRepository.saveFlowStep(flowStep);
         }
         int flowLength = task.getProcessingSchedule().size();
-        int nThreads = PropertiesReader.readInt(PropertyName.NUMBER_OF_THREADS);
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(nThreads);
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);      //TODO read thread count per flow from properties
         return new ImageProcessingFlow(flowStepRepository, eventBus, flowLength, fixedThreadPool);
     }
 }
