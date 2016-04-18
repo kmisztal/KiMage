@@ -1,29 +1,23 @@
 package pl.edu.uj.kimage;
 
-//only for RGBA
-public class Image {
-    private int[] data;
-    final private int width;
-    final private int height;
+public final class Image {
+    private final Color[] data;
+    private final int width;
+    private final int height;
 
     public Image() {
         width = height = 0;
         data = null;
     }
 
-    public Image(final int width, final int height) {
+    public Image(final int width, final int height, final Color[] data) {
+        if(data.length != width * height) {
+            throw new IllegalArgumentException("Size of image does not match with input color data size.");
+        }
+
         this.width = width;
         this.height = height;
-        data = new int[width * height * 4];
-        setVisible();
-    }
-
-    private void setVisible() {
-        for(int i=0; i<width; i++) {
-            for(int j=0; j<height; j++) {
-                setAlpha(i, j, 255);
-            }
-        }
+        this.data = data;
     }
 
     public int getWidth() {
@@ -34,70 +28,45 @@ public class Image {
         return height;
     }
 
-    public int[] getRGBA(final int x, final int y) {
-        checkCoordinates(x, y);
-        return new int[]{getRed(x, y), getGreen(x, y), getBlue(x, y), getAlpha(x, y)};
+    public Color[] getData() {
+        return data;
     }
 
-    public void setRGBA(final int x, final int y, final int r, final int g, final int b, final int a) {
-        checkCoordinates(x, y);
-        setRed(x, y, r);
-        setGreen(x, y, g);
-        setBlue(x, y, b);
-        setAlpha(x, y, a);
+    public Color getRGB(final int x, final int y) {
+        isWithinDimensions(x, y);
+        Color color = data[getPixelIndex(x, y)];
+        return new Color(color.getRed(), color.getGreen(), color.getBlue());
     }
 
-    public int[] getRGB(final int x, final int y) {
-        checkCoordinates(x, y);
-        return new int[]{getRed(x, y), getGreen(x, y), getBlue(x, y)};
-    }
-
-    public void setRGB(final int x, final int y, final int r, final int g, final int b) {
-        checkCoordinates(x, y);
-        setRed(x, y, r);
-        setGreen(x, y, g);
-        setBlue(x, y, b);
+    public Color getRGBA(final int x, final int y) {
+        isWithinDimensions(x, y);
+        Color color = data[getPixelIndex(x, y)];
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
     }
 
     public int getRed(final int x, final int y) {
-        return data[getPixelBeginning(x, y)];
+        return data[getPixelIndex(x, y)].getRed();
     }
 
     public int getGreen(final int x, final int y) {
-        return data[getPixelBeginning(x, y) + 1];
+        return data[getPixelIndex(x, y)].getGreen();
     }
 
     public int getBlue(final int x, final int y) {
-        return data[getPixelBeginning(x, y) + 2];
+        return data[getPixelIndex(x, y)].getBlue();
     }
 
     public int getAlpha(final int x, final int y) {
-        return data[getPixelBeginning(x, y) + 3];
+        return data[getPixelIndex(x, y)].getAlpha();
     }
 
-    public void setRed(final int x, final int y, final int value) {
-        data[getPixelBeginning(x, y)] = Math.max(0, Math.min(value, 255));
+    private int getPixelIndex(final int x, final int y) {
+        return y * width + x;
     }
 
-    public void setGreen(final int x, final int y, final int value) {
-        data[getPixelBeginning(x, y) + 1] = Math.max(0, Math.min(value, 255));
-    }
-
-    public void setBlue(final int x, final int y, final int value) {
-        data[getPixelBeginning(x, y) + 2] = Math.max(0, Math.min(value, 255));
-    }
-
-    public void setAlpha(final int x, final int y, final int value) {
-        data[getPixelBeginning(x, y) + 3] = Math.max(0, Math.min(value, 255));
-    }
-
-    private void checkCoordinates(final int x, final int y) {
+    private void isWithinDimensions(final int x, final int y) {
         if( ( x < 0 || x >= width ) || (y < 0 || y >= height) ) {
-            throw new RuntimeException("Wrong image pixel coordinates: " + x + " " + y);
+            throw new IllegalArgumentException("Wrong image pixel coordinates: " + x + " " + y);
         }
-    }
-
-    private int getPixelBeginning(final int x, final int y) {
-        return width * y * 4 + x * 4;
     }
 }
