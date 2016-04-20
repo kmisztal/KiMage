@@ -16,9 +16,20 @@ public abstract class FlowStep {
         return step.getNumber();
     }
 
-    protected EventBus getEventBus() {
-        return eventBus;
-    }
+    /**
+     * called by flow processor in order to pass occurring event
+     * @param event flow event
+     */
 
-    public abstract void process(FlowEvent event);
+    public abstract void process(StepResultEvent event);
+
+    /**
+     * Used by plugin in order to publish calculation results to event bus
+     *
+     * @param stepResultEvent event plugin wants to publish
+     */
+    protected void publish(StepResultEvent stepResultEvent){
+        stepResultEvent.setFlowStepId(step.getNumber());
+        eventBus.publish(stepResultEvent);
+    }
 }

@@ -1,37 +1,15 @@
 package pl.edu.uj.kimage.plugin;
 
-public class StepResultEvent<T> extends FlowEvent {
-    private final T result;
+import pl.edu.uj.kimage.eventbus.Event;
 
-    public StepResultEvent(int stepId, T result) {
-        super(stepId);
-        this.result = result;
+public abstract class StepResultEvent implements Event{
+    private int stepId;
+
+    public int getStepId() {
+        return stepId;
     }
 
-    public Class<?> resultClass() {
-        return result.getClass();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        StepResultEvent<?> that = (StepResultEvent<?>) o;
-
-        return result != null ? result.equals(that.result) : that.result == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return result != null ? result.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "StepResultEvent{" +
-                "result=" + result +
-                '}';
+    void setFlowStepId(int stepId){
+        this.stepId = stepId;
     }
 }

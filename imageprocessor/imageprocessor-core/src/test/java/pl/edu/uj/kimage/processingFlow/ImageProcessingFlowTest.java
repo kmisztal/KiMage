@@ -1,15 +1,16 @@
 package pl.edu.uj.kimage.processingFlow;
 
+import org.assertj.core.api.Condition;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import pl.edu.uj.kimage.Image;
 import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
 import pl.edu.uj.kimage.api.Task;
+import pl.edu.uj.kimage.plugin.Image;
+import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.PluginManifest;
-import pl.edu.uj.kimage.plugin.StepResultEvent;
 
 import java.util.Arrays;
 
@@ -40,14 +41,13 @@ public class ImageProcessingFlowTest {
         //When
         imageProcessingFlow.start(image);
         //Then
-        assertThat(eventBus.getPublishedEvents()).startsWith(new StepResultEvent<>(0, image));
+        assertThat((ImageLoaded) eventBus.getPublishedEvents().get(0)).is(new Condition<>(e -> e.getStepId() == 0 && e.getLoadedImage() == image, "Is message loaded"));
     }
 
     //TODO add test for processing finish
-
     @Test
     @Ignore
-    public void shoudlFinishProcessing() {
+    public void shouldFinishProcessing() throws InterruptedException {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
         Step step = new Step(0, PLUGIN_NAME, Arrays.asList(new StepDependency(0, Image.class)));
@@ -57,6 +57,6 @@ public class ImageProcessingFlowTest {
         //When
         imageProcessingFlow.start(image);
         //Then
-        assertThat(eventBus.getPublishedEvents()).endsWith(new StepResultEvent<>(1, TestFlowStep.TEST_RESULT));
+        assertThat((TestEvent) eventBus.getPublishedEvents().get(1)).is(new Condition<>(e -> e.getStepId() == 1 && e.getResult() == TestFlowStep.RESULT, "Step id correct and has expected result"));
     }
 }

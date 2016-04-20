@@ -1,9 +1,9 @@
 package pl.edu.uj.kimage.processingFlow;
 
-import pl.edu.uj.kimage.Image;
-import pl.edu.uj.kimage.eventbus.EventBus;
-import pl.edu.uj.kimage.plugin.FlowEvent;
 import pl.edu.uj.kimage.plugin.FlowStep;
+import pl.edu.uj.kimage.plugin.Image;
+import pl.edu.uj.kimage.eventbus.EventBus;
+import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.StepResultEvent;
 
 import java.util.Collection;
@@ -25,11 +25,11 @@ public final class ImageProcessingFlow {
 
     public void start(Image image) {
         registerFlowToEventBus();
-        StepResultEvent<Image> integerStepResultEvent = new StepResultEvent<>(START_STEP_ID, image);
-        eventBus.publish(integerStepResultEvent);
+        StepResultEvent stepResultEvent = new ImageLoaded(START_STEP_ID, image);
+        eventBus.publish(stepResultEvent);
     }
 
-    private void process(FlowEvent event) {
+    private void process(StepResultEvent event) {
         Collection<FlowStep> notProcessedSteps = flowStepRepository.loadAll();
         notProcessedSteps.forEach(e -> executorService.submit(() -> e.process(event)));
     }
