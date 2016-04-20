@@ -11,5 +11,11 @@
 
     <artifactId>imageprocessor-client</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>imageprocessor-api</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
