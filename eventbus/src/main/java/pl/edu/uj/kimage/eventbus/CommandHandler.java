@@ -1,5 +1,5 @@
 package pl.edu.uj.kimage.eventbus;
 
-public interface CommandHandler {
-    void receive(Command command);
+public interface CommandHandler<T extends Command> {
+    void receive(T command);
 }
