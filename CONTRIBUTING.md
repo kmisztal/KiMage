@@ -38,3 +38,4 @@ KiMage follows standard Java coding conventions with the additional rules descri
 * Unit tests should cover the maximum possible amount of code. Remember about edge-case tests.
 * Do not use `null`, optional objects keep in `Optional` wrapper.
 * Each interface and abstract class needs [Javadoc](http://www.oracle.com/technetwork/articles/java/index-137868.html).
+* Do not use code marked by `@Deprecated` or located in `legacy` package
