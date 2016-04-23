@@ -9,6 +9,10 @@ public final class Color {
 
     private final int red, green, blue, alpha;
 
+    public Color(final int gray) {
+        this(gray, gray, gray, maxColorValue);
+    }
+
     public Color(final int red, final int green, final int blue) {
         this(red, green, blue, maxColorValue);
     }
