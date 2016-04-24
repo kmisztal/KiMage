@@ -5,11 +5,6 @@ public final class Image {
     private final int width;
     private final int height;
 
-    public Image() {
-        width = height = 0;
-        data = null;
-    }
-
     public Image(final int width, final int height, final Color[] data) {
         if (data.length != width * height) {
             throw new IllegalArgumentException("Size of image does not match with input color data size. " +
