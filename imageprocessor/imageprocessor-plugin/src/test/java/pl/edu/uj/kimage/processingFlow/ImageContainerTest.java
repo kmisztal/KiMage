@@ -1,8 +1,8 @@
 package pl.edu.uj.kimage.processingFlow;
 
 import org.junit.Test;
-import pl.edu.uj.kimage.Color;
-import pl.edu.uj.kimage.Image;
+import pl.edu.uj.kimage.plugin.Color;
+import pl.edu.uj.kimage.plugin.Image;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -58,7 +58,7 @@ public class ImageContainerTest {
         Color red = new Color(255, 0, 0);
         Color[] colors = new Color[]{red, red, red, red};
 
-        Image image = new Image(imageWidth, imageHeight, colors);
+        new Image(imageWidth, imageHeight, colors);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -69,6 +69,6 @@ public class ImageContainerTest {
         Color[] colors = new Color[]{red, red, red, red};
 
         Image image = new Image(imageWidth, imageHeight, colors);
-        Color returnedColor = image.getColor(xPixelPos, yPixelPos);
+        image.getColor(xPixelPos, yPixelPos);
     }
 }

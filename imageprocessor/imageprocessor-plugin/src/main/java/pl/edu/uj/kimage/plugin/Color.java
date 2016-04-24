@@ -1,4 +1,4 @@
-package pl.edu.uj.kimage;
+package pl.edu.uj.kimage.plugin;
 
 public final class Color {
     public static final int minColorValue = 0;
