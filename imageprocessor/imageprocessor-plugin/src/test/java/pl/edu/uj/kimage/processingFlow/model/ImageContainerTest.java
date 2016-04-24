@@ -1,8 +1,8 @@
-package pl.edu.uj.kimage.processingFlow;
+package pl.edu.uj.kimage.processingFlow.model;
 
 import org.junit.Test;
-import pl.edu.uj.kimage.plugin.Color;
-import pl.edu.uj.kimage.plugin.Image;
+import pl.edu.uj.kimage.plugin.model.Color;
+import pl.edu.uj.kimage.plugin.model.Image;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

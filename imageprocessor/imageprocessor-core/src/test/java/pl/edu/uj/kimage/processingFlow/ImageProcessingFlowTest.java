@@ -8,9 +8,9 @@ import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
 import pl.edu.uj.kimage.api.Task;
-import pl.edu.uj.kimage.plugin.Image;
 import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.PluginManifest;
+import pl.edu.uj.kimage.plugin.model.Image;
 
 import java.util.Arrays;
 
