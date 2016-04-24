@@ -6,6 +6,10 @@ public final class Image {
     private final int height;
 
     public Image(final int width, final int height, final Color[] data) {
+        if (data == null) {
+            throw new IllegalArgumentException("Color data cannot be null");
+        }
+
         if (data.length != width * height) {
             throw new IllegalArgumentException("Size of image does not match with input color data size. " +
                     "Expected = " + data.length + " Actual = " + width * height);
