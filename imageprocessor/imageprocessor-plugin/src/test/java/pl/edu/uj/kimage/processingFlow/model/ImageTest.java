@@ -103,7 +103,7 @@ public class ImageTest {
     @Test
     public void throwsExceptionWhenColorDataIsNull() {
         // expect
-        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expect(NullPointerException.class);
         expectedException.expectMessage("Color data cannot be null");
 
         // when
