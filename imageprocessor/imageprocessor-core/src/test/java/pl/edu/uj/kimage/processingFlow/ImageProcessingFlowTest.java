@@ -8,7 +8,7 @@ import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
 import pl.edu.uj.kimage.api.Task;
-import pl.edu.uj.kimage.plugin.ImageLoaded;
+import pl.edu.uj.kimage.plugin.ImageResultEvent;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 import pl.edu.uj.kimage.plugin.model.Color;
 import pl.edu.uj.kimage.plugin.model.Image;
@@ -41,14 +41,14 @@ public class ImageProcessingFlowTest {
     public void shouldStartProcessingFlow() {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
-        Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(ImageProcessingFlow.START_STEP_ID, Image.class)));
+        Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(INITIAL_STEP_NUMBER, Image.class)));
         Task task = new Task("".getBytes(), Arrays.asList(step));
         ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
         //When
         imageProcessingFlow.start(image);
         //Then
-        assertThat((ImageLoaded) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepId() == INITIAL_STEP_NUMBER &&
-                e.getLoadedImage() == image, "Is message loaded"));
+        assertThat((ImageResultEvent) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepNumber()
+                == INITIAL_STEP_NUMBER && e.getLoadedImage() == image, "Is message loaded"));
     }
 
     //TODO add test for processing finish
@@ -63,6 +63,6 @@ public class ImageProcessingFlowTest {
         //When
         imageProcessingFlow.start(image);
         //Then
-        assertThat((TestEvent) eventBus.getPublishedEvents().get(1)).is(new Condition<>(e -> e.getStepId() == 1 && e.getResult() == TestFlowStep.RESULT, "Step id correct and has expected result"));
+        assertThat((TestEvent) eventBus.getPublishedEvents().get(1)).is(new Condition<>(e -> e.getStepNumber() == 1 && e.getResult() == TestFlowStep.RESULT, "Step id correct and has expected result"));
     }
 }

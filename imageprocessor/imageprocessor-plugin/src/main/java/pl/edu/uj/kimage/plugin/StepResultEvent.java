@@ -3,13 +3,13 @@ package pl.edu.uj.kimage.plugin;
 import pl.edu.uj.kimage.eventbus.Event;
 
 public abstract class StepResultEvent implements Event{
-    private int stepId;
+    private int stepNumber;
 
-    public int getStepId() {
-        return stepId;
+    public int getStepNumber() {
+        return stepNumber;
     }
 
     void setFlowStepId(int stepId){
-        this.stepId = stepId;
+        this.stepNumber = stepId;
     }
 }
