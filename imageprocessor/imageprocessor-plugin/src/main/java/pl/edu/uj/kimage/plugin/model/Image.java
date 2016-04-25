@@ -1,4 +1,6 @@
-package pl.edu.uj.kimage;
+package pl.edu.uj.kimage.plugin.model;
+
+import java.util.Objects;
 
 public final class Image {
     private final Color[] data;
@@ -6,6 +8,8 @@ public final class Image {
     private final int height;
 
     public Image(final int width, final int height, final Color[] data) {
+        Objects.requireNonNull(data, "Color data cannot be null");
+
         if (data.length != width * height) {
             throw new IllegalArgumentException("Size of image does not match with input color data size. " +
                     "Expected = " + data.length + " Actual = " + width * height);

@@ -1,20 +1,20 @@
-package pl.edu.uj.kimage;
+package pl.edu.uj.kimage.plugin.model;
 
 public final class Color {
-    public static final int minColorValue = 0;
-    public static final int maxColorValue = 255;
+    public static final int MIN_COLOR_CHANNEL_VALUE = 0;
+    public static final int MAX_COLOR_CHANNEL_VALUE = 255;
 
-    public static final Color white = new Color(255, 255, 255);
-    public static final Color black = new Color(0, 0, 0);
+    public static final Color WHITE = new Color(255, 255, 255);
+    public static final Color BLACK = new Color(0, 0, 0);
 
     private final int red, green, blue, alpha;
 
     public Color(final int gray) {
-        this(gray, gray, gray, maxColorValue);
+        this(gray, gray, gray, MAX_COLOR_CHANNEL_VALUE);
     }
 
     public Color(final int red, final int green, final int blue) {
-        this(red, green, blue, maxColorValue);
+        this(red, green, blue, MAX_COLOR_CHANNEL_VALUE);
     }
 
     public Color(final int red, final int green, final int blue, final int alpha) {
@@ -41,6 +41,6 @@ public final class Color {
     }
 
     private int clamp(final int value) {
-        return Math.max(minColorValue, Math.min(value, maxColorValue));
+        return Math.max(MIN_COLOR_CHANNEL_VALUE, Math.min(value, MAX_COLOR_CHANNEL_VALUE));
     }
 }
