@@ -12,6 +12,7 @@ import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 import pl.edu.uj.kimage.plugin.model.Color;
 import pl.edu.uj.kimage.plugin.model.Image;
+import pl.edu.uj.kimage.plugin.model.ImageBuilder;
 
 import java.util.Arrays;
 
@@ -21,6 +22,8 @@ public class ImageProcessingFlowTest {
 
     private static final int FIRST_EVENT = 0;
     private static final int ONE_PIXEL = 1;
+    private static final int PIXEL_X = 0;
+    private static final int PIXEL_Y = 0;
     private static final String PLUGIN_NAME = "pluginName";
     private static final PluginManifest PLUGIN_MANIFEST = new PluginManifest(PLUGIN_NAME, TestFlowStep.class, new
             TestFlowStepFactory());
@@ -34,7 +37,8 @@ public class ImageProcessingFlowTest {
         eventBus = new TestEventBus();
         manifestRepository = new PluginManifestRepository();
         manifestRepository.save(PLUGIN_MANIFEST);
-        image = new Image(ONE_PIXEL, ONE_PIXEL, new Color[]{Color.BLACK});
+        ImageBuilder imageBuilder = new ImageBuilder(ONE_PIXEL, ONE_PIXEL).withColor(Color.BLACK, PIXEL_X, PIXEL_Y);
+        image = imageBuilder.build();
     }
 
     @Test
