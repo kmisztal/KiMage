@@ -21,7 +21,15 @@ public final class Image {
     }
 
     public Color getColor(final int x, final int y) {
+        isWithinDimensions(x, y);
         int index = y * width + x;
         return data[index];
+    }
+
+    private void isWithinDimensions(final int x, final int y) {
+        if ((x < 0 || x >= width) || (y < 0 || y >= height)) {
+            throw new IllegalArgumentException("Wrong image pixel coordinates. " +
+                    "X should be between " + 0 + " and " + width + ". Y should be between " + 0 + " and " + height);
+        }
     }
 }
