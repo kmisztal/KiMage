@@ -4,21 +4,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 public class Task implements Serializable {
-    private final byte[] data;
+    private final ImageData imageData;
     private final List<Step> processingSchedule;
 
     @JsonCreator
-    public Task(@JsonProperty("data") byte[] data, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
-        this.data = data;
+    public Task(@JsonProperty("imageData") ImageData imageData, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
+        this.imageData = imageData;
         this.processingSchedule = processingSchedule;
     }
 
-    public byte[] getData() {
-        return data;
+    public ImageData getImageData() {
+        return imageData;
     }
 
     public List<Step> getProcessingSchedule() {
@@ -32,14 +31,14 @@ public class Task implements Serializable {
 
         Task task = (Task) o;
 
-        if (!Arrays.equals(data, task.data)) return false;
+        if (imageData != null ? !imageData.equals(task.imageData) : task.imageData != null) return false;
         return processingSchedule != null ? processingSchedule.equals(task.processingSchedule) : task.processingSchedule == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = Arrays.hashCode(data);
+        int result = imageData != null ? imageData.hashCode() : 0;
         result = 31 * result + (processingSchedule != null ? processingSchedule.hashCode() : 0);
         return result;
     }
