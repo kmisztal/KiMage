@@ -1,10 +1,8 @@
-package pl.edu.uj.kimage.processingFlow.model;
+package pl.edu.uj.kimage.plugin.model;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import pl.edu.uj.kimage.plugin.model.Color;
-import pl.edu.uj.kimage.plugin.model.Image;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,46 +65,5 @@ public class ImageTest {
         assertThat(returnedColor.getRed()).isEqualTo(BLUE.getRed());
         assertThat(returnedColor.getGreen()).isEqualTo(BLUE.getGreen());
         assertThat(returnedColor.getBlue()).isEqualTo(BLUE.getBlue());
-    }
-
-    @Test
-    public void imageSizeDoesNotMatchInputSize() {
-        // given
-        Color[] colors = new Color[]{RED, RED, RED, RED};
-
-        // expect
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Size of image does not match with input color data size. Expected = 4 Actual = 1");
-
-        // when
-        new Image(IMAGE_MIN_WIDTH, IMAGE_MIN_HEIGHT, colors);
-    }
-
-    @Test
-    public void wrongImagePixelCoordinates() {
-        // given
-        int imageWidth = 2;
-        int imageHeight = 2;
-        int xPixel = 2;
-        int yPixel = 1;
-        Color[] colors = new Color[]{RED, RED, RED, RED};
-
-        // expect
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Wrong image pixel coordinates. X should be between 0 and 2. Y should be between 0 and 2");
-
-        // when
-        Image image = new Image(imageWidth, imageHeight, colors);
-        image.getColor(xPixel, yPixel);
-    }
-
-    @Test
-    public void throwsExceptionWhenColorDataIsNull() {
-        // expect
-        expectedException.expect(NullPointerException.class);
-        expectedException.expectMessage("Color data cannot be null");
-
-        // when
-        new Image(1, 1, null);
     }
 }
