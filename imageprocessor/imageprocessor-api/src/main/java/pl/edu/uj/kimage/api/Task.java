@@ -8,11 +8,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Task implements Serializable {
+    private final String taskId;
     private final byte[] data;
     private final List<Step> processingSchedule;
 
     @JsonCreator
-    public Task(@JsonProperty("data") byte[] data, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
+    public Task(@JsonProperty("taskId") String taskId, @JsonProperty("data") byte[] data, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
+        this.taskId = taskId;
         this.data = data;
         this.processingSchedule = processingSchedule;
     }
@@ -25,6 +27,10 @@ public class Task implements Serializable {
         return processingSchedule;
     }
 
+    public String getTaskId() {
+        return taskId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,6 +38,7 @@ public class Task implements Serializable {
 
         Task task = (Task) o;
 
+        if (taskId != null ? !taskId.equals(task.taskId) : task.taskId != null) return false;
         if (!Arrays.equals(data, task.data)) return false;
         return processingSchedule != null ? processingSchedule.equals(task.processingSchedule) : task.processingSchedule == null;
 
@@ -39,7 +46,8 @@ public class Task implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = Arrays.hashCode(data);
+        int result = taskId != null ? taskId.hashCode() : 0;
+        result = 31 * result + Arrays.hashCode(data);
         result = 31 * result + (processingSchedule != null ? processingSchedule.hashCode() : 0);
         return result;
     }

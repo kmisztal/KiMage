@@ -21,6 +21,6 @@ public class ImageProcessingFlowFactory {
         }
         int flowLength = task.getProcessingSchedule().size();
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);      //TODO read thread count per flow from properties
-        return new ImageProcessingFlow(flowStepRepository, eventBus, flowLength, fixedThreadPool);
+        return new ImageProcessingFlow(flowStepRepository, eventBus, task.getTaskId(), flowLength, fixedThreadPool);
     }
 }

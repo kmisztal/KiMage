@@ -35,7 +35,7 @@ public class ImageProcessingFlowTest {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
         Step step = new Step(0, PLUGIN_NAME, Arrays.asList(new StepDependency(ImageProcessingFlow.START_STEP_ID, Image.class)));
-        Task task = new Task("".getBytes(), Arrays.asList(step));
+        Task task = new Task("1", "".getBytes(), Arrays.asList(step));
         ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
         Image image = new Image();
         //When
@@ -51,7 +51,7 @@ public class ImageProcessingFlowTest {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
         Step step = new Step(0, PLUGIN_NAME, Arrays.asList(new StepDependency(0, Image.class)));
-        Task task = new Task("".getBytes(), Arrays.asList(step));
+        Task task = new Task("1", "".getBytes(), Arrays.asList(step));
         ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
         Image image = new Image();
         //When

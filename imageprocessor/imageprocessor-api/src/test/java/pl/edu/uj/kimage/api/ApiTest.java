@@ -16,7 +16,7 @@ public class ApiTest {
         //Given
         StepDependency stepDependency = new StepDependency(0, Object.class);
         Step step = new Step(0, "pluginName", Arrays.asList(stepDependency));
-        Task processingSchedule = new Task("".getBytes(), Arrays.asList(step));
+        Task processingSchedule = new Task("1", "".getBytes(), Arrays.asList(step));
         ObjectMapper objectMapper = new ObjectMapper();
         //When
         String valueAsString = objectMapper.writeValueAsString(processingSchedule);
@@ -28,7 +28,7 @@ public class ApiTest {
     public void shouldCorrectlyDeserializeApiClasses() throws IOException {
         StepDependency stepDependency = new StepDependency(0, Object.class);
         Step step = new Step(0, "pluginName", Arrays.asList(stepDependency));
-        Task processingSchedule = new Task("".getBytes(), Arrays.asList(step));
+        Task processingSchedule = new Task("2", "".getBytes(), Arrays.asList(step));
         ObjectMapper objectMapper = new ObjectMapper();
         String valueAsString = objectMapper.writeValueAsString(processingSchedule);
         //When
