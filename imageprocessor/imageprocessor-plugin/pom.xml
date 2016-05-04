@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>kimage</groupId>
-            <artifactId>eventbus</artifactId>
+            <artifactId>eventbus-api</artifactId>
         </dependency>
         <dependency>
             <groupId>kimage</groupId>
