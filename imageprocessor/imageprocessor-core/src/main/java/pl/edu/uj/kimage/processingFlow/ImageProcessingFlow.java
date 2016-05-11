@@ -1,10 +1,10 @@
 package pl.edu.uj.kimage.processingFlow;
 
-import pl.edu.uj.kimage.plugin.FlowStep;
-import pl.edu.uj.kimage.plugin.Image;
 import pl.edu.uj.kimage.eventbus.EventBus;
+import pl.edu.uj.kimage.plugin.FlowStep;
 import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.StepResultEvent;
+import pl.edu.uj.kimage.plugin.model.Image;
 
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;

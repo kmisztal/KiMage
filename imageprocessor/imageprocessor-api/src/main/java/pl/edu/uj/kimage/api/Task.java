@@ -4,23 +4,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 public class Task implements Serializable {
+    private final ImageData imageData;
     private final String taskId;
-    private final byte[] data;
     private final List<Step> processingSchedule;
 
     @JsonCreator
-    public Task(@JsonProperty("taskId") String taskId, @JsonProperty("data") byte[] data, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
+    public Task(@JsonProperty("taskId") String taskId, @JsonProperty("imageData") ImageData imageData, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
         this.taskId = taskId;
-        this.data = data;
+        this.imageData = imageData;
         this.processingSchedule = processingSchedule;
     }
 
-    public byte[] getData() {
-        return data;
+    public ImageData getImageData() {
+        return imageData;
     }
 
     public List<Step> getProcessingSchedule() {
@@ -37,9 +36,8 @@ public class Task implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         Task task = (Task) o;
-
         if (taskId != null ? !taskId.equals(task.taskId) : task.taskId != null) return false;
-        if (!Arrays.equals(data, task.data)) return false;
+        if (imageData != null ? !imageData.equals(task.imageData) : task.imageData != null) return false;
         return processingSchedule != null ? processingSchedule.equals(task.processingSchedule) : task.processingSchedule == null;
 
     }
@@ -47,7 +45,7 @@ public class Task implements Serializable {
     @Override
     public int hashCode() {
         int result = taskId != null ? taskId.hashCode() : 0;
-        result = 31 * result + Arrays.hashCode(data);
+        result = 31 * result + (imageData != null ? imageData.hashCode() : 0);
         result = 31 * result + (processingSchedule != null ? processingSchedule.hashCode() : 0);
         return result;
     }
