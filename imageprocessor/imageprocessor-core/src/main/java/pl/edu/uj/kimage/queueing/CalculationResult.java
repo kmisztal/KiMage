@@ -1,11 +1,11 @@
 package pl.edu.uj.kimage.queueing;
 
-public class CalculationResult {
+public class CalculationResult<T> {
     private final String taskId;
-    private final Object result;
+    private final T result;
     private final Class resultClass;
 
-    public <T>CalculationResult(String taskId, T result, Class<T> resultClass) {
+    public CalculationResult(String taskId, T result, Class<T> resultClass) {
         this.taskId = taskId;
         this.result = result;
         this.resultClass = resultClass;
