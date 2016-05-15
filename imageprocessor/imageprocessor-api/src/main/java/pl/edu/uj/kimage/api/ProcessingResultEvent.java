@@ -1,21 +1,27 @@
 package pl.edu.uj.kimage.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+public class ProcessingResultEvent<T> {
+    private final Class<T> resultType;
+    private final T data;
 
-public class ProcessingResultEvent {
-    private final String resultType;
-    private final byte[] data;
-
-    public ProcessingResultEvent(@JsonProperty("resultType") String resultType, @JsonProperty("data") byte[] data) {
+    public ProcessingResultEvent(Class<T> resultType, T data) {
         this.resultType = resultType;
         this.data = data;
     }
 
-    public String getResultType() {
+    public Class<T> getResultType() {
         return resultType;
     }
 
-    public byte[] getData() {
+    public T getData() {
         return data;
+    }
+
+    @Override
+    public String toString() {
+        return "ProcessingResultEvent{" +
+                "resultType=" + resultType +
+                ", data=" + data +
+                '}';
     }
 }
