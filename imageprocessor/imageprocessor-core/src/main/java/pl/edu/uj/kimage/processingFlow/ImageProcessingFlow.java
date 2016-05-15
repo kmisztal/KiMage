@@ -15,12 +15,14 @@ public final class ImageProcessingFlow {
     private final EventBus eventBus;
     private final int flowLength;
     private final ExecutorService executorService;
+    private final String taskId;
 
-    ImageProcessingFlow(FlowStepRepository flowStepRepository, EventBus eventBus, int flowLength, ExecutorService executorService) {
+    ImageProcessingFlow(FlowStepRepository flowStepRepository, EventBus eventBus, String taskId, int flowLength, ExecutorService executorService) {
         this.flowStepRepository = flowStepRepository;
         this.eventBus = eventBus;
         this.flowLength = flowLength;
         this.executorService = executorService;
+        this.taskId = taskId;
     }
 
     public void start(Image image) {
@@ -45,7 +47,7 @@ public final class ImageProcessingFlow {
     }
 
     private void handleProcessingFinished(StepResultEvent event) {
-        //TODO handle flow finished
+        //TODO handle flow finished - should use taskId
     }
 
 }

@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>kimage</groupId>
-        <artifactId>imageprocessor</artifactId>
+        <artifactId>eventbus</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>imageprocessor-api</artifactId>
     <packaging>jar</packaging>
+    <artifactId>eventbus-vertx</artifactId>
+
 
     <dependencies>
         <dependency>
@@ -18,29 +18,31 @@
             <artifactId>eventbus-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <groupId>kimage</groupId>
+            <artifactId>eventbus-vertx</artifactId>
         </dependency>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>eventbus-messageTranslator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>compatibility-kit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>

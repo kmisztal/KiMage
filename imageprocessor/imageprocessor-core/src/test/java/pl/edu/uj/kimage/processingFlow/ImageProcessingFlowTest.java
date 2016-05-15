@@ -15,6 +15,7 @@ import pl.edu.uj.kimage.plugin.model.Image;
 import pl.edu.uj.kimage.plugin.model.ImageBuilder;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,8 +47,10 @@ public class ImageProcessingFlowTest {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
         Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(ImageProcessingFlow.START_STEP_ID, Image.class)));
-        Task task = new Task("".getBytes(), Arrays.asList(step));
-        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
+        List<Step> processingSchedule = Arrays.asList(step);
+        int flowSize = processingSchedule.size();
+        String taskId = "1";
+        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, flowSize, processingSchedule, taskId);
         //When
         imageProcessingFlow.start(image);
         //Then
@@ -61,9 +64,11 @@ public class ImageProcessingFlowTest {
     public void shouldFinishProcessing() throws InterruptedException {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
-        Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(INITIAL_STEP_NUMBER, Image.class)));
-        Task task = new Task("".getBytes(), Arrays.asList(step));
-        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
+        Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(0, Image.class)));
+        List<Step> processingSchedule = Arrays.asList(step);
+        int flowSize = processingSchedule.size();
+        String taskId = "1";
+        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, flowSize, processingSchedule, taskId);
         //When
         imageProcessingFlow.start(image);
         //Then
