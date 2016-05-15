@@ -35,6 +35,7 @@ public class OutgoingTaskHandler implements Runnable {
                 Object result = calculationResult.getResult();
                 String className = calculationResult.getResultClass().getName();
                 Result resultJson = new Result(className, messageTranslator.serialize(result).getBytes());
+                System.out.println("Publishing result for task " + calculationResult.getTaskId());
                 eventBus.publish(calculationResult.getTaskId(), messageTranslator.serialize(resultJson));
             } else try {
                 Thread.sleep(100);

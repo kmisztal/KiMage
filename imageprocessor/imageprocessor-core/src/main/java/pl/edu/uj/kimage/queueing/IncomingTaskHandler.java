@@ -13,16 +13,19 @@ public class IncomingTaskHandler {
     public static final String QUEUE_TOPIC = "imageprocessor-cluster-task-queue";
     private Queue<Task> taskQueue = new LinkedBlockingQueue<>();
     private JsonMessageTranslator messageTranslator = new JsonMessageTranslator();
+    private volatile Vertx vertx;
 
     public IncomingTaskHandler() {
         VertxOptions options = new VertxOptions();
         Vertx.clusteredVertx(options, res -> {
             if (res.succeeded()) {
-                Vertx vertx = res.result();
+                vertx = res.result();
                 EventBus eventBus = vertx.eventBus();
                 eventBus.consumer(QUEUE_TOPIC).handler(objectMessage -> {
                     Task task = messageTranslator.deserialize(Task.class, (String) objectMessage.body());
+                    System.out.println("Got task " + task.getTaskId());
                     taskQueue.add(task);
+                    objectMessage.reply("GOT IT");
                 });
 
             } else {
@@ -31,7 +34,11 @@ public class IncomingTaskHandler {
         });
     }
 
-    public Task takeTask(){
+    public Task takeTask() {
         return taskQueue.poll();
+    }
+
+    public boolean isNotReady() {
+        return vertx == null;
     }
 }
