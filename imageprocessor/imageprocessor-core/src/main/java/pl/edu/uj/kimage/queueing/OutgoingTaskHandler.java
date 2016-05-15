@@ -9,7 +9,7 @@ import pl.edu.uj.kimage.eventbus.JsonMessageTranslator;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class OutgoingTaskHandler implements Runnable {
+public final class OutgoingTaskHandler implements Runnable {
     private static Vertx vertx;
     private Queue<CalculationResult> taskQueue = new LinkedBlockingQueue<>();
     private JsonMessageTranslator messageTranslator = new JsonMessageTranslator();
@@ -21,6 +21,7 @@ public class OutgoingTaskHandler implements Runnable {
             if (res.succeeded()) {
                 vertx = res.result();
             } else {
+                //TODO replace with logger
                 System.out.println("Unable to connect to cluster");
             }
         });
@@ -35,6 +36,7 @@ public class OutgoingTaskHandler implements Runnable {
                 Object result = calculationResult.getResult();
                 String className = calculationResult.getResultClass().getName();
                 Result resultJson = new Result(className, messageTranslator.serialize(result).getBytes());
+                //TODO replace with logger
                 System.out.println("Publishing result for task " + calculationResult.getTaskId());
                 eventBus.publish(calculationResult.getTaskId(), messageTranslator.serialize(resultJson));
             } else try {

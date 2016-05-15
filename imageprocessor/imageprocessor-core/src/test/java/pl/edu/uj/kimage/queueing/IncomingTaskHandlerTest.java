@@ -49,7 +49,7 @@ public class IncomingTaskHandlerTest {
 
 
         //Then
-        assertThat(future.get()).isEqualTo("GOT IT");
+        assertThat(future.get()).isEqualTo("GOT " + taskId);
         assertThat(incomingTaskHandler.takeTask().getTaskId()).isEqualTo(taskId);
     }
 }

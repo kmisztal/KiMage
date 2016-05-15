@@ -23,12 +23,14 @@ public class IncomingTaskHandler {
                 EventBus eventBus = vertx.eventBus();
                 eventBus.consumer(QUEUE_TOPIC).handler(objectMessage -> {
                     Task task = messageTranslator.deserialize(Task.class, (String) objectMessage.body());
+                    //TODO replace with logger
                     System.out.println("Got task " + task.getTaskId());
                     taskQueue.add(task);
-                    objectMessage.reply("GOT IT");
+                    objectMessage.reply("GOT "+ task.getTaskId());
                 });
 
             } else {
+                //TODO replace with logger
                 System.out.println("Unable to connect to the cluster");
             }
         });
