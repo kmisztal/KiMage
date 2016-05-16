@@ -10,15 +10,8 @@ public class Main {
     private static ExecutorService executorService = Executors.newSingleThreadExecutor(); //todo retrieve from properties
     public static void main(String[] args){
         //todo make it more production ready, now it's only for testing
-        IncomingTaskHandler incomingTaskHandler = new IncomingTaskHandler();
-        OutgoingTaskHandler outgoingTaskHandler = new OutgoingTaskHandler();
-        executorService.submit(outgoingTaskHandler);
-
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                outgoingTaskHandler.stop();
-            }
-        });
-
+        //todo load plugins into repo
+        ImageProcessor imageProcessor = new ImageProcessor(new IncomingTaskHandler(), new OutgoingTaskHandler(), new PluginManifestRepository());
+        imageProcessor.start();
     }
 }
