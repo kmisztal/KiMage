@@ -4,25 +4,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 public class Task implements Serializable {
-    private final byte[] data;
+    private final ImageData imageData;
+    private final String taskId;
     private final List<Step> processingSchedule;
 
     @JsonCreator
-    public Task(@JsonProperty("data") byte[] data, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
-        this.data = data;
+    public Task(@JsonProperty("taskId") String taskId, @JsonProperty("imageData") ImageData imageData, @JsonProperty("processingSchedule") List<Step> processingSchedule) {
+        this.taskId = taskId;
+        this.imageData = imageData;
         this.processingSchedule = processingSchedule;
     }
 
-    public byte[] getData() {
-        return data;
+    public ImageData getImageData() {
+        return imageData;
     }
 
     public List<Step> getProcessingSchedule() {
         return processingSchedule;
+    }
+
+    public String getTaskId() {
+        return taskId;
     }
 
     @Override
@@ -31,15 +36,16 @@ public class Task implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         Task task = (Task) o;
-
-        if (!Arrays.equals(data, task.data)) return false;
+        if (taskId != null ? !taskId.equals(task.taskId) : task.taskId != null) return false;
+        if (imageData != null ? !imageData.equals(task.imageData) : task.imageData != null) return false;
         return processingSchedule != null ? processingSchedule.equals(task.processingSchedule) : task.processingSchedule == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = Arrays.hashCode(data);
+        int result = taskId != null ? taskId.hashCode() : 0;
+        result = 31 * result + (imageData != null ? imageData.hashCode() : 0);
         result = 31 * result + (processingSchedule != null ? processingSchedule.hashCode() : 0);
         return result;
     }
