@@ -15,18 +15,29 @@ import java.util.List;
 
 @ThreadSafe
 public class ConfigurationReader {
-    private static final ConfigurationReader INSTANCE = new ConfigurationReader();
     private static final int KEY_INDEX = 0;
     private static final int VALUE_INDEX = 1;
-    private static final String CONFIG_FILE = "config.properties";
     private static final String SEPARATOR = "=";
+    private static ConfigurationReader INSTANCE;
     private static ImmutableMap<SettingName, String> SETTINGS;
+    private static String PATH;
 
-    private ConfigurationReader() {
-        SETTINGS = loadConfig(CONFIG_FILE);
+    private ConfigurationReader(String path) {
+        SETTINGS = loadConfig(path);
     }
 
-    public static ConfigurationReader getInstance() {
+    /**
+     * @param path path to properties file in resource folder
+     */
+    public static ConfigurationReader getInstance(String path) {
+        PATH = path;
+        if (INSTANCE == null) {
+            synchronized (ConfigurationReader.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new ConfigurationReader(PATH);
+                }
+            }
+        }
         return INSTANCE;
     }
 
@@ -44,10 +55,6 @@ public class ConfigurationReader {
         } catch (URISyntaxException | IOException e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    public int readInt(SettingName settingName) {
-        return Integer.parseInt(SETTINGS.get(settingName));
     }
 
     public synchronized void update(SettingName settingName, String newValue) {
@@ -72,7 +79,7 @@ public class ConfigurationReader {
         }
 
         SETTINGS = builder.build();
-        updateConfig(CONFIG_FILE, propertiesLines);
+        updateConfig(PATH, propertiesLines);
     }
 
     void updateConfig(String fileName, List<String> properties) {
@@ -84,7 +91,7 @@ public class ConfigurationReader {
         }
     }
 
-    String read(SettingName settingName) {
+    public String read(SettingName settingName) {
         return SETTINGS.get(settingName);
     }
 }
