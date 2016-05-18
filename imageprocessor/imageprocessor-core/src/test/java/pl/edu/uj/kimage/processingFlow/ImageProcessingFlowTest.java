@@ -52,7 +52,7 @@ public class ImageProcessingFlowTest {
         String taskId = "1";
         ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, flowSize, processingSchedule, taskId);
         //When
-        imageProcessingFlow.start(image);
+        imageProcessingFlow.start(image,(e)->{});
         //Then
         assertThat((ImageLoaded) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepId() == INITIAL_STEP_NUMBER &&
                 e.getLoadedImage() == image, "Is message loaded"));
@@ -70,7 +70,7 @@ public class ImageProcessingFlowTest {
         String taskId = "1";
         ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, flowSize, processingSchedule, taskId);
         //When
-        imageProcessingFlow.start(image);
+        imageProcessingFlow.start(image,(e)->{});
         //Then
         assertThat((TestEvent) eventBus.getPublishedEvents().get(1)).is(new Condition<>(e -> e.getStepId() == 1 && e.getResult() == TestFlowStep.RESULT, "Step id correct and has expected result"));
     }

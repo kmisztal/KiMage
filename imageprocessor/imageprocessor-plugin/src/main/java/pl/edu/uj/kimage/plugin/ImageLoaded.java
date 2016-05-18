@@ -2,16 +2,14 @@ package pl.edu.uj.kimage.plugin;
 
 import pl.edu.uj.kimage.plugin.model.Image;
 
-public class ImageLoaded extends StepResultEvent {
-    private final Image loadedImage;
+public class ImageLoaded extends StepResultEvent<Image> {
 
     public ImageLoaded(int stepId, Image loadedImage) {
-
-        this.loadedImage = loadedImage;
+        super(loadedImage);
         setFlowStepId(stepId);
     }
 
     public Image getLoadedImage() {
-        return loadedImage;
+        return getResult();
     }
 }

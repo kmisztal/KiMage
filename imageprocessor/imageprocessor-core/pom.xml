@@ -30,6 +30,11 @@
             <artifactId>imageprocessor-plugin</artifactId>
         </dependency>
         <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>eventbus-vertx</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
         </dependency>
