@@ -16,6 +16,7 @@
         <module>imageprocessor-core</module>
         <module>imageprocessor-api</module>
         <module>imageprocessor-plugin</module>
+        <module>imageprocessor-client</module>
     </modules>
 
 

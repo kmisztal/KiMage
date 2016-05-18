@@ -7,15 +7,13 @@ import org.junit.Test;
 import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
-import pl.edu.uj.kimage.api.Task;
 import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 import pl.edu.uj.kimage.plugin.model.Color;
 import pl.edu.uj.kimage.plugin.model.Image;
 import pl.edu.uj.kimage.plugin.model.ImageBuilder;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,8 +24,10 @@ public class ImageProcessingFlowTest {
     private static final int PIXEL_X = 0;
     private static final int PIXEL_Y = 0;
     private static final String PLUGIN_NAME = "pluginName";
+    private static final Set<Class<?>> inputTypes = new HashSet<>((Collection<Class<String>>)Arrays.asList(String.class));
+    private static final Set<Class<?>> outputTypes = new HashSet<>((Collection<Class<String>>)Arrays.asList(String.class));
     private static final PluginManifest PLUGIN_MANIFEST = new PluginManifest(PLUGIN_NAME, TestFlowStep.class, new
-            TestFlowStepFactory());
+            TestFlowStepFactory(), inputTypes, outputTypes);
     private static final int INITIAL_STEP_NUMBER = 0;
     private TestEventBus eventBus;
     private PluginManifestRepository manifestRepository;
