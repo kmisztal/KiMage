@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sample-use</artifactId>
+    <artifactId>logger</artifactId>
 
     <dependencies>
         <dependency>
@@ -17,11 +17,19 @@
             <artifactId>kimage-legacy</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
+        <!--LOGGER-->
         <dependency>
-            <groupId>kimage</groupId>
-            <artifactId>logger</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+
     </dependencies>
 
 
