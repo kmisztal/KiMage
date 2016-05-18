@@ -19,7 +19,7 @@ public class ConfigurationReader {
     private static final int VALUE_INDEX = 1;
     private static final String SEPARATOR = "=";
     private static ConfigurationReader INSTANCE;
-    private static ImmutableMap<SettingName, String> SETTINGS;
+    private static ImmutableMap<String, String> SETTINGS;
     private static String PATH;
 
     private ConfigurationReader(String path) {
@@ -41,14 +41,14 @@ public class ConfigurationReader {
         return INSTANCE;
     }
 
-    ImmutableMap<SettingName, String> loadConfig(String fileName) {
-        ImmutableMap.Builder<SettingName, String> builder = ImmutableMap.<SettingName, String>builder();
+    ImmutableMap<String, String> loadConfig(String fileName) {
+        ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
         try {
             Path path = Paths.get(ClassLoader.getSystemResource(fileName).toURI());
             List<String> lines = Files.readAllLines(path);
             for (String line : lines) {
                 String[] splitted = line.split(SEPARATOR);
-                builder.put(SettingName.valueOf(splitted[KEY_INDEX]), splitted[VALUE_INDEX]);
+                builder.put(splitted[KEY_INDEX], splitted[VALUE_INDEX]);
             }
             return builder.build();
 
@@ -57,23 +57,23 @@ public class ConfigurationReader {
         }
     }
 
-    public synchronized void update(SettingName settingName, String newValue) {
+    public synchronized void update(String settingName, String newValue) {
         List<String> propertiesLines = Lists.newArrayList();
-        ImmutableMap.Builder<SettingName, String> builder = ImmutableMap.<SettingName, String>builder();
-        ImmutableSet<SettingName> settingsSet = SETTINGS.keySet();
+        ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+        ImmutableMap<String, String> configToUpdate = loadConfig(PATH);
+        ImmutableSet<String> settingsSet = configToUpdate.keySet();
         if (settingsSet.size() == 0) {
             builder.put(settingName, newValue);
-            String name = settingName.name();
-            propertiesLines.add(name + SEPARATOR + newValue);
+            propertiesLines.add(settingName + SEPARATOR + newValue);
         } else {
-            for (SettingName name : settingsSet) {
-                if (name == settingName) {
+            for (String name : settingsSet) {
+                if (name.equals(settingName)) {
                     builder.put(settingName, newValue);
-                    propertiesLines.add(settingName.name() + SEPARATOR + newValue);
+                    propertiesLines.add(settingName + SEPARATOR + newValue);
                 } else {
                     String value = SETTINGS.get(name);
                     builder.put(name, value);
-                    propertiesLines.add(name.name() + SEPARATOR + newValue);
+                    propertiesLines.add(name + SEPARATOR + newValue);
                 }
             }
         }
@@ -91,7 +91,7 @@ public class ConfigurationReader {
         }
     }
 
-    public String read(SettingName settingName) {
+    public String read(String settingName) {
         return SETTINGS.get(settingName);
     }
 }
