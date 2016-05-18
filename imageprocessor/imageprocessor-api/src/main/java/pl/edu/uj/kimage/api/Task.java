@@ -5,11 +5,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 public class Task implements Serializable {
     private final ImageData imageData;
     private final String taskId;
     private final List<Step> processingSchedule;
+
+    public Task(ImageData imageData, List<Step> processingSchedule) {
+        this(UUID.randomUUID().toString(), imageData, processingSchedule);
+    }
 
     @JsonCreator
     public Task(@JsonProperty("taskId") String taskId, @JsonProperty("imageData") ImageData imageData, @JsonProperty("processingSchedule") List<Step> processingSchedule) {

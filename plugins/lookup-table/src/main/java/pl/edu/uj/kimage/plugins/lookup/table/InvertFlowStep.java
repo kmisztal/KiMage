@@ -45,7 +45,7 @@ public class InvertFlowStep extends FlowStep {
                 }
 
                 Image invertedImage = builder.build();
-                StepResultEvent result = new ImageLoaded(invertedImage);
+                StepResultEvent result = new ImageLoaded(event.getStepNumber(), invertedImage);
                 publish(result);
             }
         } catch (ClassNotFoundException e) {
