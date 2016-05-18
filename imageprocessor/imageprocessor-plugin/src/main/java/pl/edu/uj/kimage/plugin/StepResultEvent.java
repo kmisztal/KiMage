@@ -9,7 +9,7 @@ public abstract class StepResultEvent implements Event{
         return stepNumber;
     }
 
-    void setFlowStepId(int stepId){
+    void setFlowStepNumber(int stepId) {
         this.stepNumber = stepId;
     }
 }

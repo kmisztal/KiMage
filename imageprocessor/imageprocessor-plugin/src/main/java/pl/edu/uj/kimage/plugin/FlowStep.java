@@ -33,7 +33,7 @@ public abstract class FlowStep {
      */
     public void process(StepResultEvent event) {
 
-        if (event instanceof ImageResultEvent) {
+        if (event instanceof ImageLoaded) {
             Step step = getStep();
             List<StepDependency> dependencies = step.getDependencies();
 
@@ -54,7 +54,7 @@ public abstract class FlowStep {
      * @param stepResultEvent event plugin wants to publish
      */
     protected void publish(StepResultEvent stepResultEvent) {
-        stepResultEvent.setFlowStepId(step.getNumber());
+        stepResultEvent.setFlowStepNumber(step.getNumber());
         eventBus.publish(stepResultEvent);
     }
 

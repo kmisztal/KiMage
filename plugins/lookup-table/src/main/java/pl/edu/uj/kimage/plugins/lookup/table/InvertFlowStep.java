@@ -4,7 +4,7 @@ import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
 import pl.edu.uj.kimage.eventbus.EventBus;
 import pl.edu.uj.kimage.plugin.FlowStep;
-import pl.edu.uj.kimage.plugin.ImageResultEvent;
+import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.StepResultEvent;
 import pl.edu.uj.kimage.plugin.model.Color;
 import pl.edu.uj.kimage.plugin.model.Image;
@@ -25,11 +25,11 @@ public class InvertFlowStep extends FlowStep {
 
         try {
             Class<?> clazz = Class.forName(eventTypeName);
-            if (clazz.isInstance(ImageResultEvent.class)) {
+            if (clazz.isInstance(ImageLoaded.class)) {
 
 
-                ImageResultEvent imageResultEvent = (ImageResultEvent) event;
-                Image input = imageResultEvent.getLoadedImage();
+                ImageLoaded imageLoaded = (ImageLoaded) event;
+                Image input = imageLoaded.getLoadedImage();
 
                 int height = input.getHeight();
                 int width = input.getWidth();
@@ -46,7 +46,7 @@ public class InvertFlowStep extends FlowStep {
                     }
                 }
 
-                StepResultEvent result = new ImageResultEvent(null);
+                StepResultEvent result = new ImageLoaded(null);
                 publish(result);
             }
         } catch (ClassNotFoundException e) {

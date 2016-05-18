@@ -7,13 +7,14 @@ import org.junit.Test;
 import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
-import pl.edu.uj.kimage.api.Task;
-import pl.edu.uj.kimage.plugin.ImageResultEvent;
+import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 import pl.edu.uj.kimage.plugin.model.Color;
 import pl.edu.uj.kimage.plugin.model.Image;
+import pl.edu.uj.kimage.plugin.model.ImageBuilder;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +22,8 @@ public class ImageProcessingFlowTest {
 
     private static final int FIRST_EVENT = 0;
     private static final int ONE_PIXEL = 1;
+    private static final int PIXEL_X = 0;
+    private static final int PIXEL_Y = 0;
     private static final String PLUGIN_NAME = "pluginName";
     private static final PluginManifest PLUGIN_MANIFEST = new PluginManifest(PLUGIN_NAME, TestFlowStep.class, new
             TestFlowStepFactory());
@@ -34,20 +37,23 @@ public class ImageProcessingFlowTest {
         eventBus = new TestEventBus();
         manifestRepository = new PluginManifestRepository();
         manifestRepository.save(PLUGIN_MANIFEST);
-        image = new Image(ONE_PIXEL, ONE_PIXEL, new Color[]{Color.BLACK});
+        ImageBuilder imageBuilder = new ImageBuilder(ONE_PIXEL, ONE_PIXEL).withColor(Color.BLACK, PIXEL_X, PIXEL_Y);
+        image = imageBuilder.build();
     }
 
     @Test
     public void shouldStartProcessingFlow() {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
-        Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(INITIAL_STEP_NUMBER, Image.class)));
-        Task task = new Task("".getBytes(), Arrays.asList(step));
-        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
+        Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(ImageProcessingFlow.START_STEP_ID, Image.class)));
+        List<Step> processingSchedule = Arrays.asList(step);
+        int flowSize = processingSchedule.size();
+        String taskId = "1";
+        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, flowSize, processingSchedule, taskId);
         //When
         imageProcessingFlow.start(image);
         //Then
-        assertThat((ImageResultEvent) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepNumber()
+        assertThat((ImageLoaded) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepNumber()
                 == INITIAL_STEP_NUMBER && e.getLoadedImage() == image, "Is message loaded"));
     }
 
@@ -57,9 +63,11 @@ public class ImageProcessingFlowTest {
     public void shouldFinishProcessing() throws InterruptedException {
         //Given
         ImageProcessingFlowFactory flowFactory = new ImageProcessingFlowFactory();
-        Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(INITIAL_STEP_NUMBER, Image.class)));
-        Task task = new Task("".getBytes(), Arrays.asList(step));
-        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, task);
+        Step step = new Step(INITIAL_STEP_NUMBER, PLUGIN_NAME, Arrays.asList(new StepDependency(0, Image.class)));
+        List<Step> processingSchedule = Arrays.asList(step);
+        int flowSize = processingSchedule.size();
+        String taskId = "1";
+        ImageProcessingFlow imageProcessingFlow = flowFactory.create(manifestRepository, eventBus, flowSize, processingSchedule, taskId);
         //When
         imageProcessingFlow.start(image);
         //Then
