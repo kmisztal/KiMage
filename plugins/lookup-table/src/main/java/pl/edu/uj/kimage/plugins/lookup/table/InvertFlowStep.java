@@ -8,6 +8,7 @@ import pl.edu.uj.kimage.plugin.ImageLoaded;
 import pl.edu.uj.kimage.plugin.StepResultEvent;
 import pl.edu.uj.kimage.plugin.model.Color;
 import pl.edu.uj.kimage.plugin.model.Image;
+import pl.edu.uj.kimage.plugin.model.ImageBuilder;
 
 import java.util.List;
 
@@ -27,26 +28,24 @@ public class InvertFlowStep extends FlowStep {
             Class<?> clazz = Class.forName(eventTypeName);
             if (clazz.isInstance(ImageLoaded.class)) {
 
-
                 ImageLoaded imageLoaded = (ImageLoaded) event;
                 Image input = imageLoaded.getLoadedImage();
 
                 int height = input.getHeight();
                 int width = input.getWidth();
 
-                // TODO transform logic from legacy package
-//                final BufferedImageOp bio = new LookupOp(new ShortLookupTable(0, lut), null);
-//                bio.filter(input.getBufferedImage(), imgOut.getBufferedImage());
+                ImageBuilder builder = new ImageBuilder(width, height);
                 for (int yCounter = 0; yCounter < height; yCounter++) {
                     for (int xCounter = 0; xCounter < width; xCounter++) {
                         Color color = input.getColor(xCounter, yCounter);
                         Color invertedColor = Color.WHITE.minus(color.getRed(), color.getGreen(), color.getBlue(), color
                                 .getAlpha());
-                        // TODO waiting for implementation #41
+                        builder.withColor(invertedColor, xCounter, yCounter);
                     }
                 }
 
-                StepResultEvent result = new ImageLoaded(null);
+                Image invertedImage = builder.build();
+                StepResultEvent result = new ImageLoaded(invertedImage);
                 publish(result);
             }
         } catch (ClassNotFoundException e) {
