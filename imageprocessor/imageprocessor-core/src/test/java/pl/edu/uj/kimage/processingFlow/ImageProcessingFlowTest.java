@@ -7,7 +7,7 @@ import org.junit.Test;
 import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
-import pl.edu.uj.kimage.plugin.ImageLoaded;
+import pl.edu.uj.kimage.plugin.ImageCalculated;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 import pl.edu.uj.kimage.plugin.model.Color;
 import pl.edu.uj.kimage.plugin.model.Image;
@@ -54,8 +54,8 @@ public class ImageProcessingFlowTest {
         //When
         imageProcessingFlow.start(image,(e)->{});
         //Then
-        assertThat((ImageLoaded) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepId() == INITIAL_STEP_NUMBER &&
-                e.getLoadedImage() == image, "Is message loaded"));
+        assertThat((ImageCalculated) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepNumber()
+                == INITIAL_STEP_NUMBER && e.getLoadedImage() == image, "Is message loaded"));
     }
 
     //TODO add test for processing finish
@@ -72,6 +72,6 @@ public class ImageProcessingFlowTest {
         //When
         imageProcessingFlow.start(image,(e)->{});
         //Then
-        assertThat((TestEvent) eventBus.getPublishedEvents().get(1)).is(new Condition<>(e -> e.getStepId() == 1 && e.getResult() == TestFlowStep.RESULT, "Step id correct and has expected result"));
+        assertThat((TestEvent) eventBus.getPublishedEvents().get(1)).is(new Condition<>(e -> e.getStepNumber() == 1 && e.getResult() == TestFlowStep.RESULT, "Step id correct and has expected result"));
     }
 }

@@ -13,6 +13,7 @@
         <module>eventbus</module>
         <module>kimage-legacy</module>
         <module>kimage-gui</module>
+        <module>plugins</module>
     </modules>
     <packaging>pom</packaging>
 

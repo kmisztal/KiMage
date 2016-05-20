@@ -14,7 +14,7 @@ public class TestFlowStep extends FlowStep {
     }
 
     @Override
-    public void process(StepResultEvent event) {
+    public void processRelatedEvent(StepResultEvent event) {
         publish(new TestEvent(RESULT));
     }
 }
