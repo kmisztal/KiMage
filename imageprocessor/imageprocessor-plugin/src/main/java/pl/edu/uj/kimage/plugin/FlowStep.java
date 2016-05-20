@@ -33,7 +33,7 @@ public abstract class FlowStep {
      */
     public void process(StepResultEvent event) {
 
-        if (event instanceof ImageLoaded) {
+        if (event instanceof ImageCalculated) {
             Step step = getStep();
             List<StepDependency> dependencies = step.getDependencies();
 

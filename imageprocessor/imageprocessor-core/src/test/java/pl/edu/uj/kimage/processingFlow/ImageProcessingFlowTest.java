@@ -7,7 +7,7 @@ import org.junit.Test;
 import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
-import pl.edu.uj.kimage.plugin.ImageLoaded;
+import pl.edu.uj.kimage.plugin.ImageCalculated;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 import pl.edu.uj.kimage.plugin.model.Color;
 import pl.edu.uj.kimage.plugin.model.Image;
@@ -54,7 +54,7 @@ public class ImageProcessingFlowTest {
         //When
         imageProcessingFlow.start(image,(e)->{});
         //Then
-        assertThat((ImageLoaded) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepNumber()
+        assertThat((ImageCalculated) eventBus.getPublishedEvents().get(FIRST_EVENT)).is(new Condition<>(e -> e.getStepNumber()
                 == INITIAL_STEP_NUMBER && e.getLoadedImage() == image, "Is message loaded"));
     }
 
