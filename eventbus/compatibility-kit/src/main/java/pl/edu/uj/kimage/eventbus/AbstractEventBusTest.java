@@ -36,7 +36,7 @@ public abstract class AbstractEventBusTest {
     }
 
     @Test
-    public void shouldPublishEventToParents() throws Exception {
+    public void shouldPublishEventToSuperclassSubscribers() throws Exception {
         // given
         FutureTask<String> futureTask = new FutureTask<>(() -> EXPECTED_RESULT1);
         eventBus.registerEventListener(EventWithContent.class, event -> futureTask.run());
@@ -75,7 +75,7 @@ public abstract class AbstractEventBusTest {
     }
 
     @Test
-    public void shouldPostCommandToParents() throws Exception {
+    public void shouldPostCommandToSuperclassSubscribers() throws Exception {
         // given
         FutureTask<String> futureTask = new FutureTask<>(() -> EXPECTED_RESULT1);
         eventBus.registerCommandHandler(TestCommand.class, event -> futureTask.run());
