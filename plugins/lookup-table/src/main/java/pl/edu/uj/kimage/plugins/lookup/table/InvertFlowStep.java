@@ -14,6 +14,8 @@ import java.util.List;
 
 public class InvertFlowStep extends FlowStep {
 
+    public static final int ALPHA_VALUE = 0;
+
     public InvertFlowStep(Step step, EventBus eventBus) {
         super(step, eventBus);
     }
@@ -24,32 +26,25 @@ public class InvertFlowStep extends FlowStep {
         StepDependency stepDependency = dependencies.get(0);
         String eventTypeName = stepDependency.getEventTypeName();
 
-        try {
-            Class<?> clazz = Class.forName(eventTypeName);
-            if (clazz.isInstance(ImageCalculated.class)) {
+        if (eventTypeName.equals(ImageCalculated.class.getCanonicalName())) {
+            ImageCalculated imageCalculated = (ImageCalculated) event;
+            Image input = imageCalculated.getLoadedImage();
 
-                ImageCalculated imageCalculated = (ImageCalculated) event;
-                Image input = imageCalculated.getLoadedImage();
+            int height = input.getHeight();
+            int width = input.getWidth();
 
-                int height = input.getHeight();
-                int width = input.getWidth();
-
-                ImageBuilder builder = new ImageBuilder(width, height);
-                for (int yCounter = 0; yCounter < height; yCounter++) {
-                    for (int xCounter = 0; xCounter < width; xCounter++) {
-                        Color color = input.getColor(xCounter, yCounter);
-                        Color invertedColor = Color.WHITE.minus(color.getRed(), color.getGreen(), color.getBlue(), color
-                                .getAlpha());
-                        builder.withColor(invertedColor, xCounter, yCounter);
-                    }
+            ImageBuilder builder = new ImageBuilder(width, height);
+            for (int yCounter = 0; yCounter < height; yCounter++) {
+                for (int xCounter = 0; xCounter < width; xCounter++) {
+                    Color color = input.getColor(xCounter, yCounter);
+                    Color invertedColor = Color.WHITE.minus(color.getRed(), color.getGreen(), color.getBlue(), ALPHA_VALUE);
+                    builder.withColor(invertedColor, xCounter, yCounter);
                 }
-
-                Image invertedImage = builder.build();
-                StepResultEvent result = new ImageCalculated(event.getStepNumber(), invertedImage);
-                publish(result);
             }
-        } catch (ClassNotFoundException e) {
-            // TODO log
+
+            Image invertedImage = builder.build();
+            StepResultEvent result = new ImageCalculated(event.getStepNumber(), invertedImage);
+            publish(result);
         }
     }
 }
