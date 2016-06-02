@@ -23,6 +23,11 @@
                 <artifactId>imageprocessor-plugin</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>kimage</groupId>
+                <artifactId>imageprocessor-awt</artifactId>
+                <version>0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -30,6 +35,10 @@
         <dependency>
             <groupId>kimage</groupId>
             <artifactId>imageprocessor-plugin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>imageprocessor-awt</artifactId>
         </dependency>
     </dependencies>
 
