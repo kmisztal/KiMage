@@ -11,5 +11,11 @@
 
     <artifactId>imageprocessor-awt</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>imageprocessor-plugin</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
