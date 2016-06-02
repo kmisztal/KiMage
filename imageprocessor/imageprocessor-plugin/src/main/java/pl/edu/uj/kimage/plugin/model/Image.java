@@ -6,7 +6,7 @@ public final class Image {
     private final int width;
     private final int height;
 
-    Image(final int width, final int height, final Color[] data) {
+    public Image(final int width, final int height, final Color[] data) {
         this.width = width;
         this.height = height;
         this.data = data;
