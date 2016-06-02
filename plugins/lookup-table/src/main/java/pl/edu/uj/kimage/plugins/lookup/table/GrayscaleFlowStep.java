@@ -41,9 +41,9 @@ public class GrayscaleFlowStep extends FlowStep {
                     for (int xCounter = 0; xCounter < width; xCounter++) {
                         Color color = input.getColor(xCounter, yCounter);
 
-                        int grayscale = (int) (new Double(color.getRed()) * 0.2126 +
-                                new Double(color.getGreen()) * 0.7152 +
-                                new Double(color.getBlue()) * 0.0722);
+                        int grayscale = (int) (color.getRed() * 0.2126 +
+                                color.getGreen() * 0.7152 +
+                                color.getBlue() * 0.0722);
 
                         Color grayscaleColor = new Color(grayscale, grayscale, grayscale);
                         builder.withColor(grayscaleColor, xCounter, yCounter);
