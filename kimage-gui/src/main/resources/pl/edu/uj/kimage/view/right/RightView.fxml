@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pl.edu.uj.kimage.controller.right.RightViewController">
+    <children>
+        <ListView maxWidth="200.0" minWidth="200.0" prefHeight="350.0" prefWidth="108.0"/>
+        <HBox>
+            <children>
+                <Label maxWidth="100.0" minWidth="100.0" text="Some information">
+                    <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="3.0"/>
+                    </padding>
+                </Label>
+                <Button maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" text="NEXT"/>
+                <Button maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" text="DONE"/>
+            </children>
+        </HBox>
+    </children>
+</VBox>
