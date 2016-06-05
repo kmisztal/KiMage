@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 public class StepDependency  implements Serializable {
     private final int dependentStepNumber;
-    private final String objectType;
+    private final String eventTypeName;
 
     @JsonCreator
-    public StepDependency(@JsonProperty("dependentStepNumber") int dependentStepNumber, @JsonProperty("objectType") String objectType) {
+    public StepDependency(@JsonProperty("dependentStepNumber") int dependentStepNumber, @JsonProperty("eventTypeName") String eventTypeName) {
         this.dependentStepNumber = dependentStepNumber;
-        this.objectType = objectType;
+        this.eventTypeName = eventTypeName;
     }
 
     public StepDependency(int dependentStepNumber, Class aClass) {
@@ -23,8 +23,8 @@ public class StepDependency  implements Serializable {
         return dependentStepNumber;
     }
 
-    public String getObjectType() {
-        return objectType;
+    public String getEventTypeName() {
+        return eventTypeName;
     }
 
     @Override
@@ -35,14 +35,14 @@ public class StepDependency  implements Serializable {
         StepDependency that = (StepDependency) o;
 
         if (dependentStepNumber != that.dependentStepNumber) return false;
-        return objectType != null ? objectType.equals(that.objectType) : that.objectType == null;
+        return eventTypeName != null ? eventTypeName.equals(that.eventTypeName) : that.eventTypeName == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = dependentStepNumber;
-        result = 31 * result + (objectType != null ? objectType.hashCode() : 0);
+        result = 31 * result + (eventTypeName != null ? eventTypeName.hashCode() : 0);
         return result;
     }
 }
