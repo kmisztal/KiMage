@@ -2,7 +2,7 @@ package pl.edu.uj.kimage.processingFlow;
 
 import pl.edu.uj.kimage.eventbus.EventBus;
 import pl.edu.uj.kimage.plugin.FlowStep;
-import pl.edu.uj.kimage.plugin.ImageLoaded;
+import pl.edu.uj.kimage.plugin.ImageCalculated;
 import pl.edu.uj.kimage.plugin.StepResultEvent;
 import pl.edu.uj.kimage.plugin.model.Image;
 
@@ -30,7 +30,7 @@ public final class ImageProcessingFlow {
     public void start(Image image, Consumer<StepResultEvent> resultCollector) {
         this.resultCollector = resultCollector;
         registerFlowToEventBus();
-        StepResultEvent stepResultEvent = new ImageLoaded(START_STEP_ID, image);
+        StepResultEvent stepResultEvent = new ImageCalculated(START_STEP_ID, image);
         eventBus.publish(stepResultEvent);
     }
 
@@ -41,7 +41,7 @@ public final class ImageProcessingFlow {
 
     private void registerFlowToEventBus() {
         eventBus.registerEventListener(StepResultEvent.class, (event -> {
-            if (event.getStepId() == flowLength) {
+            if (event.getStepNumber() == flowLength) {
                 handleProcessingFinished(event);
             } else {
                 process(event);

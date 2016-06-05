@@ -43,4 +43,12 @@ public final class Color {
     private int clamp(final int value) {
         return Math.max(MIN_COLOR_CHANNEL_VALUE, Math.min(value, MAX_COLOR_CHANNEL_VALUE));
     }
+
+    public Color minus(int red, int green, int blue, int alpha) {
+        return new Color(
+                clamp(this.red - red),
+                clamp(this.green - green),
+                clamp(this.blue - blue),
+                clamp(this.alpha - alpha));
+    }
 }

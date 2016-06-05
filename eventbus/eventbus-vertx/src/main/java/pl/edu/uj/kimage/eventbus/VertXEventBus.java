@@ -14,14 +14,22 @@ public class VertXEventBus implements EventBus {
 
     @Override
     public void publish(Event event) {
-        String canonicalName = toTopicName(event.getClass());
-        eventBus.publish(canonicalName, messageTranslator.serialize(event));
+        Class clazz = event.getClass();
+        while (clazz != null) {
+            String canonicalName = toTopicName(clazz);
+            eventBus.publish(canonicalName, messageTranslator.serialize(event));
+            clazz = clazz.getSuperclass();
+        }
     }
 
     @Override
     public void post(Command command) {
-        String canonicalName = toTopicName(command.getClass());
-        eventBus.send(canonicalName, messageTranslator.serialize(command));
+        Class clazz = command.getClass();
+        while (clazz != null) {
+            String canonicalName = toTopicName(clazz);
+            eventBus.send(canonicalName, messageTranslator.serialize(command));
+            clazz = clazz.getSuperclass();
+        }
     }
 
     @Override
