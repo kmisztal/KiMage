@@ -45,7 +45,6 @@
             <artifactId>eventbus-messageTranslator</artifactId>
             <version>${project.version}</version>
         </dependency>
-
     </dependencies>
 
 </project>

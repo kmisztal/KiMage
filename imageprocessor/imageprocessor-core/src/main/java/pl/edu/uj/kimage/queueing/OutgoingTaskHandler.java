@@ -3,8 +3,6 @@ package pl.edu.uj.kimage.queueing;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import pl.edu.uj.kimage.api.Result;
 import pl.edu.uj.kimage.eventbus.JsonMessageTranslator;
 
@@ -16,7 +14,6 @@ public final class OutgoingTaskHandler implements Runnable {
     private Queue<CalculationResult> taskQueue = new LinkedBlockingQueue<>();
     private JsonMessageTranslator messageTranslator = new JsonMessageTranslator();
     private volatile boolean running = true;
-    private static final Logger logger = LogManager.getRootLogger();
 
     public OutgoingTaskHandler() {
         VertxOptions options = new VertxOptions();
@@ -24,7 +21,8 @@ public final class OutgoingTaskHandler implements Runnable {
             if (res.succeeded()) {
                 vertx = res.result();
             } else {
-                logger.debug("Unable to connect to cluster");
+                //TODO replace with logger
+                System.out.println("Unable to connect to cluster");
             }
         });
     }
@@ -38,7 +36,8 @@ public final class OutgoingTaskHandler implements Runnable {
                 Object result = calculationResult.getResult();
                 String className = calculationResult.getResultClass().getName();
                 Result resultJson = new Result(className, messageTranslator.serialize(result).getBytes());
-                logger.debug("Publishing result for task " + calculationResult.getTaskId());
+                //TODO replace with logger
+                System.out.println("Publishing result for task " + calculationResult.getTaskId());
                 eventBus.publish(calculationResult.getTaskId(), messageTranslator.serialize(resultJson));
             } else try {
                 Thread.sleep(100);
