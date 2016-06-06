@@ -10,6 +10,8 @@ import pl.edu.uj.kimage.controller.top.TopViewController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//This class allows controllers to communicate between them. All code that helps passing data from one controller
+//to another should be inserted here.
 public class MainViewController implements Initializable {
 
     @FXML
