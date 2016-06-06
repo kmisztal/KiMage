@@ -1,5 +1,7 @@
 package pl.edu.uj.kimage.plugins.lookup.table;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
 import pl.edu.uj.kimage.eventbus.EventBus;
@@ -17,12 +19,14 @@ public class InvertFlowStep extends FlowStep {
     public InvertFlowStep(Step step, EventBus eventBus) {
         super(step, eventBus);
     }
+    private static final Logger logger = LogManager.getRootLogger();
 
     @Override
     public void processRelatedEvent(StepResultEvent event) {
         List<StepDependency> dependencies = getStep().getDependencies();
         StepDependency stepDependency = dependencies.get(0);
         String eventTypeName = stepDependency.getEventTypeName();
+
 
         try {
             Class<?> clazz = Class.forName(eventTypeName);
@@ -49,7 +53,7 @@ public class InvertFlowStep extends FlowStep {
                 publish(result);
             }
         } catch (ClassNotFoundException e) {
-            // TODO log
+            logger.catching(e);
         }
     }
 }
