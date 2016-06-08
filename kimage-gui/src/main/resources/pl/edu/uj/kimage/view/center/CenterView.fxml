@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxWidth="200.0" minWidth="200.0" prefHeight="375.0" prefWidth="200.0" BorderPane.alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.uj.kimage.controller.center.CenterViewController">
+    <children>
+        <Label alignment="CENTER" minHeight="25.0" prefHeight="25.0" prefWidth="200.0"
+               style="-fx-border-color: lightgray;" text="Algorithms"/>
+        <ListView/>
+        <Label alignment="CENTER" minHeight="25.0" prefHeight="25.0" prefWidth="200.0"
+               style="-fx-border-color: lightgray;" text="Templates"/>
+        <ListView/>
+        <Button mnemonicParsing="false" prefWidth="200.0" text="ADD"/>
+    </children>
+</VBox>
