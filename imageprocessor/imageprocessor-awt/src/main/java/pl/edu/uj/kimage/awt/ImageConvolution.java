@@ -7,9 +7,6 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 
-/**
- * Created by maciek on 06.06.16.
- */
 public class ImageConvolution {
 
     private static final ImageConverter imageConverter = new ImageConverter();
