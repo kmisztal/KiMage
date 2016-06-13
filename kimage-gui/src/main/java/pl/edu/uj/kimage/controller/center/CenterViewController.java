@@ -54,7 +54,7 @@ public class CenterViewController {
                     ClipboardContent content = new ClipboardContent();
                     content.putString(listCell.getItem());
                     db.setContent(content);
-                    mainViewController.rightViewController.setDragSource(listCell);
+                    mainViewController.getRightViewController().setDragSource(listCell);
                 });
 
                 return listCell;

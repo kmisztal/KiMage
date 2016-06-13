@@ -15,13 +15,13 @@ import java.util.ResourceBundle;
 public class MainViewController implements Initializable {
 
     @FXML
-    public TopViewController topViewController;
+    TopViewController topViewController;
     @FXML
-    public LeftViewController leftViewController;
+    LeftViewController leftViewController;
     @FXML
-    public CenterViewController centerViewController;
+    CenterViewController centerViewController;
     @FXML
-    public RightViewController rightViewController;
+    RightViewController rightViewController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -29,5 +29,21 @@ public class MainViewController implements Initializable {
         leftViewController.init(this);
         centerViewController.init(this);
         rightViewController.init(this);
+    }
+
+    public TopViewController getTopViewController() {
+        return topViewController;
+    }
+
+    public LeftViewController getLeftViewController() {
+        return leftViewController;
+    }
+
+    public CenterViewController getCenterViewController() {
+        return centerViewController;
+    }
+
+    public RightViewController getRightViewController() {
+        return rightViewController;
     }
 }
