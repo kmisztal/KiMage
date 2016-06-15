@@ -6,7 +6,7 @@ public final class Image {
     private final int width;
     private final int height;
 
-    public Image(final int width, final int height, final Color[] data) {
+    Image(final int width, final int height, final Color[] data) {
         this.width = width;
         this.height = height;
         this.data = data;
@@ -24,6 +24,10 @@ public final class Image {
         isWithinDimensions(x, y);
         int index = y * width + x;
         return data[index];
+    }
+
+    public Color[] getData(){
+        return this.data;
     }
 
     private void isWithinDimensions(final int x, final int y) {
