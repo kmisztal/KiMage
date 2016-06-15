@@ -87,8 +87,7 @@ public class RightViewController {
                         //Delete cell if draged from flowList
                         deleteFlowCell(fullName);
 
-
-                        //Update index
+                        //Update index in cell name
                         updateFlowListIndex();
 
                         event.setDropCompleted(true);
@@ -112,8 +111,6 @@ public class RightViewController {
         int newIndex = listCell.getIndex();
         int oldIndex = draggedCell.getIndex();
 
-        System.out.println(listCell.getIndex() + separator + pluginName + " << " + fullName);
-
         if (listCell.getItem() != null) {                 // Dropped on element
             if (flowListElement && oldIndex < newIndex) { // Dragged from flowList
                 newIndex++;    // After deleting it would go one position up, that why its need to be put further by one
@@ -127,7 +124,9 @@ public class RightViewController {
 
     private void deleteFlowCell(String pluginFullName) {
         int index = observableList.indexOf(pluginFullName);
-        observableList.remove(index);
+        if (index >= 0) {
+            observableList.remove(index);
+        }
     }
 
     private void updateFlowListIndex() {
