@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>imageprocessor-awt</artifactId>
-
+    
+    <dependencies>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>imageprocessor-plugin</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
