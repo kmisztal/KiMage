@@ -12,6 +12,7 @@
         <module>messageTranslator</module>
         <module>eventbus-vertx</module>
         <module>compatibility-kit</module>
+        <module>eventbus-test</module>
     </modules>
     <packaging>pom</packaging>
 

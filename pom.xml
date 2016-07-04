@@ -37,6 +37,11 @@
             </dependency>
             <dependency>
                 <groupId>kimage</groupId>
+                <artifactId>eventbus-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>kimage</groupId>
                 <artifactId>eventbus-messageTranslator</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -23,6 +23,11 @@
         </dependency>
         <dependency>
             <groupId>kimage</groupId>
+            <artifactId>eventbus-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>kimage</groupId>
             <artifactId>imageprocessor-api</artifactId>
         </dependency>
         <dependency>
