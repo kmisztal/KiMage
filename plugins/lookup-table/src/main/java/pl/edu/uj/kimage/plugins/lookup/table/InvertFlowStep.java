@@ -1,5 +1,7 @@
 package pl.edu.uj.kimage.plugins.lookup.table;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
 import pl.edu.uj.kimage.eventbus.EventBus;
@@ -15,6 +17,7 @@ import java.util.List;
 public class InvertFlowStep extends FlowStep {
 
     public static final int ALPHA_VALUE = 0;
+    private static final Logger logger = LogManager.getRootLogger();
 
     public InvertFlowStep(Step step, EventBus eventBus) {
         super(step, eventBus);

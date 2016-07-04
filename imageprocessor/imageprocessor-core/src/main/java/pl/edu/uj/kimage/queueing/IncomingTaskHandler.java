@@ -3,6 +3,8 @@ package pl.edu.uj.kimage.queueing;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pl.edu.uj.kimage.api.Task;
 import pl.edu.uj.kimage.eventbus.JsonMessageTranslator;
 
@@ -14,6 +16,7 @@ public class IncomingTaskHandler {
     private Queue<Task> taskQueue = new LinkedBlockingQueue<>();
     private JsonMessageTranslator messageTranslator = new JsonMessageTranslator();
     private volatile Vertx vertx;
+    private static final Logger logger = LogManager.getRootLogger();
 
     public IncomingTaskHandler() {
         VertxOptions options = new VertxOptions();
@@ -23,15 +26,13 @@ public class IncomingTaskHandler {
                 EventBus eventBus = vertx.eventBus();
                 eventBus.consumer(QUEUE_TOPIC).handler(objectMessage -> {
                     Task task = messageTranslator.deserialize(Task.class, (String) objectMessage.body());
-                    //TODO replace with logger
-                    System.out.println("Got task " + task.getTaskId());
+                    logger.debug("Got task " + task.getTaskId());
                     taskQueue.add(task);
                     objectMessage.reply("GOT "+ task.getTaskId());
                 });
 
             } else {
-                //TODO replace with logger
-                System.out.println("Unable to connect to the cluster");
+                logger.debug("Unable to connect to the cluster");
             }
         });
     }

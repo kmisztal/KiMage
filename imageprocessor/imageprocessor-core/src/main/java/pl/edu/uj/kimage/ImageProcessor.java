@@ -1,5 +1,7 @@
 package pl.edu.uj.kimage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.Task;
 import pl.edu.uj.kimage.eventbus.JsonMessageTranslator;
@@ -25,6 +27,7 @@ public class ImageProcessor {
     private ExecutorService executorsPool;
     private ExecutorService outgoingTaskHandlerService;
     private volatile boolean running;
+    private static final Logger logger = LogManager.getRootLogger();
 
     public ImageProcessor(IncomingTaskHandler incomingTaskHandler, OutgoingTaskHandler outgoingTaskHandler, PluginManifestRepository pluginManifestRepository) {
         this.incomingTaskHandler = incomingTaskHandler;
@@ -35,7 +38,7 @@ public class ImageProcessor {
                 try {
                     ImageProcessor.this.stop();
                 } catch (InterruptedException e) {
-                    //todo replace with logger
+                    logger.catching(e);
                     e.printStackTrace();
                 }
             }
