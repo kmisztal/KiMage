@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+      fx:controller="pl.edu.uj.kimage.controller.left.LeftViewController">
+    <children>
+        <HBox>
+            <children>
+                <Button mnemonicParsing="false" prefWidth="100.0" text="Names"/>
+                <Button mnemonicParsing="false" prefWidth="100.0" text="Miniatures"/>
+            </children>
+        </HBox>
+        <ListView prefHeight="325.0" prefWidth="83.0"/>
+        <Button mnemonicParsing="false" prefWidth="200.0" text="ADD"/>
+    </children>
+</VBox>

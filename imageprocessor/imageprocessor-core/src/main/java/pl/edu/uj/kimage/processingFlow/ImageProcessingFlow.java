@@ -2,12 +2,13 @@ package pl.edu.uj.kimage.processingFlow;
 
 import pl.edu.uj.kimage.eventbus.EventBus;
 import pl.edu.uj.kimage.plugin.FlowStep;
-import pl.edu.uj.kimage.plugin.ImageLoaded;
+import pl.edu.uj.kimage.plugin.ImageCalculated;
 import pl.edu.uj.kimage.plugin.StepResultEvent;
 import pl.edu.uj.kimage.plugin.model.Image;
 
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Consumer;
 
 public final class ImageProcessingFlow {
     public static final int START_STEP_ID = 0;
@@ -16,6 +17,7 @@ public final class ImageProcessingFlow {
     private final int flowLength;
     private final ExecutorService executorService;
     private final String taskId;
+    private Consumer<StepResultEvent> resultCollector;
 
     ImageProcessingFlow(FlowStepRepository flowStepRepository, EventBus eventBus, String taskId, int flowLength, ExecutorService executorService) {
         this.flowStepRepository = flowStepRepository;
@@ -25,9 +27,10 @@ public final class ImageProcessingFlow {
         this.taskId = taskId;
     }
 
-    public void start(Image image) {
+    public void start(Image image, Consumer<StepResultEvent> resultCollector) {
+        this.resultCollector = resultCollector;
         registerFlowToEventBus();
-        StepResultEvent stepResultEvent = new ImageLoaded(START_STEP_ID, image);
+        StepResultEvent stepResultEvent = new ImageCalculated(START_STEP_ID, image);
         eventBus.publish(stepResultEvent);
     }
 
@@ -38,7 +41,7 @@ public final class ImageProcessingFlow {
 
     private void registerFlowToEventBus() {
         eventBus.registerEventListener(StepResultEvent.class, (event -> {
-            if (event.getStepId() == flowLength) {
+            if (event.getStepNumber() == flowLength) {
                 handleProcessingFinished(event);
             } else {
                 process(event);
@@ -47,7 +50,6 @@ public final class ImageProcessingFlow {
     }
 
     private void handleProcessingFinished(StepResultEvent event) {
-        //TODO handle flow finished - should use taskId
+        resultCollector.accept(event);
     }
-
 }

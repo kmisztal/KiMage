@@ -12,8 +12,9 @@
         <module>imageprocessor</module>
         <module>eventbus</module>
         <module>configuration</module>
-        <module>kimage-gui</module>
         <module>kimage-legacy</module>
+        <module>kimage-gui</module>
+        <module>plugins</module>
     </modules>
     <packaging>pom</packaging>
 
