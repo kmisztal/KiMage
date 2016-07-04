@@ -1,6 +1,8 @@
 package pl.edu.uj.kimage.configuration;
 
 import com.google.common.collect.ImmutableMap;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @ThreadSafe
 public class ConfigurationReader {
+    private static final Logger logger = LogManager.getLogger(ConfigurationReader.class);
     private static final int KEY_INDEX = 0;
     private static final int VALUE_INDEX = 1;
     private static final String SEPARATOR = "=";
@@ -38,8 +41,8 @@ public class ConfigurationReader {
     ImmutableMap<String, String> loadConfig(String fileName) {
         ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
         try {
-            Path path = Paths.get(ClassLoader.getSystemResource(fileName).toURI());
-            List<String> lines = Files.readAllLines(path);
+            Path configurationPath = getConfigurationPath(fileName);
+            List<String> lines = Files.readAllLines(configurationPath);
             for (String line : lines) {
                 String[] splitted = line.split(SEPARATOR);
                 builder.put(splitted[KEY_INDEX], splitted[VALUE_INDEX]);
@@ -51,18 +54,29 @@ public class ConfigurationReader {
         }
     }
 
+    private Path getConfigurationPath(String fileName) throws URISyntaxException {
+        Path path;
+        Path workingDirConfigurationPath = Paths.get(fileName);
+        if(Files.exists(workingDirConfigurationPath)){
+            path = workingDirConfigurationPath;
+        }else{
+            path = Paths.get(ClassLoader.getSystemResource(fileName).toURI());
+        }
+        return path;
+    }
+
     private void registerWatchService(String pathToFile) {
         Runnable runnable = () -> {
             try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
-                Path path1 = Paths.get(ClassLoader.getSystemResource(pathToFile).toURI()).getParent();
-                path1.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+                Path configurationPath = getConfigurationPath(pathToFile).toAbsolutePath().getParent();
+                configurationPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
 
                 while (true) {
                     WatchKey key = watchService.take();
                     for (WatchEvent<?> event : key.pollEvents()) {
                         Path changed = (Path) event.context();
                         if (changed.endsWith(pathToFile)) {
-                            // TODO logging
+                            logger.info("Configuration updated");
                             loadConfig(pathToFile);
                         }
                     }
