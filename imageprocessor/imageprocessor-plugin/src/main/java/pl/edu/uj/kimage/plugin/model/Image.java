@@ -26,6 +26,10 @@ public final class Image {
         return data[index];
     }
 
+    public Color[] getData(){
+        return this.data;
+    }
+
     private void isWithinDimensions(final int x, final int y) {
         if ((x < 0 || x >= width) || (y < 0 || y >= height)) {
             throw new IllegalArgumentException("Wrong image pixel coordinates. " +
