@@ -1,6 +1,4 @@
-package pl.edu.uj.kimage.processingFlow;
-
-import pl.edu.uj.kimage.eventbus.*;
+package pl.edu.uj.kimage.eventbus;
 
 import java.util.ArrayList;
 import java.util.List;

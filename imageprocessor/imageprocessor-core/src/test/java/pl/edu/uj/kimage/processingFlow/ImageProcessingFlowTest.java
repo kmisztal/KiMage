@@ -7,6 +7,7 @@ import org.junit.Test;
 import pl.edu.uj.kimage.PluginManifestRepository;
 import pl.edu.uj.kimage.api.Step;
 import pl.edu.uj.kimage.api.StepDependency;
+import pl.edu.uj.kimage.eventbus.TestEventBus;
 import pl.edu.uj.kimage.plugin.ImageCalculated;
 import pl.edu.uj.kimage.plugin.PluginManifest;
 import pl.edu.uj.kimage.plugin.model.Color;

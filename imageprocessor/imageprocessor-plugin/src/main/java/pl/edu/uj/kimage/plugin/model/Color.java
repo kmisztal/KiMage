@@ -51,4 +51,9 @@ public final class Color {
                 clamp(this.blue - blue),
                 clamp(this.alpha - alpha));
     }
+
+    @Override
+    public String toString() {
+        return String.format("r: %s, g: %s, b: %s, a: %s", red, green, blue, alpha);
+    }
 }
