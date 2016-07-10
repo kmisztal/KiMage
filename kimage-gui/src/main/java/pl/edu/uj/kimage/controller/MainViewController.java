@@ -30,4 +30,20 @@ public class MainViewController implements Initializable {
         centerViewController.init(this);
         rightViewController.init(this);
     }
+
+    public TopViewController getTopViewController() {
+        return topViewController;
+    }
+
+    public LeftViewController getLeftViewController() {
+        return leftViewController;
+    }
+
+    public CenterViewController getCenterViewController() {
+        return centerViewController;
+    }
+
+    public RightViewController getRightViewController() {
+        return rightViewController;
+    }
 }

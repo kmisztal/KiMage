@@ -8,7 +8,7 @@
     <children>
         <Label alignment="CENTER" minHeight="25.0" prefHeight="25.0" prefWidth="200.0"
                style="-fx-border-color: lightgray;" text="Algorithms"/>
-        <ListView/>
+        <ListView fx:id="pluginList"/>
         <Label alignment="CENTER" minHeight="25.0" prefHeight="25.0" prefWidth="200.0"
                style="-fx-border-color: lightgray;" text="Templates"/>
         <ListView/>
