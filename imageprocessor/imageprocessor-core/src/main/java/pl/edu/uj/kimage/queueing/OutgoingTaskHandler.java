@@ -8,15 +8,15 @@ import org.apache.logging.log4j.Logger;
 import pl.edu.uj.kimage.api.Result;
 import pl.edu.uj.kimage.eventbus.JsonMessageTranslator;
 
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public final class OutgoingTaskHandler implements Runnable {
+    private static final Logger logger = LogManager.getLogger(OutgoingTaskHandler.class);
     private static Vertx vertx;
-    private Queue<CalculationResult> taskQueue = new LinkedBlockingQueue<>();
+    private BlockingQueue<CalculationResult> taskQueue = new LinkedBlockingQueue<>();
     private JsonMessageTranslator messageTranslator = new JsonMessageTranslator();
     private volatile boolean running = true;
-    private static final Logger logger = LogManager.getRootLogger();
 
     public OutgoingTaskHandler() {
         VertxOptions options = new VertxOptions();
@@ -33,7 +33,7 @@ public final class OutgoingTaskHandler implements Runnable {
     public void run() {
         while (running) {
             if (vertx != null) {
-                CalculationResult calculationResult = taskQueue.poll();
+                CalculationResult calculationResult = takeTask();
                 EventBus eventBus = vertx.eventBus();
                 Object result = calculationResult.getResult();
                 String className = calculationResult.getResultClass().getName();
@@ -44,10 +44,19 @@ public final class OutgoingTaskHandler implements Runnable {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 logger.catching(e);
-                e.printStackTrace();
             }
 
         }
+    }
+
+    private CalculationResult takeTask() {
+        CalculationResult calculationResult = null;
+        try {
+            calculationResult = taskQueue.take();
+        } catch (InterruptedException e) {
+            logger.catching(e);
+        }
+        return calculationResult;
     }
 
 

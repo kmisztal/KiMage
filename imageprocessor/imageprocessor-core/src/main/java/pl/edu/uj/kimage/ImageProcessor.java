@@ -14,12 +14,22 @@ import pl.edu.uj.kimage.queueing.IncomingTaskHandler;
 import pl.edu.uj.kimage.queueing.OutgoingTaskHandler;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class ImageProcessor {
+    private static final Logger logger = LogManager.getLogger(ImageProcessor.class);
     private static final JsonMessageTranslator MESSAGE_TRANSLATOR = new JsonMessageTranslator();
+    private static final Consumer<Runnable> loggingConsumer = runnable -> {
+        try {
+            runnable.run();
+        } catch (RuntimeException e) {
+            logger.catching(e);
+        }
+    };
     private final IncomingTaskHandler incomingTaskHandler;
     private final OutgoingTaskHandler outgoingTaskHandler;
     private final PluginManifestRepository pluginManifestRepository;
@@ -27,7 +37,6 @@ public class ImageProcessor {
     private ExecutorService executorsPool;
     private ExecutorService outgoingTaskHandlerService;
     private volatile boolean running;
-    private static final Logger logger = LogManager.getRootLogger();
 
     public ImageProcessor(IncomingTaskHandler incomingTaskHandler, OutgoingTaskHandler outgoingTaskHandler, PluginManifestRepository pluginManifestRepository) {
         this.incomingTaskHandler = incomingTaskHandler;
@@ -39,24 +48,25 @@ public class ImageProcessor {
                     ImageProcessor.this.stop();
                 } catch (InterruptedException e) {
                     logger.catching(e);
-                    e.printStackTrace();
                 }
             }
         });
     }
 
     public void start() {
-        if(!running){
+        if (!running) {
             running = true;
             executorsPool = Executors.newFixedThreadPool(numberOfThreads);
             outgoingTaskHandlerService = Executors.newSingleThreadExecutor();
-            outgoingTaskHandlerService.submit(outgoingTaskHandler);
+            outgoingTaskHandlerService.submit(() ->
+                    loggingConsumer.accept(() -> outgoingTaskHandler.run())
+            );
             loop();
         }
     }
 
     public void stop() throws InterruptedException {
-        if(running) {
+        if (running) {
             running = false;
             executorsPool.shutdown();
             executorsPool.awaitTermination(3, TimeUnit.SECONDS);
@@ -66,21 +76,31 @@ public class ImageProcessor {
 
     private void loop() {
         while (running) {
-            Task task = incomingTaskHandler.takeTask();
-            int flowSize = task.getProcessingSchedule().size();
-            VertXEventBus eventBus = new VertXEventBus(MESSAGE_TRANSLATOR);
-            List<Step> processingSchedule = null;
-            String taskId = task.getTaskId();
-            ImageProcessingFlow imageProcessingFlow = new ImageProcessingFlowFactory().create(pluginManifestRepository, eventBus, flowSize, processingSchedule, taskId);
-            Image image = null;
-            executorsPool.submit(() -> {
-                imageProcessingFlow.start(image, (stepResultEvent) -> {
+            Task task = takeTask();
+            if (Objects.nonNull(task)) {
+                int flowSize = task.getProcessingSchedule().size();
+                VertXEventBus eventBus = new VertXEventBus(MESSAGE_TRANSLATOR);
+                List<Step> processingSchedule = null;
+                String taskId = task.getTaskId();
+                ImageProcessingFlow imageProcessingFlow = new ImageProcessingFlowFactory().create(pluginManifestRepository, eventBus, flowSize, processingSchedule, taskId);
+                Image image = null;
+                executorsPool.submit(() -> loggingConsumer.accept(() -> imageProcessingFlow.start(image, (stepResultEvent) -> {
                     Object result = stepResultEvent.getResult();
                     CalculationResult calculationResult = new CalculationResult(taskId, result, result.getClass());
                     outgoingTaskHandler.addFinishedTask(calculationResult);
-                });
-            });
+                })));
+            }
         }
+    }
+
+    private Task takeTask() {
+        Task task = null;
+        try {
+            task = incomingTaskHandler.takeTask();
+        } catch (InterruptedException e) {
+            logger.catching(e);
+        }
+        return task;
     }
 
 }

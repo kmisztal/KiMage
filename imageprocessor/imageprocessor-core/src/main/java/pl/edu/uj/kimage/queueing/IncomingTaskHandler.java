@@ -8,15 +8,15 @@ import org.apache.logging.log4j.Logger;
 import pl.edu.uj.kimage.api.Task;
 import pl.edu.uj.kimage.eventbus.JsonMessageTranslator;
 
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class IncomingTaskHandler {
     public static final String QUEUE_TOPIC = "imageprocessor-cluster-task-queue";
-    private Queue<Task> taskQueue = new LinkedBlockingQueue<>();
+    private static final Logger logger = LogManager.getRootLogger();
+    private BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>();
     private JsonMessageTranslator messageTranslator = new JsonMessageTranslator();
     private volatile Vertx vertx;
-    private static final Logger logger = LogManager.getRootLogger();
 
     public IncomingTaskHandler() {
         VertxOptions options = new VertxOptions();
@@ -28,7 +28,7 @@ public class IncomingTaskHandler {
                     Task task = messageTranslator.deserialize(Task.class, (String) objectMessage.body());
                     logger.debug("Got task " + task.getTaskId());
                     taskQueue.add(task);
-                    objectMessage.reply("GOT "+ task.getTaskId());
+                    objectMessage.reply("GOT " + task.getTaskId());
                 });
 
             } else {
@@ -37,8 +37,8 @@ public class IncomingTaskHandler {
         });
     }
 
-    public Task takeTask() {
-        return taskQueue.poll();
+    public Task takeTask() throws InterruptedException {
+        return taskQueue.take();
     }
 
     public boolean isNotReady() {

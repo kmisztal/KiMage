@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 
 public class Main {
     private static ExecutorService executorService = Executors.newSingleThreadExecutor(); //todo retrieve from properties
+
     public static void main(String[] args){
         //todo make it more production ready, now it's only for testing
         PluginManifestRepository pluginManifestRepository = retrievePluginManifestRepository();
