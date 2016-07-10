@@ -31,6 +31,10 @@
             <groupId>kimage</groupId>
             <artifactId>imageprocessor-plugin</artifactId>
         </dependency>
+        <dependency>
+            <groupId>kimage</groupId>
+            <artifactId>imageprocessor-awt</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

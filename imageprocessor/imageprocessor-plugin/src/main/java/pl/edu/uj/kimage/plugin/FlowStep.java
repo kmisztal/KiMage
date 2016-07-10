@@ -32,20 +32,17 @@ public abstract class FlowStep {
      * @param event flow event
      */
     public void process(StepResultEvent event) {
+        Step step = getStep();
+        List<StepDependency> dependencies = step.getDependencies();
 
-        if (event instanceof ImageCalculated) {
-            Step step = getStep();
-            List<StepDependency> dependencies = step.getDependencies();
-
-            for (StepDependency dependency : dependencies) {
-                int dependentStepNumber = dependency.getDependentStepNumber();
-                int eventStepNumber = event.getStepNumber();
-                if (dependentStepNumber == eventStepNumber) {
-                    processRelatedEvent(event);
-                }
+        for (StepDependency dependency : dependencies) {
+            int dependentStepNumber = dependency.getDependentStepNumber();
+            int eventStepNumber = event.getStepNumber();
+            if (dependentStepNumber == eventStepNumber) {
+                processRelatedEvent(event);
             }
-            // TODO log some information about dependencies: size etc.
         }
+        // TODO log some information about dependencies: size etc.
     }
 
     /**

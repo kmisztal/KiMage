@@ -18,7 +18,6 @@ public class ImageConverterTest {
         // given
         int imageWidth = 4;
         int imageHeight = 4;
-        ImageConverter converter = new ImageConverter();
         BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
         Random generator = new Random();
 
@@ -28,7 +27,7 @@ public class ImageConverterTest {
             }
         }
         // when
-        Image output = converter.toImage(image);
+        Image output = ImageConverter.toImage(image);
 
         // then
         for (int i = 0; i < imageWidth; i++) {
@@ -48,7 +47,6 @@ public class ImageConverterTest {
         // given
         int imageWidth = 4;
         int imageHeight = 4;
-        ImageConverter converter = new ImageConverter();
         ImageBuilder imageBuilder = new ImageBuilder(imageWidth, imageHeight);
         Random generator = new Random();
 
@@ -61,7 +59,7 @@ public class ImageConverterTest {
         Image image = imageBuilder.build();
 
         // when
-        BufferedImage output = converter.toBufferedImage(image);
+        BufferedImage output = ImageConverter.toBufferedImage(image);
 
         // then
         for (int i = 0; i < imageWidth; i++) {
