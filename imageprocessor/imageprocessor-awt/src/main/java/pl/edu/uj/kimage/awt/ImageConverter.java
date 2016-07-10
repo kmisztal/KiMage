@@ -9,16 +9,18 @@ import java.awt.image.BufferedImage;
 
 public class ImageConverter {
 
-    public Image toImage(BufferedImage image) {
+    private ImageConverter() { }
 
-        int width = image.getWidth();
-        int height = image.getHeight();
+    public static Image toImage(final BufferedImage image) {
 
-        ImageBuilder imageBuilder = new ImageBuilder(width, height);
+        final int width = image.getWidth();
+        final int height = image.getHeight();
+
+        final ImageBuilder imageBuilder = new ImageBuilder(width, height);
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                int argb = image.getRGB(i, j);
+                final int argb = image.getRGB(i, j);
                 imageBuilder.withColor(new Color((argb >> 16) & 0x000000FF, (argb >> 8) & 0x000000FF, (argb) & 0x000000FF, (argb >> 24) & 0xff), i, j);
             }
         }
@@ -26,16 +28,16 @@ public class ImageConverter {
         return imageBuilder.build();
     }
 
-    public BufferedImage toBufferedImage(Image image) {
+    public static BufferedImage toBufferedImage(final Image image) {
 
-        int width = image.getWidth();
-        int height = image.getHeight();
+        final int width = image.getWidth();
+        final int height = image.getHeight();
 
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        final BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                Color argb = image.getColor(i, j);
+                final Color argb = image.getColor(i, j);
                 bufferedImage.setRGB(i, j, getIntFromColor(argb.getAlpha(), argb.getRed(), argb.getGreen(), argb.getBlue()));
             }
         }
@@ -44,10 +46,11 @@ public class ImageConverter {
     }
 
 
-    private int getIntFromColor(int alpha, int red, int green, int blue) {
-        red = (red << 16);
-        green = (green << 8);
-        alpha = (alpha << 24);
+    private static int getIntFromColor(int alpha, int red, int green, int blue) {
+        red = (red << 16) & 0x00FF0000;
+        green = (green << 8) & 0x0000FF00;
+        blue = blue & 0x000000FF;
+        alpha = (alpha << 24) & 0xFF000000;
 
         return alpha | red | green | blue;
     }
